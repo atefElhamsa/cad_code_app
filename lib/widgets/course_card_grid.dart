@@ -76,7 +76,7 @@ class CourseCardGrid extends StatelessWidget {
                   fontSize: 15,
                   fontFamily: 'Inter',
                 ),
-                maxLines: 2,
+                maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
             ),

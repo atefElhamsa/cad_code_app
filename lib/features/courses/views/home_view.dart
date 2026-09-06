@@ -73,33 +73,42 @@ class HomeView extends StatelessWidget {
 
                   // Course Cards
                   Expanded(
-                    child: GridView.count(
-                      padding: const EdgeInsets.only(bottom: 24),
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 16,
-                      mainAxisSpacing: 16,
-                      childAspectRatio:
-                          0.85, // Makes the card taller than it is wide!
-                      children: [
-                        CourseCardGrid(
-                              title: 'HTML & CSS',
-                              tag: 'Front End',
-                              imageUrl: 'https://images.unsplash.com/photo-1618477388954-7f113337eb13?w=400&q=80',
-                              onTap: () => context.push('/course-detail'),
-                            )
-                            .animate()
-                            .fadeIn(delay: 400.ms)
-                            .scale(begin: const Offset(0.9, 0.9)),
-                        CourseCardGrid(
-                              title: 'Python',
-                              tag: 'AI',
-                              imageUrl: 'https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=400&q=80',
-                              onTap: () => context.push('/course-detail'),
-                            )
-                            .animate()
-                            .fadeIn(delay: 600.ms)
-                            .scale(begin: const Offset(0.9, 0.9)),
-                      ],
+                    child: LayoutBuilder(
+                      builder: (context, constraints) {
+                        int crossAxisCount = constraints.maxWidth > 800
+                            ? 4
+                            : constraints.maxWidth > 600
+                            ? 3
+                            : 2;
+                        return GridView.count(
+                          padding: const EdgeInsets.only(bottom: 24),
+                          crossAxisCount: crossAxisCount,
+                          crossAxisSpacing: 16,
+                          mainAxisSpacing: 16,
+                          childAspectRatio:
+                              0.85, // Makes the card taller than it is wide!
+                          children: [
+                            CourseCardGrid(
+                                  title: 'HTML & CSS',
+                                  tag: 'Front End',
+                                  imageUrl: 'https://images.unsplash.com/photo-1618477388954-7f113337eb13?w=400&q=80',
+                                  onTap: () => context.push('/course-detail'),
+                                )
+                                .animate()
+                                .fadeIn(delay: 400.ms)
+                                .scale(begin: const Offset(0.9, 0.9)),
+                            CourseCardGrid(
+                                  title: 'Python',
+                                  tag: 'AI',
+                                  imageUrl: 'https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=400&q=80',
+                                  onTap: () => context.push('/course-detail'),
+                                )
+                                .animate()
+                                .fadeIn(delay: 600.ms)
+                                .scale(begin: const Offset(0.9, 0.9)),
+                          ],
+                        );
+                      },
                     ),
                   ),
                 ],

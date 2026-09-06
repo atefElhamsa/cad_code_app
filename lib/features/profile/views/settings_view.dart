@@ -186,7 +186,6 @@ class SettingsView extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
         borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
@@ -196,8 +195,10 @@ class SettingsView extends StatelessWidget {
           ),
         ],
       ),
-      child: ClipRRect(
+      child: Material(
+        color: Colors.white,
         borderRadius: BorderRadius.circular(24),
+        clipBehavior: Clip.antiAlias,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 6.0),
           child: Column(children: separatedChildren),

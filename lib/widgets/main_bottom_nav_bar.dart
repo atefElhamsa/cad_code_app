@@ -41,8 +41,8 @@ class MainBottomNavBar extends StatelessWidget {
                       width: tabWidth,
                       child: Center(
                         child: Container(
-                          width: 115,
-                          height: 48,
+                          width: 140,
+                          height: 50,
                           decoration: BoxDecoration(
                             color: AppTheme.primaryGoldLight.withValues(alpha: 0.15),
                             borderRadius: BorderRadius.circular(24),
