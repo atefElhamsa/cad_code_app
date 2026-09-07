@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+
 import '../../../core/theme/app_theme.dart';
 
 class ProfileUserInfo extends StatelessWidget {
   final String name;
   final String phone;
+  final String? avatarUrl;
 
-  const ProfileUserInfo({super.key, required this.name, required this.phone});
+  const ProfileUserInfo({
+    super.key,
+    required this.name,
+    required this.phone,
+    this.avatarUrl,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +25,20 @@ class ProfileUserInfo extends StatelessWidget {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: AppTheme.primaryCyan.withValues(alpha: 0.1),
+            image: avatarUrl != null && avatarUrl!.isNotEmpty
+                ? DecorationImage(
+                    image: NetworkImage(avatarUrl!),
+                    fit: BoxFit.cover,
+                  )
+                : null,
           ),
-          child: const Icon(Icons.person_rounded, color: AppTheme.primaryCyan, size: 72),
+          child: avatarUrl == null || avatarUrl!.isEmpty
+              ? const Icon(
+                  Icons.person_rounded,
+                  color: AppTheme.primaryCyan,
+                  size: 72,
+                )
+              : null,
         ).animate().scale(duration: 500.ms, curve: Curves.easeOutBack),
         const SizedBox(height: 24),
         Text(
@@ -45,7 +64,12 @@ class ProfileUserInfo extends StatelessWidget {
               const SizedBox(width: 8),
               Text(
                 phone,
-                style: const TextStyle(color: Colors.green, fontWeight: FontWeight.w700, fontFamily: 'Inter', fontSize: 14),
+                style: const TextStyle(
+                  color: Colors.green,
+                  fontWeight: FontWeight.w700,
+                  fontFamily: 'Inter',
+                  fontSize: 14,
+                ),
               ),
             ],
           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../core/theme/app_theme.dart';
 
 class CourseSelectorPill extends StatelessWidget {
@@ -23,12 +24,19 @@ class CourseSelectorPill extends StatelessWidget {
         margin: const EdgeInsets.only(right: 12),
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
         decoration: BoxDecoration(
-          color: isSelected ? AppTheme.textDarkNavy : Colors.white,
+          color: isSelected
+              ? AppTheme.primaryGoldLight
+              : AppTheme.backgroundDarkNavyLight,
           borderRadius: BorderRadius.circular(100),
+          border: Border.all(
+            color: isSelected
+                ? Colors.transparent
+                : Colors.white.withValues(alpha: 0.1),
+          ),
           boxShadow: [
             if (!isSelected)
               BoxShadow(
-                color: Colors.black.withValues(alpha: 0.04),
+                color: Colors.black.withValues(alpha: 0.2),
                 blurRadius: 10,
                 offset: const Offset(0, 4),
               ),
@@ -38,14 +46,14 @@ class CourseSelectorPill extends StatelessWidget {
           children: [
             Icon(
               course['icon'],
-              color: isSelected ? AppTheme.primaryGoldLight : course['color'],
+              color: isSelected ? AppTheme.textDarkNavy : course['color'],
               size: 20,
             ),
             const SizedBox(width: 8),
             Text(
               course['name'],
               style: TextStyle(
-                color: isSelected ? Colors.white : AppTheme.textDarkNavy,
+                color: isSelected ? AppTheme.textDarkNavy : Colors.white,
                 fontWeight: FontWeight.w700,
                 fontFamily: 'Inter',
                 fontSize: 14,

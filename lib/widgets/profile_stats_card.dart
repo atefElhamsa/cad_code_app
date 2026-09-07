@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'profile_progress_row.dart';
 import '../core/theme/app_theme.dart';
 
@@ -15,11 +16,12 @@ class ProfileStatsCard extends StatelessWidget {
       curve: Curves.easeOut,
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppTheme.backgroundDarkNavyLight,
         borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
         boxShadow: [
           BoxShadow(
-            color: (course['color'] as Color).withValues(alpha: 0.15),
+            color: Colors.black.withValues(alpha: 0.3),
             blurRadius: 20,
             offset: const Offset(0, 8),
           ),
@@ -27,11 +29,31 @@ class ProfileStatsCard extends StatelessWidget {
       ),
       child: Column(
         children: [
-          ProfileProgressRow(label: 'Session', percentage: stats['Session']!, color: AppTheme.primaryCyan),
-          ProfileProgressRow(label: 'Behavior', percentage: stats['Behavior']!, color: Colors.blueGrey),
-          ProfileProgressRow(label: 'Sharing', percentage: stats['Sharing']!, color: Colors.blue),
-          ProfileProgressRow(label: 'Assignment', percentage: stats['Assignment']!, color: Colors.orange),
-          ProfileProgressRow(label: 'Focus', percentage: stats['Focus']!, color: Colors.purple),
+          ProfileProgressRow(
+            label: 'Session',
+            percentage: stats['Session']!,
+            color: AppTheme.primaryCyan,
+          ),
+          ProfileProgressRow(
+            label: 'Behavior',
+            percentage: stats['Behavior']!,
+            color: Colors.blueGrey,
+          ),
+          ProfileProgressRow(
+            label: 'Sharing',
+            percentage: stats['Sharing']!,
+            color: Colors.blue,
+          ),
+          ProfileProgressRow(
+            label: 'Assignment',
+            percentage: stats['Assignment']!,
+            color: Colors.orange,
+          ),
+          ProfileProgressRow(
+            label: 'Focus',
+            percentage: stats['Focus']!,
+            color: Colors.purple,
+          ),
         ],
       ),
     );

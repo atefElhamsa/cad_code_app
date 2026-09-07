@@ -2,14 +2,16 @@ import 'package:cad_code_academy/features/courses/views/course_detail_view.dart'
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../features/auth/views/login_view.dart';
-import '../../features/auth/views/signup_view.dart';
+import '../../features/auth/presentation/views/login_view.dart';
+import '../../features/auth/presentation/views/signup_view.dart';
 import '../../features/splash/views/splash_view.dart';
 import '../../features/main/views/main_layout_view.dart';
 import '../../features/courses/views/home_view.dart';
 import '../../features/courses/views/enrolled_courses_view.dart';
 import '../../features/profile/views/settings_view.dart';
 import '../../features/profile/views/profile_view.dart';
+import '../../features/profile/views/edit_profile_view.dart';
+import '../../features/profile/views/change_password_view.dart';
 import '../../features/profile/views/downloads_view.dart';
 import '../../features/profile/views/payment_view.dart';
 import '../../features/course_workspace/views/course_workspace_view.dart';
@@ -68,6 +70,14 @@ class AppRouter {
       GoRoute(
         path: '/profile',
         builder: (context, state) => const ProfileView(),
+      ),
+      GoRoute(
+        path: '/edit-profile',
+        builder: (context, state) => const EditProfileView(),
+      ),
+      GoRoute(
+        path: '/change-password',
+        builder: (context, state) => const ChangePasswordView(),
       ),
       GoRoute(
         path: '/downloads',

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+
 import '../core/theme/app_theme.dart';
 
 class BottomNavItem extends StatelessWidget {
@@ -40,7 +41,9 @@ class BottomNavItem extends StatelessWidget {
                 Icon(
                   icon,
                   size: isActive ? 28 : 26,
-                  color: isActive ? AppTheme.primaryGoldDark : Colors.grey.shade400,
+                  color: isActive
+                      ? AppTheme.primaryGoldDark
+                      : Colors.grey.shade400,
                 ),
                 if (isActive) ...[
                   const SizedBox(width: 6),

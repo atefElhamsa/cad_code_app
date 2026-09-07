@@ -11,7 +11,10 @@ class AuthDivider extends StatelessWidget {
         Expanded(child: Divider(color: Colors.white.withValues(alpha: 0.2))),
         const Padding(
           padding: EdgeInsets.symmetric(horizontal: 16),
-          child: Text('Or continue with', style: TextStyle(color: Colors.white54)),
+          child: Text(
+            'Or continue with',
+            style: TextStyle(color: Colors.white54),
+          ),
         ),
         Expanded(child: Divider(color: Colors.white.withValues(alpha: 0.2))),
       ],

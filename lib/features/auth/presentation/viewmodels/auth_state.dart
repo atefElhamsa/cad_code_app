@@ -3,7 +3,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class AuthState extends Equatable {
   const AuthState();
-  
+
   @override
   List<Object?> get props => [];
 }
@@ -27,6 +27,15 @@ class AuthError extends AuthState {
   final String message;
 
   const AuthError(this.message);
+
+  @override
+  List<Object?> get props => [message];
+}
+
+class AuthActionSuccess extends AuthState {
+  final String message;
+
+  const AuthActionSuccess(this.message);
 
   @override
   List<Object?> get props => [message];

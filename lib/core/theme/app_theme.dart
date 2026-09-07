@@ -4,6 +4,7 @@ class AppTheme {
   // Brand Colors for Syntax Academy (Hybrid Theme)
   static const Color primaryCyan = Color(0xFF00E5FF);
   static const Color backgroundDarkNavy = Color(0xFF0F172A);
+  static const Color backgroundDarkNavyLight = Color(0xFF1E293B);
 
   // Gold for specific logos (like Splash)
   static const Color primaryGoldLight = Color(0xFFD4AF37);

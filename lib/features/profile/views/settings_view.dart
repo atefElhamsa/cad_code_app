@@ -132,36 +132,6 @@ class SettingsView extends StatelessWidget {
                     .animate()
                     .fade(duration: 400.ms, delay: 200.ms)
                     .slideY(begin: 0.1, curve: Curves.easeOutQuad),
-
-                const SizedBox(height: 24),
-
-                // Danger Zone
-                _buildCard([
-                      _buildListTile(
-                        context,
-                        'Logout',
-                        (color) =>
-                            Icon(Icons.logout_rounded, color: color, size: 22),
-                        () => context.go('/login'),
-                        isDestructive: true,
-                      ),
-                      _buildListTile(
-                        context,
-                        'Delete Account',
-                        (color) => Icon(
-                          Icons.delete_forever_rounded,
-                          color: color,
-                          size: 22,
-                        ),
-                        () {},
-                        isDestructive: true,
-                      ),
-                    ])
-                    .animate()
-                    .fade(duration: 400.ms, delay: 300.ms)
-                    .slideY(begin: 0.1, curve: Curves.easeOutQuad),
-
-                const SizedBox(height: 32),
               ],
             ),
           ),

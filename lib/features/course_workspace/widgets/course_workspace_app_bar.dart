@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+
 import '../../../../core/theme/app_theme.dart';
 
-class CourseWorkspaceAppBar extends StatelessWidget implements PreferredSizeWidget {
+class CourseWorkspaceAppBar extends StatelessWidget
+    implements PreferredSizeWidget {
   final String title;
   final String topic;
 
-  const CourseWorkspaceAppBar({super.key, required this.title, required this.topic});
+  const CourseWorkspaceAppBar({
+    super.key,
+    required this.title,
+    required this.topic,
+  });
 
   @override
   Size get preferredSize => const Size.fromHeight(90);
@@ -18,7 +24,10 @@ class CourseWorkspaceAppBar extends StatelessWidget implements PreferredSizeWidg
       centerTitle: true,
       iconTheme: const IconThemeData(color: AppTheme.primaryGoldLight),
       leading: IconButton(
-        icon: const Icon(Icons.arrow_back_ios_new_rounded, color: AppTheme.primaryGoldLight),
+        icon: const Icon(
+          Icons.arrow_back_ios_new_rounded,
+          color: AppTheme.primaryGoldLight,
+        ),
         onPressed: () => Navigator.of(context).pop(),
       ),
       toolbarHeight: 90,
