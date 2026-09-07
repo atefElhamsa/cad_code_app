@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../domain/entities/auth_user.dart' as entity;
@@ -54,8 +56,6 @@ class SupabaseAuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
   @override
   Future<entity.AuthUser> signInWithGoogle() async {
-    // We use the Supabase native OAuth which opens a secure browser.
-    // We MUST pass the deep link redirect URL we added in AndroidManifest.xml
     final success = await supabaseClient.auth.signInWithOAuth(
       OAuthProvider.google,
       redirectTo: 'io.supabase.cadcodeacademy://login-callback/',
@@ -65,9 +65,6 @@ class SupabaseAuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       throw Exception('Supabase Google Sign In failed or was canceled');
     }
 
-    // The user will be redirected to the browser.
-    // When they return, Supabase's auth state listener will emit Authenticated.
-    // For now, we return a pending user.
     return const entity.AuthUser(id: 'pending', email: 'pending@auth.com');
   }
 
@@ -92,18 +89,26 @@ class SupabaseAuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
   @override
   Future<void> deleteAccount() async {
-    // Note: Deleting a user requires either a custom Postgres function (RPC)
-    // or an Edge Function in Supabase.
-    // For now, we will assume an RPC function named 'delete_user' exists.
     try {
+      final user = supabaseClient.auth.currentUser;
+      if (user != null) {
+        try {
+          final res = await supabaseClient.storage.from('avatars').remove([
+            '${user.id}/avatar.jpg',
+          ]);
+          if (res.isEmpty) {
+            throw Exception('Failed to delete avatar');
+          }
+        } catch (e) {
+          throw Exception('Failed to delete avatar');
+        }
+      }
+
       await supabaseClient.rpc('delete_user');
       await supabaseClient.auth.signOut();
     } catch (e) {
-      // If the RPC is not implemented on the backend yet, just sign out locally for the UI flow.
       await supabaseClient.auth.signOut();
-      throw Exception(
-        'Backend setup required: Please create a delete_user RPC in Supabase.',
-      );
+      throw Exception('Delete error: $e');
     }
   }
 
@@ -124,7 +129,6 @@ class SupabaseAuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       throw Exception('Failed to update user profile');
     }
 
-    // Also update the public.profiles table to keep it in sync
     try {
       final updateData = <String, dynamic>{};
       if (name != null) updateData['full_name'] = name;
@@ -136,9 +140,7 @@ class SupabaseAuthRemoteDataSourceImpl implements AuthRemoteDataSource {
             .update(updateData)
             .eq('id', response.user!.id);
       }
-    } catch (e) {
-      // Silently ignore if profiles table doesn't exist or RLS blocks it
-    }
+    } catch (e) {}
 
     return _mapSupabaseUserToAuthUser(response.user!);
   }
@@ -152,5 +154,43 @@ class SupabaseAuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     if (response.user == null) {
       throw Exception('Failed to update password');
     }
+  }
+
+  @override
+  Future<String> uploadAvatar(String filePath) async {
+    final user = supabaseClient.auth.currentUser;
+    if (user == null) throw Exception('User not authenticated');
+
+    final file = File(filePath);
+    final fileExt = filePath.split('.').last.toLowerCase();
+    final storagePath = '${user.id}/avatar.$fileExt';
+
+    await supabaseClient.storage
+        .from('avatars')
+        .upload(
+          storagePath,
+          file,
+          fileOptions: const FileOptions(cacheControl: '3600', upsert: true),
+        );
+
+    final publicUrl = supabaseClient.storage
+        .from('avatars')
+        .getPublicUrl(storagePath);
+
+    final urlWithTimestamp =
+        '$publicUrl?t=${DateTime.now().millisecondsSinceEpoch}';
+
+    await supabaseClient.auth.updateUser(
+      UserAttributes(data: {'avatar_url': urlWithTimestamp}),
+    );
+
+    try {
+      await supabaseClient
+          .from('profiles')
+          .update({'avatar_url': urlWithTimestamp})
+          .eq('id', user.id);
+    } catch (e) {}
+
+    return urlWithTimestamp;
   }
 }

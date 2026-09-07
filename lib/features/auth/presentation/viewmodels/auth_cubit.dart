@@ -12,6 +12,7 @@ class AuthCubit extends Cubit<AuthState> {
   final DeleteAccountUseCase _deleteAccountUseCase;
   final UpdateUserProfileUseCase _updateUserProfileUseCase;
   final UpdateUserPasswordUseCase _updateUserPasswordUseCase;
+  final UploadAvatarUseCase _uploadAvatarUseCase;
   final SupabaseClient _supabase;
 
   bool _isSigningUp = false;
@@ -24,6 +25,7 @@ class AuthCubit extends Cubit<AuthState> {
     this._deleteAccountUseCase,
     this._updateUserProfileUseCase,
     this._updateUserPasswordUseCase,
+    this._uploadAvatarUseCase,
     this._supabase,
   ) : super(AuthInitial()) {
     _checkAuthStatus();
@@ -139,7 +141,10 @@ class AuthCubit extends Cubit<AuthState> {
       await _deleteAccountUseCase();
       emit(Unauthenticated());
     } catch (e) {
-      emit(AuthError(_getFriendlyErrorMessage(e)));
+      final msg = e.toString().contains('Delete error')
+          ? e.toString().replaceAll('Exception: ', '')
+          : _getFriendlyErrorMessage(e);
+      emit(AuthError(msg));
       emit(Unauthenticated());
     }
   }
@@ -182,6 +187,76 @@ class AuthCubit extends Cubit<AuthState> {
       }
     } catch (e) {
       emit(AuthError(_getFriendlyErrorMessage(e)));
+      final session = _supabase.auth.currentSession;
+      if (session != null) {
+        emit(Authenticated(session.user));
+      } else {
+        emit(Unauthenticated());
+      }
+    }
+  }
+
+  Future<void> uploadAvatar(String filePath) async {
+    try {
+      emit(AuthLoading());
+      await _uploadAvatarUseCase(filePath);
+      final updatedUser = await _supabase.auth.refreshSession();
+      if (updatedUser.user != null) {
+        emit(Authenticated(updatedUser.user!));
+      } else {
+        final session = _supabase.auth.currentSession;
+        if (session != null) emit(Authenticated(session.user));
+      }
+      emit(const AuthActionSuccess('Profile photo updated!'));
+      final session = _supabase.auth.currentSession;
+      if (session != null) emit(Authenticated(session.user));
+    } catch (e) {
+      final msg = e.toString().contains('storage')
+          ? 'Storage error: ${e.toString()}'
+          : _getFriendlyErrorMessage(e);
+      emit(AuthError(msg));
+      final session = _supabase.auth.currentSession;
+      if (session != null) {
+        emit(Authenticated(session.user));
+      } else {
+        emit(Unauthenticated());
+      }
+    }
+  }
+
+  /// رفع الصورة وحفظ بيانات البروفايل في نفس الوقت (عند Save Changes)
+  Future<void> uploadAvatarThenProfile({
+    required String filePath,
+    required String name,
+    required String phone,
+  }) async {
+    try {
+      emit(AuthLoading());
+
+      // 1) رفع الصورة
+      await _uploadAvatarUseCase(filePath);
+
+      // 2) حفظ بيانات البروفايل
+      await _updateUserProfileUseCase(name: name, phone: phone);
+
+      // 3) تحديث الـ session
+      final updatedUser = await _supabase.auth.refreshSession();
+      if (updatedUser.user != null) {
+        emit(Authenticated(updatedUser.user!));
+      } else {
+        final session = _supabase.auth.currentSession;
+        if (session != null) emit(Authenticated(session.user));
+      }
+
+      emit(const AuthActionSuccess('Profile updated successfully!'));
+
+      final session = _supabase.auth.currentSession;
+      if (session != null) emit(Authenticated(session.user));
+    } catch (e) {
+      final msg = e.toString().contains('storage')
+          ? 'Storage error: ${e.toString()}'
+          : _getFriendlyErrorMessage(e);
+      emit(AuthError(msg));
       final session = _supabase.auth.currentSession;
       if (session != null) {
         emit(Authenticated(session.user));

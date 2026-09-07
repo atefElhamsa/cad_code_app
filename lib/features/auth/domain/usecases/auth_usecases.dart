@@ -7,3 +7,4 @@ export 'get_current_user_usecase.dart';
 export 'delete_account_usecase.dart';
 export 'update_user_profile_usecase.dart';
 export 'update_user_password_usecase.dart';
+export 'upload_avatar_usecase.dart';

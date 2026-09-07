@@ -18,4 +18,5 @@ abstract class AuthRemoteDataSource {
   Future<void> deleteAccount();
   Future<entity.AuthUser> updateUserMetadata({String? name, String? phone});
   Future<void> updatePassword(String newPassword);
+  Future<String> uploadAvatar(String filePath);
 }

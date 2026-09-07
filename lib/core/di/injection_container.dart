@@ -24,9 +24,10 @@ Future<void> init() async {
   sl.registerLazySingleton(() => DeleteAccountUseCase(sl()));
   sl.registerLazySingleton(() => UpdateUserProfileUseCase(sl()));
   sl.registerLazySingleton(() => UpdateUserPasswordUseCase(sl()));
+  sl.registerLazySingleton(() => UploadAvatarUseCase(sl()));
 
   sl.registerLazySingleton(
-    () => AuthCubit(sl(), sl(), sl(), sl(), sl(), sl(), sl(), sl()),
+    () => AuthCubit(sl(), sl(), sl(), sl(), sl(), sl(), sl(), sl(), sl()),
   );
   sl.registerLazySingleton(() => Supabase.instance.client);
 }

@@ -64,4 +64,9 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<void> updatePassword(String newPassword) {
     return remoteDataSource.updatePassword(newPassword);
   }
+
+  @override
+  Future<String> uploadAvatar(String filePath) {
+    return remoteDataSource.uploadAvatar(filePath);
+  }
 }

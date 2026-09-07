@@ -26,4 +26,6 @@ abstract class AuthRepository {
   Future<AuthUser> updateUserMetadata({String? name, String? phone});
 
   Future<void> updatePassword(String newPassword);
+
+  Future<String> uploadAvatar(String filePath);
 }

@@ -15,8 +15,53 @@ class ProfileUserInfo extends StatelessWidget {
     this.avatarUrl,
   });
 
+  /// ترقية رابط الصورة لجودة أعلى بناءً على المزود
+  String _getHighQualityAvatarUrl(String url) {
+    // Google User Content (صور جوجل) - ترقية من s96 لـ s400
+    if (url.contains('googleusercontent.com')) {
+      // استبدال أي حجم موجود بـ 400px
+      final upgraded = url
+          .replaceAll(RegExp(r'=s\d+-c'), '=s400-c')
+          .replaceAll(RegExp(r'=s\d+'), '=s400-c');
+      // لو مفيش size parameter أصلاً، نضيفه
+      if (!upgraded.contains('=s')) {
+        return '$upgraded=s400-c';
+      }
+      return upgraded;
+    }
+
+    // Gravatar - استبدال أو إضافة حجم كبير
+    if (url.contains('gravatar.com')) {
+      final uri = Uri.tryParse(url);
+      if (uri != null) {
+        final params = Map<String, String>.from(uri.queryParameters);
+        params['s'] = '400';
+        params['d'] = 'mp'; // fallback لو مفيش صورة
+        return uri.replace(queryParameters: params).toString();
+      }
+    }
+
+    // Facebook Graph API
+    if (url.contains('graph.facebook.com')) {
+      final uri = Uri.tryParse(url);
+      if (uri != null) {
+        final params = Map<String, String>.from(uri.queryParameters);
+        params['width'] = '400';
+        params['height'] = '400';
+        return uri.replace(queryParameters: params).toString();
+      }
+    }
+
+    // غير ذلك - إرجاع الرابط كما هو
+    return url;
+  }
+
   @override
   Widget build(BuildContext context) {
+    final highQualityUrl = avatarUrl != null && avatarUrl!.isNotEmpty
+        ? _getHighQualityAvatarUrl(avatarUrl!)
+        : null;
+
     return Column(
       children: [
         Container(
@@ -25,20 +70,50 @@ class ProfileUserInfo extends StatelessWidget {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: AppTheme.primaryCyan.withValues(alpha: 0.1),
-            image: avatarUrl != null && avatarUrl!.isNotEmpty
-                ? DecorationImage(
-                    image: NetworkImage(avatarUrl!),
-                    fit: BoxFit.cover,
-                  )
-                : null,
+            boxShadow: [
+              BoxShadow(
+                color: AppTheme.primaryCyan.withValues(alpha: 0.2),
+                blurRadius: 20,
+                spreadRadius: 2,
+              ),
+            ],
           ),
-          child: avatarUrl == null || avatarUrl!.isEmpty
-              ? const Icon(
-                  Icons.person_rounded,
-                  color: AppTheme.primaryCyan,
-                  size: 72,
-                )
-              : null,
+          child: ClipOval(
+            child: highQualityUrl != null
+                ? Image.network(
+                    highQualityUrl,
+                    width: 140,
+                    height: 140,
+                    fit: BoxFit.cover,
+                    filterQuality: FilterQuality.high,
+                    isAntiAlias: true,
+                    cacheWidth: 400,
+                    cacheHeight: 400,
+                    errorBuilder: (context, error, stackTrace) => const Icon(
+                      Icons.person_rounded,
+                      color: AppTheme.primaryCyan,
+                      size: 72,
+                    ),
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return Center(
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          value: loadingProgress.expectedTotalBytes != null
+                              ? loadingProgress.cumulativeBytesLoaded /
+                                    loadingProgress.expectedTotalBytes!
+                              : null,
+                          color: AppTheme.primaryCyan,
+                        ),
+                      );
+                    },
+                  )
+                : const Icon(
+                    Icons.person_rounded,
+                    color: AppTheme.primaryCyan,
+                    size: 72,
+                  ),
+          ),
         ).animate().scale(duration: 500.ms, curve: Curves.easeOutBack),
         const SizedBox(height: 24),
         Text(
