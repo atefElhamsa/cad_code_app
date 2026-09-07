@@ -6,6 +6,8 @@ class CustomSnackBar {
       ..hideCurrentSnackBar()
       ..showSnackBar(
         SnackBar(
+          closeIconColor: Colors.white,
+          showCloseIcon: true,
           content: Row(
             children: [
               const Icon(Icons.error_outline, color: Colors.white, size: 28),
@@ -29,7 +31,7 @@ class CustomSnackBar {
           ),
           margin: const EdgeInsets.all(20),
           elevation: 10,
-          duration: const Duration(seconds: 4),
+          duration: const Duration(seconds: 3),
         ),
       );
   }
@@ -39,6 +41,8 @@ class CustomSnackBar {
       ..hideCurrentSnackBar()
       ..showSnackBar(
         SnackBar(
+          closeIconColor: Colors.white,
+          showCloseIcon: true,
           content: Row(
             children: [
               const Icon(
@@ -66,7 +70,7 @@ class CustomSnackBar {
           ),
           margin: const EdgeInsets.all(20),
           elevation: 10,
-          duration: const Duration(seconds: 4),
+          duration: const Duration(seconds: 1),
         ),
       );
   }

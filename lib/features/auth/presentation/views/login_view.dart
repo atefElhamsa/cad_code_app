@@ -1,17 +1,12 @@
+import 'package:cad_code_academy/core/theme/app_theme.dart';
+import 'package:cad_code_academy/features/auth/presentation/viewmodels/auth_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 
-import '../../../../widgets/custom_text_field.dart';
-import '../../../../widgets/gold_gradient_button.dart';
-import '../../../../core/theme/app_theme.dart';
-import '../widgets/auth_logo.dart';
-import '../widgets/auth_divider.dart';
-import '../widgets/social_login_button.dart';
+import '../widgets/auth_dialogs.dart';
+import '../widgets/login_form.dart';
 import '../viewmodels/auth_cubit.dart';
-import '../viewmodels/auth_state.dart';
-
 import '../../../../core/utils/custom_snackbar.dart';
 
 class LoginView extends StatefulWidget {
@@ -22,28 +17,12 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-  final _formKey = GlobalKey<FormState>();
-
   bool _isEmailLoading = false;
   bool _isGoogleLoading = false;
 
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
-  }
-
-  void _onLogin() {
-    if (_formKey.currentState!.validate()) {
-      setState(() => _isEmailLoading = true);
-      context.read<AuthCubit>().signInWithEmail(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim(),
-      );
-    }
+  void _onLogin(String email, String password) {
+    setState(() => _isEmailLoading = true);
+    context.read<AuthCubit>().signInWithEmail(email: email, password: password);
   }
 
   void _onGoogleLogin() {
@@ -66,115 +45,43 @@ class _LoginViewState extends State<LoginView> {
           if (state is Authenticated) {
             context.go('/');
           } else if (state is AuthError) {
-            CustomSnackBar.showError(context, state.message);
+            if (state.message ==
+                'Your account has been banned due to policy violations.') {
+              AuthDialogs.showAuthWarningDialog(
+                context: context,
+                icon: Icons.gavel_rounded,
+                color: Colors.redAccent,
+                title: 'Account Suspended',
+                message: state.message,
+                buttonText: 'I Understand',
+              );
+            } else if (state.message ==
+                'This account does not exist or has been deleted.') {
+              AuthDialogs.showAuthWarningDialog(
+                context: context,
+                icon: Icons.person_off_rounded,
+                color: Colors.orangeAccent,
+                title: 'Account Not Found',
+                message: state.message,
+                buttonText: 'Okay',
+              );
+            } else {
+              CustomSnackBar.showError(context, state.message);
+            }
           }
         },
         builder: (context, state) {
-          final isLoading = state is AuthLoading;
-
           return SafeArea(
             child: SingleChildScrollView(
               padding: const EdgeInsets.fromLTRB(24, 30, 24, 24),
               child: Center(
                 child: ConstrainedBox(
                   constraints: const BoxConstraints(maxWidth: 500),
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        const AuthLogo(),
-                        const SizedBox(height: 30),
-                        const Text(
-                              'Welcome Back',
-                              style: TextStyle(
-                                fontSize: 32,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
-                              textAlign: TextAlign.center,
-                            )
-                            .animate()
-                            .fadeIn(delay: 200.ms)
-                            .slideY(begin: 0.2, curve: Curves.easeOut),
-                        const SizedBox(height: 8),
-                        Text(
-                              'Sign in to continue your journey',
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.white.withValues(alpha: 0.6),
-                              ),
-                              textAlign: TextAlign.center,
-                            )
-                            .animate()
-                            .fadeIn(delay: 300.ms)
-                            .slideY(begin: 0.2, curve: Curves.easeOut),
-                        const SizedBox(height: 40),
-                        CustomTextField(
-                              controller: _emailController,
-                              hintText: 'Email',
-                              prefixIcon: Icons.email_outlined,
-                              keyboardType: TextInputType.emailAddress,
-                              validator: (val) => val == null || val.isEmpty
-                                  ? 'Please enter your email'
-                                  : null,
-                            )
-                            .animate()
-                            .fadeIn(delay: 400.ms)
-                            .slideX(begin: 0.2, curve: Curves.easeOut),
-                        const SizedBox(height: 16),
-                        CustomTextField(
-                              controller: _passwordController,
-                              hintText: 'Password',
-                              prefixIcon: Icons.lock_outline,
-                              isPassword: true,
-                              validator: (val) => val == null || val.isEmpty
-                                  ? 'Please enter your password'
-                                  : null,
-                            )
-                            .animate()
-                            .fadeIn(delay: 500.ms)
-                            .slideX(begin: -0.2, curve: Curves.easeOut),
-                        const SizedBox(height: 40),
-                        PrimaryGradientButton(
-                              text: 'Login',
-                              isLoading: _isEmailLoading,
-                              onPressed: isLoading ? null : _onLogin,
-                            )
-                            .animate()
-                            .fadeIn(delay: 600.ms)
-                            .scale(curve: Curves.easeOutBack),
-                        const SizedBox(height: 20),
-                        const AuthDivider(),
-                        const SizedBox(height: 20),
-                        SocialLoginButton(
-                          isLoading: _isGoogleLoading,
-                          onPressed: isLoading ? null : _onGoogleLogin,
-                        ),
-                        const SizedBox(height: 15),
-                        TextButton(
-                          onPressed: () => context.push('/signup'),
-                          child: RichText(
-                            text: const TextSpan(
-                              text: "Don't have an account? ",
-                              style: TextStyle(
-                                color: Colors.white70,
-                                fontSize: 16,
-                              ),
-                              children: [
-                                TextSpan(
-                                  text: "Sign up",
-                                  style: TextStyle(
-                                    color: AppTheme.primaryGoldLight,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ).animate().fadeIn(delay: 800.ms),
-                      ],
-                    ),
+                  child: LoginForm(
+                    isEmailLoading: _isEmailLoading,
+                    isGoogleLoading: _isGoogleLoading,
+                    onLogin: _onLogin,
+                    onGoogleLogin: _onGoogleLogin,
                   ),
                 ),
               ),

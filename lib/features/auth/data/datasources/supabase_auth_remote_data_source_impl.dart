@@ -39,7 +39,10 @@ class SupabaseAuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     required String name,
     String? phone,
   }) async {
-    final Map<String, dynamic> metadata = {'name': name};
+    final Map<String, dynamic> metadata = {
+      'name': name,
+      'full_name': name, // Added for the DB trigger
+    };
     if (phone != null && phone.isNotEmpty) {
       metadata['phone'] = phone;
     }
@@ -93,14 +96,12 @@ class SupabaseAuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       final user = supabaseClient.auth.currentUser;
       if (user != null) {
         try {
-          final res = await supabaseClient.storage.from('avatars').remove([
+          // Attempt to delete avatar, but don't fail if it doesn't exist
+          await supabaseClient.storage.from('avatars').remove([
             '${user.id}/avatar.jpg',
           ]);
-          if (res.isEmpty) {
-            throw Exception('Failed to delete avatar');
-          }
-        } catch (e) {
-          throw Exception('Failed to delete avatar');
+        } catch (_) {
+          // Ignore avatar deletion error, user might not have an uploaded avatar
         }
       }
 

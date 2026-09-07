@@ -32,10 +32,52 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   void _checkAuthStatus() {
-    _supabase.auth.onAuthStateChange.listen((data) {
+    _supabase.auth.onAuthStateChange.listen((data) async {
       if (_isSigningUp) return;
       final session = data.session;
       if (session != null) {
+        try {
+          var userData = await _supabase
+              .from('profiles')
+              .select('is_banned')
+              .eq('id', session.user.id)
+              .maybeSingle();
+
+          if (userData == null) {
+            // Wait briefly to avoid race condition with DB trigger on new Google Sign-up
+            await Future.delayed(const Duration(milliseconds: 1000));
+            userData = await _supabase
+                .from('profiles')
+                .select('is_banned')
+                .eq('id', session.user.id)
+                .maybeSingle();
+
+            if (userData == null) {
+              await _supabase.auth.signOut();
+              emit(
+                const AuthError(
+                  'This account does not exist or has been deleted.',
+                ),
+              );
+              emit(Unauthenticated());
+              return;
+            }
+          }
+
+          if (userData['is_banned'] == true) {
+            await _supabase.auth.signOut();
+            emit(
+              const AuthError(
+                'Your account has been banned due to policy violations.',
+              ),
+            );
+            emit(Unauthenticated());
+            return;
+          }
+        } catch (e) {
+          // Ignore error or handle if needed
+        }
+
         emit(Authenticated(session.user));
       } else {
         emit(Unauthenticated());

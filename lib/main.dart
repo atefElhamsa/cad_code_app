@@ -13,6 +13,7 @@ void main() async {
 
   await Supabase.initialize(
     url: 'https://tjzhjlauvceycwmnumhf.supabase.co',
+    // ignore: deprecated_member_use
     anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRqemhqbGF1dmNleWN3bW51bWhmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg3MTk0OTcsImV4cCI6MjEwNDI5NTQ5N30.1qfeyiWpHeMY9_fUiao7C-CLb3p-nKHiJHXCd7mtsVc',
   );
 
