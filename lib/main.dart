@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cad_code_academy/features/auth/presentation/viewmodels/auth_cubit.dart';
+import 'package:cad_code_academy/features/courses/presentation/viewmodels/courses_cubit/courses_cubit.dart';
 
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -27,8 +28,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => di.sl<AuthCubit>(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => di.sl<AuthCubit>()),
+        BlocProvider(
+          create: (context) => di.sl<CoursesCubit>()..fetchCourses(),
+        ),
+      ],
       child: MaterialApp.router(
         title: 'C&C Academy',
         theme: AppTheme.lightTheme,
