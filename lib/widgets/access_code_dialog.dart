@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../features/courses/presentation/viewmodels/access_code_cubit/access_code_cubit.dart';
 import '../features/courses/presentation/viewmodels/access_code_cubit/access_code_state.dart';
+import '../features/courses/presentation/viewmodels/courses_cubit/courses_cubit.dart';
+import '../features/courses/presentation/viewmodels/enrolled_courses_cubit/enrolled_courses_cubit.dart';
 import 'access_code_components/access_code_header.dart';
 import 'access_code_components/access_code_input_field.dart';
 import 'access_code_components/access_code_action_buttons.dart';
@@ -63,50 +65,59 @@ class _AccessCodeDialogState extends State<AccessCodeDialog> {
           if (widget.onSuccess != null) {
             widget.onSuccess!();
           }
+          if (context.mounted) {
+            context.read<CoursesCubit>().fetchCourses();
+            context.read<EnrolledCoursesCubit>().fetchEnrolledCourses();
+          }
         }
       },
       child: Dialog(
         backgroundColor: Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
-        child: Padding(
-          padding: const EdgeInsets.all(28.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const AccessCodeHeader(),
-              const SizedBox(height: 28),
+        child: SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 450),
+            child: Padding(
+              padding: const EdgeInsets.all(28.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const AccessCodeHeader(),
+                  const SizedBox(height: 28),
 
-              // Premium Text Field
-              AccessCodeInputField(controller: _codeController),
-              const SizedBox(height: 16),
+                  // Premium Text Field
+                  AccessCodeInputField(controller: _codeController),
+                  const SizedBox(height: 16),
 
-              // Error Message
-              BlocBuilder<AccessCodeCubit, AccessCodeState>(
-                builder: (context, state) {
-                  if (state is AccessCodeError) {
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 16.0),
-                      child: Text(
-                        state.message,
-                        style: const TextStyle(
-                          color: Colors.red,
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    );
-                  }
-                  return const SizedBox(height: 16);
-                },
+                  // Error Message
+                  BlocBuilder<AccessCodeCubit, AccessCodeState>(
+                    builder: (context, state) {
+                      if (state is AccessCodeError) {
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 16.0),
+                          child: Text(
+                            state.message,
+                            style: const TextStyle(
+                              color: Colors.red,
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        );
+                      }
+                      return const SizedBox(height: 16);
+                    },
+                  ),
+
+                  // Buttons
+                  AccessCodeActionButtons(
+                    controller: _codeController,
+                    folderId: widget.folderId,
+                  ),
+                ],
               ),
-
-              // Buttons
-              AccessCodeActionButtons(
-                controller: _codeController,
-                folderId: widget.folderId,
-              ),
-            ],
+            ),
           ),
         ),
       ),

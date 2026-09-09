@@ -27,7 +27,12 @@ class EnrolledCoursesGridView extends StatelessWidget {
             if (state is EnrolledCoursesLoading ||
                 state is EnrolledCoursesInitial) {
               return GridView.builder(
-                padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.only(
+                  left: 20,
+                  right: 20,
+                  top: 20,
+                  bottom: 120,
+                ),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: crossAxisCount,
                   crossAxisSpacing: 16,
@@ -85,7 +90,12 @@ class EnrolledCoursesGridView extends StatelessWidget {
                 color: AppTheme.primaryGoldDark,
                 backgroundColor: AppTheme.backgroundLight,
                 child: GridView.builder(
-                  padding: const EdgeInsets.all(20),
+                  padding: const EdgeInsets.only(
+                    left: 20,
+                    right: 20,
+                    top: 20,
+                    bottom: 120,
+                  ),
                   physics: const AlwaysScrollableScrollPhysics(
                     parent: BouncingScrollPhysics(),
                   ),

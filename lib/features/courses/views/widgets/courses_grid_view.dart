@@ -5,6 +5,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 
 import 'package:cad_code_academy/core/theme/app_theme.dart';
 import 'package:cad_code_academy/features/courses/presentation/viewmodels/courses_cubit/courses_cubit.dart';
+import 'package:cad_code_academy/features/courses/presentation/viewmodels/enrolled_courses_cubit/enrolled_courses_cubit.dart';
 import 'package:cad_code_academy/features/courses/presentation/viewmodels/courses_cubit/courses_state.dart';
 import 'package:cad_code_academy/widgets/course_card_grid.dart';
 import 'package:cad_code_academy/widgets/empty_state_widget.dart';
@@ -25,7 +26,7 @@ class CoursesGridView extends StatelessWidget {
           builder: (context, state) {
             if (state is CoursesLoading) {
               return GridView.builder(
-                padding: const EdgeInsets.only(bottom: 24),
+                padding: const EdgeInsets.only(bottom: 120),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: crossAxisCount,
                   crossAxisSpacing: 16,
@@ -63,11 +64,20 @@ class CoursesGridView extends StatelessWidget {
               final courses = state.courses;
               if (courses.isEmpty) {
                 return RefreshIndicator(
-                  onRefresh: () => context.read<CoursesCubit>().fetchCourses(),
+                  onRefresh: () async {
+                    await context.read<CoursesCubit>().fetchCourses();
+                    if (context.mounted) {
+                      context
+                          .read<EnrolledCoursesCubit>()
+                          .fetchEnrolledCourses();
+                    }
+                  },
                   color: AppTheme.primaryGoldDark,
                   backgroundColor: AppTheme.backgroundLight,
                   child: CustomScrollView(
-                    physics: const AlwaysScrollableScrollPhysics(),
+                    physics: const AlwaysScrollableScrollPhysics(
+                      parent: BouncingScrollPhysics(),
+                    ),
                     slivers: [
                       const SliverFillRemaining(
                         hasScrollBody: false,
@@ -82,12 +92,17 @@ class CoursesGridView extends StatelessWidget {
                 );
               }
               return RefreshIndicator(
-                onRefresh: () => context.read<CoursesCubit>().fetchCourses(),
+                onRefresh: () async {
+                  await context.read<CoursesCubit>().fetchCourses();
+                  if (context.mounted) {
+                    context.read<EnrolledCoursesCubit>().fetchEnrolledCourses();
+                  }
+                },
                 color: AppTheme.primaryGoldDark,
                 backgroundColor: AppTheme.backgroundLight,
                 child: GridView.builder(
-                  padding: const EdgeInsets.only(bottom: 12),
-                  physics: const BouncingScrollPhysics(),
+                  padding: const EdgeInsets.only(bottom: 120),
+                  physics: const AlwaysScrollableScrollPhysics(),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: crossAxisCount,
                     crossAxisSpacing: 16,

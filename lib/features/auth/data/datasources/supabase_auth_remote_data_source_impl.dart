@@ -103,6 +103,21 @@ class SupabaseAuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         } catch (_) {
           // Ignore avatar deletion error, user might not have an uploaded avatar
         }
+        try {
+          // Delete user unlocked folders
+          await supabaseClient
+              .from('user_unlocked_folders')
+              .delete()
+              .eq('user_id', user.id);
+        } catch (_) {}
+
+        try {
+          // Delete access codes used by the user
+          await supabaseClient
+              .from('access_codes')
+              .delete()
+              .eq('used_by', user.id);
+        } catch (_) {}
       }
 
       await supabaseClient.rpc('delete_user');

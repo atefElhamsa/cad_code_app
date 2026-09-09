@@ -13,6 +13,7 @@ class MainLayoutView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppTheme.backgroundLight,
+      extendBody: true,
       body: navigationShell,
       bottomNavigationBar: MainBottomNavBar(navigationShell: navigationShell),
     );

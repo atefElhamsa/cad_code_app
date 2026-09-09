@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../core/theme/app_theme.dart';
+import '../features/courses/presentation/viewmodels/courses_cubit/courses_cubit.dart';
+import '../features/courses/presentation/viewmodels/enrolled_courses_cubit/enrolled_courses_cubit.dart';
 
 class BottomNavItem extends StatelessWidget {
   final StatefulNavigationShell navigationShell;
@@ -28,6 +31,10 @@ class BottomNavItem extends StatelessWidget {
               targetIndex,
               initialLocation: targetIndex == navigationShell.currentIndex,
             );
+            if (context.mounted) {
+              context.read<CoursesCubit>().fetchCourses();
+              context.read<EnrolledCoursesCubit>().fetchEnrolledCourses();
+            }
           }
         },
         behavior: HitTestBehavior.opaque,

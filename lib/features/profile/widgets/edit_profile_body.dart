@@ -42,13 +42,20 @@ class EditProfileBody extends StatelessWidget {
               Expanded(
                 child: SingleChildScrollView(
                   padding: const EdgeInsets.all(24),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      EditProfileAvatarSection(isAuthLoading: isAuthLoading),
-                      const SizedBox(height: 32),
-                      EditProfileFormSection(isAuthLoading: isAuthLoading),
-                    ],
+                  child: Center(
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(maxWidth: 700),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          EditProfileAvatarSection(
+                            isAuthLoading: isAuthLoading,
+                          ),
+                          const SizedBox(height: 32),
+                          EditProfileFormSection(isAuthLoading: isAuthLoading),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
               ),
