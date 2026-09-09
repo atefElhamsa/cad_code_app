@@ -22,7 +22,7 @@ class HomeView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const CoursesHeader(),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 12),
                   const Expanded(child: CoursesGridView()),
                 ],
               ),

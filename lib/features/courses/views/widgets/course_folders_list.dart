@@ -4,11 +4,14 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../../core/theme/app_theme.dart';
-import '../../../../widgets/access_code_dialog.dart';
 import '../../data/datasources/course_folders_remote_data_source.dart';
+import '../../data/datasources/access_code_remote_data_source.dart';
 import '../../data/repositories/course_folders_repository_impl.dart';
+import '../../data/repositories/access_code_repository_impl.dart';
 import '../../presentation/viewmodels/course_folders_cubit/course_folders_cubit.dart';
 import '../../presentation/viewmodels/course_folders_cubit/course_folders_state.dart';
+import 'course_folder_card.dart';
+import 'course_folder_shimmer_card.dart';
 
 class CourseFoldersList extends StatelessWidget {
   final int courseId;
@@ -22,6 +25,9 @@ class CourseFoldersList extends StatelessWidget {
         CourseFoldersRepositoryImpl(
           SupabaseCourseFoldersRemoteDataSourceImpl(Supabase.instance.client),
         ),
+        AccessCodeRepositoryImpl(
+          SupabaseAccessCodeRemoteDataSourceImpl(Supabase.instance.client),
+        ),
       )..fetchCourseFolders(courseId),
       child: BlocBuilder<CourseFoldersCubit, CourseFoldersState>(
         builder: (context, state) {
@@ -33,84 +39,7 @@ class CourseFoldersList extends StatelessWidget {
               itemCount: 2,
               separatorBuilder: (context, index) => const SizedBox(height: 24),
               itemBuilder: (context, index) {
-                return Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withValues(alpha: 0.05),
-                            blurRadius: 15,
-                            offset: const Offset(0, 5),
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Container(
-                            height: 220,
-                            decoration: BoxDecoration(
-                              color: AppTheme.backgroundDarkNavy.withValues(
-                                alpha: 0.1,
-                              ),
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(20),
-                                topRight: Radius.circular(20),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Container(
-                                  height: 24,
-                                  width: 150,
-                                  decoration: BoxDecoration(
-                                    color: AppTheme.backgroundDarkNavy
-                                        .withValues(alpha: 0.1),
-                                    borderRadius: BorderRadius.circular(4),
-                                  ),
-                                ),
-                                const SizedBox(height: 12),
-                                Container(
-                                  height: 16,
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                    color: AppTheme.backgroundDarkNavy
-                                        .withValues(alpha: 0.1),
-                                    borderRadius: BorderRadius.circular(4),
-                                  ),
-                                ),
-                                const SizedBox(height: 24),
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Container(
-                                    height: 48,
-                                    width: 140,
-                                    decoration: BoxDecoration(
-                                      color: AppTheme.backgroundDarkNavy
-                                          .withValues(alpha: 0.1),
-                                      borderRadius: BorderRadius.circular(24),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                    .animate(onPlay: (controller) => controller.repeat())
-                    .shimmer(
-                      duration: 1200.ms,
-                      color: AppTheme.backgroundDarkNavy.withValues(
-                        alpha: 0.05,
-                      ),
-                      angle: 0.5,
-                    );
+                return const CourseFolderShimmerCard();
               },
             );
           } else if (state is CourseFoldersError) {
@@ -123,13 +52,13 @@ class CourseFoldersList extends StatelessWidget {
             );
           } else if (state is CourseFoldersLoaded) {
             final folders = state.folders;
+            final unlockedFolderIds = state.unlockedFolderIds;
             if (folders.isEmpty) {
               return SizedBox(
                 height: MediaQuery.of(context).size.height - 150,
                 child: Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Icon(
                         Icons.folder_off_outlined,
@@ -137,7 +66,7 @@ class CourseFoldersList extends StatelessWidget {
                         color: AppTheme.primaryGoldLight.withValues(alpha: 0.5),
                       ),
                       const SizedBox(height: 16),
-                      Text(
+                      const Text(
                         'لا يوجد محتوى حالياً',
                         style: TextStyle(
                           fontSize: 20,
@@ -146,7 +75,7 @@ class CourseFoldersList extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 8),
-                      Text(
+                      const Text(
                         'لم يتم إضافة أي مجلدات لهذا الكورس بعد.',
                         style: TextStyle(
                           fontSize: 16,
@@ -170,93 +99,10 @@ class CourseFoldersList extends StatelessWidget {
                       const SizedBox(height: 24),
                   itemBuilder: (context, index) {
                     final folder = folders[index];
-                    return Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(20),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withValues(alpha: 0.05),
-                                blurRadius: 15,
-                                offset: const Offset(0, 5),
-                              ),
-                            ],
-                          ),
-                          clipBehavior: Clip.antiAlias,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              if (folder.imageUrl != null)
-                                Image.network(
-                                  folder.imageUrl!,
-                                  height: 180,
-                                  width: double.infinity,
-                                  fit: BoxFit.cover,
-                                ),
-                              Padding(
-                                padding: const EdgeInsets.all(20.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Text(
-                                      folder.title,
-                                      style: const TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                        color: AppTheme.textDarkNavy,
-                                        fontFamily: 'Inter',
-                                      ),
-                                      textAlign: TextAlign.right,
-                                    ),
-                                    const SizedBox(height: 8),
-                                    Text(
-                                      folder.description ?? 'لا يوجد وصف متاح لهذا المجلد حالياً.',
-                                      textAlign: TextAlign.right,
-                                      style: const TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.grey,
-                                        height: 1.5,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 24),
-                                    Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: SizedBox(
-                                        width: 140,
-                                        height: 48,
-                                        child: ElevatedButton(
-                                          onPressed: () {
-                                            showDialog(
-                                              context: context,
-                                              builder: (context) =>
-                                                  const AccessCodeDialog(),
-                                            );
-                                          },
-                                          style: ElevatedButton.styleFrom(
-                                            backgroundColor:
-                                                AppTheme.primaryCyan,
-                                            shape: const StadiumBorder(),
-                                            elevation: 4,
-                                            shadowColor: AppTheme.primaryCyan
-                                                .withValues(alpha: 0.4),
-                                          ),
-                                          child: const Text(
-                                            'Access',
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.w900,
-                                              fontSize: 16,
-                                              letterSpacing: 1,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
+                    final isUnlocked = unlockedFolderIds.contains(folder.id);
+                    return CourseFolderCard(
+                          folder: folder,
+                          isUnlocked: isUnlocked,
                         )
                         .animate()
                         .fadeIn(

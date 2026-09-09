@@ -11,4 +11,9 @@ class CoursesRepositoryImpl implements CoursesRepository {
   Future<List<CourseEntity>> getCourses() async {
     return await remoteDataSource.getCourses();
   }
+
+  @override
+  Future<List<CourseEntity>> getEnrolledCourses() async {
+    return await remoteDataSource.getEnrolledCourses();
+  }
 }

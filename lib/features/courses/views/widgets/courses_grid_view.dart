@@ -7,6 +7,7 @@ import 'package:cad_code_academy/core/theme/app_theme.dart';
 import 'package:cad_code_academy/features/courses/presentation/viewmodels/courses_cubit/courses_cubit.dart';
 import 'package:cad_code_academy/features/courses/presentation/viewmodels/courses_cubit/courses_state.dart';
 import 'package:cad_code_academy/widgets/course_card_grid.dart';
+import 'package:cad_code_academy/widgets/empty_state_widget.dart';
 
 class CoursesGridView extends StatelessWidget {
   const CoursesGridView({super.key});
@@ -61,14 +62,32 @@ class CoursesGridView extends StatelessWidget {
             } else if (state is CoursesLoaded) {
               final courses = state.courses;
               if (courses.isEmpty) {
-                return const Center(child: Text('No courses available.'));
+                return RefreshIndicator(
+                  onRefresh: () => context.read<CoursesCubit>().fetchCourses(),
+                  color: AppTheme.primaryGoldDark,
+                  backgroundColor: AppTheme.backgroundLight,
+                  child: CustomScrollView(
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    slivers: [
+                      const SliverFillRemaining(
+                        hasScrollBody: false,
+                        child: EmptyStateWidget(
+                          icon: Icons.search_off_rounded,
+                          title: 'No Courses Found',
+                          subtitle: 'We are currently adding new courses.\n Please check back later.',
+                        ),
+                      ),
+                    ],
+                  ),
+                );
               }
               return RefreshIndicator(
                 onRefresh: () => context.read<CoursesCubit>().fetchCourses(),
                 color: AppTheme.primaryGoldDark,
                 backgroundColor: AppTheme.backgroundLight,
                 child: GridView.builder(
-                  padding: const EdgeInsets.only(bottom: 24),
+                  padding: const EdgeInsets.only(bottom: 12),
+                  physics: const BouncingScrollPhysics(),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: crossAxisCount,
                     crossAxisSpacing: 16,

@@ -14,11 +14,22 @@ class CourseFoldersLoading extends CourseFoldersState {}
 
 class CourseFoldersLoaded extends CourseFoldersState {
   final List<CourseFolderEntity> folders;
+  final List<int> unlockedFolderIds;
 
-  const CourseFoldersLoaded(this.folders);
+  const CourseFoldersLoaded(this.folders, {this.unlockedFolderIds = const []});
+
+  CourseFoldersLoaded copyWith({
+    List<CourseFolderEntity>? folders,
+    List<int>? unlockedFolderIds,
+  }) {
+    return CourseFoldersLoaded(
+      folders ?? this.folders,
+      unlockedFolderIds: unlockedFolderIds ?? this.unlockedFolderIds,
+    );
+  }
 
   @override
-  List<Object> get props => [folders];
+  List<Object> get props => [folders, unlockedFolderIds];
 }
 
 class CourseFoldersError extends CourseFoldersState {

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 import '../../core/theme/app_theme.dart';
@@ -23,16 +25,16 @@ class CourseCardGrid extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: AppTheme.backgroundDarkNavy,
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(24),
           border: Border.all(
-            color: AppTheme.primaryGoldLight.withValues(alpha: 0.3),
-            width: 1.5,
+            color: AppTheme.primaryGoldLight.withValues(alpha: 0.5),
+            width: 1,
           ),
           boxShadow: [
             BoxShadow(
-              color: AppTheme.backgroundDarkNavy.withValues(alpha: 0.2),
-              blurRadius: 10,
-              offset: const Offset(0, 5),
+              color: AppTheme.backgroundDarkNavy.withValues(alpha: 0.15),
+              blurRadius: 15,
+              offset: const Offset(0, 8),
             ),
           ],
           image: imageUrl != null
@@ -45,17 +47,17 @@ class CourseCardGrid extends StatelessWidget {
         clipBehavior: Clip.antiAlias,
         child: Stack(
           children: [
-            // Dark gradient overlay to make text readable
+            // Dark gradient overlay for readability and premium feel
             Positioned.fill(
               child: Container(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
                       Colors.transparent,
-                      Colors.black.withValues(alpha: 0.3),
-                      Colors.black.withValues(alpha: 0.9),
+                      Colors.black.withValues(alpha: 0.2),
+                      Colors.black.withValues(alpha: 0.85),
                     ],
-                    stops: const [0.0, 0.5, 1.0],
+                    stops: const [0.0, 0.4, 1.0],
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                   ),
@@ -63,64 +65,51 @@ class CourseCardGrid extends StatelessWidget {
               ),
             ),
 
-            // Bottom-Left: Title
+            // Bottom Content: Title and Action Button
             Positioned(
-              left: 12,
-              bottom: 12,
-              right: 50, // Leave space for the level circle
-              child: Text(
-                tag, // Displaying tag (e.g. Front End) like the image
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15,
-                  fontFamily: 'Inter',
-                ),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-
-            // Bottom-Right: Level indicator
-            Positioned(
-              right: 12,
-              bottom: 12,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
+              left: 16,
+              bottom: 16,
+              right: 16,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  const Text(
-                    'LEVEL',
-                    style: TextStyle(
-                      color: Colors.white70,
-                      fontSize: 9,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 0.5,
+                  Expanded(
+                    child: Text(
+                      title,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w900,
+                        fontSize: 18,
+                        fontFamily: 'Inter',
+                        height: 1.2,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  const SizedBox(height: 2),
+                  const SizedBox(width: 8),
+
+                  // Premium Action Button
                   Container(
-                    width: 24,
-                    height: 24,
+                    width: 32,
+                    height: 32,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      border: Border.all(
-                        color: AppTheme.primaryGoldLight,
-                        width: 1.5,
-                      ),
+                      gradient: AppTheme.goldGradient,
                       boxShadow: [
                         BoxShadow(
-                          color: AppTheme.primaryGoldLight.withValues(
-                            alpha: 0.3,
+                          color: AppTheme.primaryGoldDark.withValues(
+                            alpha: 0.4,
                           ),
-                          blurRadius: 6,
+                          blurRadius: 8,
                           spreadRadius: 1,
                         ),
                       ],
                     ),
                     child: const Icon(
-                      Icons.chevron_right_rounded,
+                      Icons.arrow_forward_rounded,
                       color: Colors.white,
-                      size: 16,
+                      size: 18,
                     ),
                   ),
                 ],

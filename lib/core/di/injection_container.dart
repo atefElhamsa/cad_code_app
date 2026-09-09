@@ -9,6 +9,8 @@ import 'package:cad_code_academy/features/courses/data/repositories/courses_repo
 import 'package:cad_code_academy/features/courses/domain/repositories/courses_repository.dart';
 import 'package:cad_code_academy/features/courses/domain/usecases/get_courses_usecase.dart';
 import 'package:cad_code_academy/features/courses/presentation/viewmodels/courses_cubit/courses_cubit.dart';
+import 'package:cad_code_academy/features/courses/domain/usecases/get_enrolled_courses_usecase.dart';
+import 'package:cad_code_academy/features/courses/presentation/viewmodels/enrolled_courses_cubit/enrolled_courses_cubit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -44,6 +46,9 @@ Future<void> init() async {
   );
   sl.registerLazySingleton(() => GetCoursesUseCase(sl()));
   sl.registerLazySingleton(() => CoursesCubit(sl()));
+
+  sl.registerLazySingleton(() => GetEnrolledCoursesUseCase(sl()));
+  sl.registerLazySingleton(() => EnrolledCoursesCubit(sl()));
 
   sl.registerLazySingleton(() => Supabase.instance.client);
 }
