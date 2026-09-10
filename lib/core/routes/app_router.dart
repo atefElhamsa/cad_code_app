@@ -12,7 +12,6 @@ import '../../features/profile/views/settings_view.dart';
 import '../../features/profile/views/profile_view.dart';
 import '../../features/profile/views/edit_profile_view.dart';
 import '../../features/profile/views/change_password_view.dart';
-import '../../features/profile/views/downloads_view.dart';
 import '../../features/profile/views/payment_view.dart';
 import '../../features/course_workspace/views/course_workspace_view.dart';
 
@@ -80,17 +79,19 @@ class AppRouter {
         builder: (context, state) => const ChangePasswordView(),
       ),
       GoRoute(
-        path: '/downloads',
-        builder: (context, state) => const DownloadsView(),
-      ),
-      GoRoute(
         path: '/payment',
         builder: (context, state) => const PaymentView(),
       ),
       GoRoute(
         path: '/workspace',
-        builder: (context, state) =>
-            const CourseWorkspaceView(title: 'Dart', topic: 'Dart'),
+        builder: (context, state) {
+          final extra = state.extra as Map<String, dynamic>?;
+          return CourseWorkspaceView(
+            folderId: extra?['folderId'] as int? ?? 0,
+            title: extra?['title'] as String? ?? 'Workspace',
+            topic: extra?['topic'] as String? ?? 'Workspace',
+          );
+        },
       ),
       GoRoute(
         path: '/course-detail',

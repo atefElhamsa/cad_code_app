@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/theme/app_theme.dart';
 import '../../../../widgets/access_code_dialog.dart';
@@ -79,8 +80,14 @@ class CourseFolderCard extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: () {
                         if (isUnlocked) {
-                          // Navigate to folder contents
-                          // context.push('/folder-contents', extra: folder.id);
+                          context.push(
+                            '/workspace',
+                            extra: {
+                              'folderId': folder.id,
+                              'title': folder.title,
+                              'topic': folder.title,
+                            },
+                          );
                         } else {
                           showDialog(
                             context: context,

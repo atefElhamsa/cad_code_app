@@ -52,15 +52,6 @@ class SettingsView extends StatelessWidget {
                               onTap: () => context.push('/profile'),
                             ),
                             SettingsListTile(
-                              title: 'Downloads',
-                              iconBuilder: (color) => Icon(
-                                Icons.cloud_download_rounded,
-                                color: color,
-                                size: 22,
-                              ),
-                              onTap: () => context.push('/downloads'),
-                            ),
-                            SettingsListTile(
                               title: 'Payment',
                               iconBuilder: (color) => Icon(
                                 Icons.payment_rounded,

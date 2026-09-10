@@ -1,31 +1,85 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../widgets/session_tile.dart';
+import '../../../widgets/empty_state_widget.dart';
+import '../presentation/viewmodels/sessions_cubit/sessions_cubit.dart';
+import '../presentation/viewmodels/sessions_cubit/sessions_state.dart';
+import 'session_video_player_view.dart';
 
 class WorkspaceSessionsTab extends StatelessWidget {
   const WorkspaceSessionsTab({super.key});
 
+  Future<void> _launchDriveUrl(BuildContext context, String url) async {
+    final uri = Uri.parse(url);
+    try {
+      final success = await launchUrl(
+        uri,
+        mode: LaunchMode.externalApplication,
+      );
+      if (!success && context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Could not open the link.')),
+        );
+      }
+    } catch (e) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Could not open the link.')),
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.all(16),
-      children: [
-        SessionTile(
-          title: '01 - Introduction to Dart',
-          duration: '45 mins',
-          onPlay: () {},
-        ),
-        SessionTile(
-          title: '02 - Variables and Data Types',
-          duration: '1 hr 10 mins',
-          onPlay: () {},
-        ),
-        SessionTile(
-          title: '03 - Control Flow',
-          duration: '50 mins',
-          onPlay: () {},
-        ),
-      ],
+    return BlocBuilder<SessionsCubit, SessionsState>(
+      builder: (context, state) {
+        if (state is SessionsLoading) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (state is SessionsError) {
+          return Center(
+            child: Text(
+              'Failed to load sessions: ${state.message}',
+              style: const TextStyle(color: Colors.red),
+            ),
+          );
+        } else if (state is SessionsLoaded) {
+          if (state.sessions.isEmpty) {
+            return const EmptyStateWidget(
+              title: 'No sessions yet',
+              subtitle: 'Check back later for new sessions in this folder.',
+              icon: Icons.video_library_outlined,
+            );
+          }
+
+          return ListView.builder(
+            padding: const EdgeInsets.all(16),
+            itemCount: state.sessions.length,
+            itemBuilder: (context, index) {
+              final session = state.sessions[index];
+              return SessionTile(
+                title: session.title,
+                duration: session.duration ?? '',
+                onPlay: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => SessionVideoPlayerView(
+                        driveUrl: session.driveUrl,
+                        title: session.title,
+                      ),
+                    ),
+                  );
+                },
+                onDownload: () => _launchDriveUrl(context, session.driveUrl),
+              );
+            },
+          );
+        }
+
+        return const SizedBox.shrink();
+      },
     );
   }
 }

@@ -6,12 +6,14 @@ class SessionTile extends StatelessWidget {
   final String title;
   final String duration;
   final VoidCallback onPlay;
+  final VoidCallback? onDownload;
 
   const SessionTile({
     super.key,
     required this.title,
     required this.duration,
     required this.onPlay,
+    this.onDownload,
   });
 
   @override
@@ -33,32 +35,35 @@ class SessionTile extends StatelessWidget {
       child: Row(
         children: [
           // Play Button Box
-          Container(
-            width: 48,
-            height: 48,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  AppTheme.primaryCyan,
-                  AppTheme.primaryCyan.withValues(alpha: 0.8),
-                ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-              shape: BoxShape.circle,
-              boxShadow: [
-                BoxShadow(
-                  color: AppTheme.primaryCyan.withValues(alpha: 0.3),
-                  blurRadius: 8,
-                  offset: const Offset(0, 3),
+          GestureDetector(
+            onTap: onPlay,
+            child: Container(
+              width: 48,
+              height: 48,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    AppTheme.primaryCyan,
+                    AppTheme.primaryCyan.withValues(alpha: 0.8),
+                  ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
                 ),
-              ],
-            ),
-            child: const Center(
-              child: Icon(
-                Icons.play_arrow_rounded,
-                color: Colors.white,
-                size: 28,
+                shape: BoxShape.circle,
+                boxShadow: [
+                  BoxShadow(
+                    color: AppTheme.primaryCyan.withValues(alpha: 0.3),
+                    blurRadius: 8,
+                    offset: const Offset(0, 3),
+                  ),
+                ],
+              ),
+              child: const Center(
+                child: Icon(
+                  Icons.play_arrow_rounded,
+                  color: Colors.white,
+                  size: 28,
+                ),
               ),
             ),
           ),
@@ -103,7 +108,7 @@ class SessionTile extends StatelessWidget {
                 size: 22,
               ),
             ),
-            onPressed: () {},
+            onPressed: onDownload,
             splashRadius: 24,
           ),
         ],

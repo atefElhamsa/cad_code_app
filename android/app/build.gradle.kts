@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.example.cad_code_academy"
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = 36
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
