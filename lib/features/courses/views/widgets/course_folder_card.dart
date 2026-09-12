@@ -21,123 +21,256 @@ class CourseFolderCard extends StatelessWidget {
     required this.isUnlocked,
   });
 
+  void _onTap(BuildContext context) {
+    if (isUnlocked) {
+      context.push(
+        '/workspace',
+        extra: {
+          'folderId': folder.id,
+          'title': folder.title,
+          'topic': folder.title,
+        },
+      );
+    } else {
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (dialogContext) => BlocProvider(
+          create: (_) => AccessCodeCubit(
+            AccessCodeRepositoryImpl(
+              SupabaseAccessCodeRemoteDataSourceImpl(
+                Supabase.instance.client,
+              ),
+            ),
+          ),
+          child: AccessCodeDialog(
+            folderId: folder.id,
+            onSuccess: () {
+              context.read<CourseFoldersCubit>().addUnlockedFolder(folder.id);
+            },
+          ),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final buttonColor = isUnlocked ? const Color(0xFF22C55E) : AppTheme.primaryCyan;
+    
+    // Responsive image height
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double imageHeight = screenWidth > 600 ? 250.0 : 170.0;
+
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 15,
-            offset: const Offset(0, 5),
+            color: Colors.black.withValues(alpha: 0.07),
+            blurRadius: 20,
+            offset: const Offset(0, 8),
           ),
         ],
       ),
       clipBehavior: Clip.antiAlias,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          if (folder.imageUrl != null)
-            Image.network(
-              folder.imageUrl!,
-              height: 180,
-              width: double.infinity,
-              fit: BoxFit.cover,
-            ),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Text(
-                  folder.title,
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: AppTheme.textDarkNavy,
-                    fontFamily: 'Inter',
-                  ),
-                  textAlign: TextAlign.right,
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  folder.description ?? 'لا يوجد وصف متاح لهذا المجلد حالياً.',
-                  textAlign: TextAlign.right,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: Colors.grey,
-                    height: 1.5,
-                  ),
-                ),
-                const SizedBox(height: 24),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: SizedBox(
-                    width: 140,
-                    height: 48,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        if (isUnlocked) {
-                          context.push(
-                            '/workspace',
-                            extra: {
-                              'folderId': folder.id,
-                              'title': folder.title,
-                              'topic': folder.title,
-                            },
-                          );
-                        } else {
-                          showDialog(
-                            context: context,
-                            barrierDismissible: false,
-                            builder: (dialogContext) => BlocProvider(
-                              create: (_) => AccessCodeCubit(
-                                AccessCodeRepositoryImpl(
-                                  SupabaseAccessCodeRemoteDataSourceImpl(
-                                    Supabase.instance.client,
-                                  ),
-                                ),
-                              ),
-                              child: AccessCodeDialog(
-                                folderId: folder.id,
-                                onSuccess: () {
-                                  context
-                                      .read<CourseFoldersCubit>()
-                                      .addUnlockedFolder(folder.id);
-                                },
-                              ),
-                            ),
-                          );
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: isUnlocked
-                            ? Colors.green
-                            : AppTheme.primaryCyan,
-                        shape: const StadiumBorder(),
-                        elevation: 4,
-                        shadowColor:
-                            (isUnlocked ? Colors.green : AppTheme.primaryCyan)
-                                .withValues(alpha: 0.4),
-                      ),
-                      child: Text(
-                        isUnlocked ? 'Open' : 'Access',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w900,
-                          fontSize: 16,
-                          letterSpacing: 1,
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: () => _onTap(context),
+          splashColor: buttonColor.withValues(alpha: 0.06),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // ── Cover image ──────────────────────────────────
+              if (folder.imageUrl != null)
+                Stack(
+                  children: [
+                    Image.network(
+                      folder.imageUrl!,
+                      height: imageHeight,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                      errorBuilder: (_, __, ___) => Container(
+                        height: imageHeight,
+                        color: const Color(0xFF0F172A),
+                        child: const Center(
+                          child: Icon(
+                            Icons.school_rounded,
+                            color: Color(0xFFD4AF37),
+                            size: 48,
+                          ),
                         ),
                       ),
                     ),
-                  ),
+                    // subtle bottom gradient
+                    Positioned(
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      child: Container(
+                        height: 60,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Colors.transparent,
+                              Colors.black.withValues(alpha: 0.25),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    // Lock badge (top-right)
+                    if (!isUnlocked)
+                      Positioned(
+                        top: 12,
+                        right: 12,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 6,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.black.withValues(alpha: 0.55),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: const Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(Icons.lock_rounded,
+                                  color: Color(0xFFD4AF37), size: 14),
+                              SizedBox(width: 5),
+                              Text(
+                                'مغلق',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                  ],
                 ),
-              ],
-            ),
+
+              // ── Info section ─────────────────────────────────
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    // Title
+                    Text(
+                      folder.title,
+                      style: const TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w900,
+                        color: AppTheme.textDarkNavy,
+                        fontFamily: 'Inter',
+                        height: 1.3,
+                      ),
+                      textAlign: TextAlign.right,
+                    ),
+                    const SizedBox(height: 6),
+
+                    // Description
+                    Text(
+                      folder.description ??
+                          'لا يوجد وصف متاح لهذا المجلد حالياً.',
+                      textAlign: TextAlign.right,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: Colors.grey.shade500,
+                        height: 1.5,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+
+                    // ── Action button ──────────────────────────
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        // Open / Access button
+                        GestureDetector(
+                          onTap: () => _onTap(context),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 28,
+                              vertical: 12,
+                            ),
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  buttonColor,
+                                  buttonColor.withValues(alpha: 0.8),
+                                ],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              ),
+                              borderRadius: BorderRadius.circular(50),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: buttonColor.withValues(alpha: 0.35),
+                                  blurRadius: 10,
+                                  offset: const Offset(0, 4),
+                                ),
+                              ],
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(
+                                  isUnlocked
+                                      ? Icons.play_arrow_rounded
+                                      : Icons.vpn_key_rounded,
+                                  color: Colors.white,
+                                  size: 18,
+                                ),
+                                const SizedBox(width: 6),
+                                Text(
+                                  isUnlocked ? 'ابدأ الآن' : 'فتح',
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w900,
+                                    fontSize: 15,
+                                    letterSpacing: 0.5,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+
+                        // Chapters count or lock icon
+                        Container(
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFD4AF37).withValues(alpha: 0.1),
+                            borderRadius: BorderRadius.circular(14),
+                          ),
+                          child: Icon(
+                            isUnlocked
+                                ? Icons.folder_open_rounded
+                                : Icons.lock_outline_rounded,
+                            color: const Color(0xFFD4AF37),
+                            size: 22,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

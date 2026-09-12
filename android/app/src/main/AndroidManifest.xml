@@ -3,6 +3,9 @@
     <!-- Camera permission for capturing profile photo -->
     <uses-permission android:name="android.permission.CAMERA"/>
 
+    <!-- INTERNET permission required for Supabase, Google Drive, etc. -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <!-- Storage permissions for gallery access -->
     <!-- Android 9-12 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"

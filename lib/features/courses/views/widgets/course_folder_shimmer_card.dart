@@ -8,6 +8,9 @@ class CourseFolderShimmerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double imageHeight = screenWidth > 600 ? 250.0 : 170.0;
+
     return Container(
           decoration: BoxDecoration(
             color: Colors.white,
@@ -24,7 +27,7 @@ class CourseFolderShimmerCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Container(
-                height: 220,
+                height: imageHeight,
                 decoration: BoxDecoration(
                   color: AppTheme.backgroundDarkNavy.withValues(alpha: 0.1),
                   borderRadius: const BorderRadius.only(

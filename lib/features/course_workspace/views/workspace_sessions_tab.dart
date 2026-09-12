@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../../widgets/session_tile.dart';
 import '../../../widgets/empty_state_widget.dart';
@@ -10,27 +9,6 @@ import 'session_video_player_view.dart';
 
 class WorkspaceSessionsTab extends StatelessWidget {
   const WorkspaceSessionsTab({super.key});
-
-  Future<void> _launchDriveUrl(BuildContext context, String url) async {
-    final uri = Uri.parse(url);
-    try {
-      final success = await launchUrl(
-        uri,
-        mode: LaunchMode.externalApplication,
-      );
-      if (!success && context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Could not open the link.')),
-        );
-      }
-    } catch (e) {
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Could not open the link.')),
-        );
-      }
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +50,6 @@ class WorkspaceSessionsTab extends StatelessWidget {
                     ),
                   );
                 },
-                onDownload: () => _launchDriveUrl(context, session.driveUrl),
               );
             },
           );

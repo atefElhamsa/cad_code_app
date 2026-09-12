@@ -29,9 +29,9 @@ class CoursesGridView extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 120),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: crossAxisCount,
-                  crossAxisSpacing: 16,
+                  crossAxisSpacing: 8,
                   mainAxisSpacing: 16,
-                  childAspectRatio: 0.85,
+                  childAspectRatio: 0.8,
                 ),
                 itemCount: 4,
                 itemBuilder: (context, index) {
@@ -105,9 +105,9 @@ class CoursesGridView extends StatelessWidget {
                   physics: const AlwaysScrollableScrollPhysics(),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: crossAxisCount,
-                    crossAxisSpacing: 16,
+                    crossAxisSpacing: 8,
                     mainAxisSpacing: 16,
-                    childAspectRatio: 0.85,
+                    childAspectRatio: 0.8,
                   ),
                   itemCount: courses.length,
                   itemBuilder: (context, index) {

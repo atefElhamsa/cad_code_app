@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../presentation/cubits/workspace_files_cubit.dart';
 import 'native_file_viewer_view.dart';
-
 import '../../../widgets/empty_state_widget.dart';
+import '../../../core/theme/app_theme.dart';
 
 class WorkspaceFilesTab extends StatelessWidget {
   const WorkspaceFilesTab({super.key});
@@ -26,57 +26,21 @@ class WorkspaceFilesTab extends StatelessWidget {
               icon: Icons.folder_open_outlined,
             );
           }
-          return ListView.separated(
+          return ListView.builder(
             padding: const EdgeInsets.all(16),
             itemCount: state.files.length,
-            separatorBuilder: (context, index) => const SizedBox(height: 12),
             itemBuilder: (context, index) {
               final file = state.files[index];
-              return Card(
-                color: Colors.white,
-                elevation: 0,
-                margin: EdgeInsets.zero,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  side: BorderSide(color: Colors.grey.shade200),
-                ),
-                child: ListTile(
-                  leading: const Icon(
-                    Icons.picture_as_pdf,
-                    color: Color(0xFFD4AF37),
-                  ),
-                  title: Text(
-                    file.title,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  trailing: IconButton(
-                    icon: const Icon(
-                      Icons.visibility,
-                      color: Color(0xFFD4AF37),
+              return _FileTileItem(
+                title: file.title,
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => NativeFileViewerView(
+                      driveUrl: file.driveUrl,
+                      fileName: file.title,
                     ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => NativeFileViewerView(
-                            driveUrl: file.driveUrl,
-                            fileName: file.title,
-                          ),
-                        ),
-                      );
-                    },
                   ),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => NativeFileViewerView(
-                          driveUrl: file.driveUrl,
-                          fileName: file.title,
-                        ),
-                      ),
-                    );
-                  },
                 ),
               );
             },
@@ -91,6 +55,106 @@ class WorkspaceFilesTab extends StatelessWidget {
         }
         return const SizedBox();
       },
+    );
+  }
+}
+
+class _FileTileItem extends StatelessWidget {
+  final String title;
+  final VoidCallback onTap;
+
+  const _FileTileItem({required this.title, required this.onTap});
+
+  IconData _getIcon() {
+    final lower = title.toLowerCase();
+    if (lower.endsWith('.pdf')) return Icons.picture_as_pdf_rounded;
+    if (lower.endsWith('.zip') || lower.endsWith('.rar')) {
+      return Icons.folder_zip_rounded;
+    }
+    if (lower.endsWith('.doc') || lower.endsWith('.docx')) {
+      return Icons.description_rounded;
+    }
+    return Icons.insert_drive_file_rounded;
+  }
+
+  Color _getIconColor() {
+    final lower = title.toLowerCase();
+    if (lower.endsWith('.pdf')) return const Color(0xFFE53935);
+    if (lower.endsWith('.zip') || lower.endsWith('.rar')) {
+      return const Color(0xFFD4AF37);
+    }
+    if (lower.endsWith('.doc') || lower.endsWith('.docx')) {
+      return const Color(0xFF1E88E5);
+    }
+    return AppTheme.primaryCyan;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final color = _getIconColor();
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 16),
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.04),
+              blurRadius: 15,
+              offset: const Offset(0, 5),
+            ),
+          ],
+        ),
+        child: Row(
+          children: [
+            // Icon box
+            Container(
+              width: 52,
+              height: 52,
+              decoration: BoxDecoration(
+                color: color.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Icon(_getIcon(), color: color, size: 28),
+            ),
+            const SizedBox(width: 16),
+            // Title
+            Expanded(
+              child: Text(
+                title,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w900,
+                  fontSize: 15,
+                  color: AppTheme.textDarkNavy,
+                  fontFamily: 'Inter',
+                ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+            const SizedBox(width: 8),
+            // View button
+            GestureDetector(
+              onTap: onTap,
+              child: Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: AppTheme.primaryGoldLight.withValues(alpha: 0.15),
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(
+                  Icons.visibility_rounded,
+                  color: AppTheme.primaryGoldDark,
+                  size: 22,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

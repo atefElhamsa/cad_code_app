@@ -6,112 +6,129 @@ class SessionTile extends StatelessWidget {
   final String title;
   final String duration;
   final VoidCallback onPlay;
-  final VoidCallback? onDownload;
 
   const SessionTile({
     super.key,
     required this.title,
     required this.duration,
     required this.onPlay,
-    this.onDownload,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 16),
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.04),
-            blurRadius: 15,
-            offset: const Offset(0, 5),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          // Play Button Box
-          GestureDetector(
+    return GestureDetector(
+      onTap: onPlay,
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 14),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.05),
+              blurRadius: 16,
+              offset: const Offset(0, 6),
+            ),
+          ],
+        ),
+        child: Material(
+          color: Colors.transparent,
+          borderRadius: BorderRadius.circular(20),
+          child: InkWell(
             onTap: onPlay,
-            child: Container(
-              width: 48,
-              height: 48,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    AppTheme.primaryCyan,
-                    AppTheme.primaryCyan.withValues(alpha: 0.8),
-                  ],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-                shape: BoxShape.circle,
-                boxShadow: [
-                  BoxShadow(
-                    color: AppTheme.primaryCyan.withValues(alpha: 0.3),
-                    blurRadius: 8,
-                    offset: const Offset(0, 3),
+            borderRadius: BorderRadius.circular(20),
+            splashColor: AppTheme.primaryCyan.withValues(alpha: 0.08),
+            highlightColor: AppTheme.primaryCyan.withValues(alpha: 0.04),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+              child: Row(
+                children: [
+                  // Play button
+                  Container(
+                    width: 52,
+                    height: 52,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          AppTheme.primaryCyan,
+                          AppTheme.primaryCyan.withValues(alpha: 0.75),
+                        ],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppTheme.primaryCyan.withValues(alpha: 0.35),
+                          blurRadius: 10,
+                          offset: const Offset(0, 4),
+                        ),
+                      ],
+                    ),
+                    child: const Icon(
+                      Icons.play_arrow_rounded,
+                      color: Colors.white,
+                      size: 30,
+                    ),
+                  ),
+                  const SizedBox(width: 14),
+
+                  // Title + duration
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          title,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w800,
+                            fontSize: 15,
+                            color: AppTheme.textDarkNavy,
+                            fontFamily: 'Inter',
+                          ),
+                        ),
+                        const SizedBox(height: 5),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.access_time_rounded,
+                              size: 13,
+                              color: Colors.grey.shade400,
+                            ),
+                            const SizedBox(width: 4),
+                            Text(
+                              duration,
+                              style: TextStyle(
+                                color: Colors.grey.shade500,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  // Arrow indicator
+                  Container(
+                    width: 36,
+                    height: 36,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFF5F5F5),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: const Icon(
+                      Icons.arrow_forward_ios_rounded,
+                      size: 15,
+                      color: Color(0xFFB0B0B0),
+                    ),
                   ),
                 ],
               ),
-              child: const Center(
-                child: Icon(
-                  Icons.play_arrow_rounded,
-                  color: Colors.white,
-                  size: 28,
-                ),
-              ),
             ),
           ),
-          const SizedBox(width: 16),
-          // Texts
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w900,
-                    fontSize: 16,
-                    color: AppTheme.textDarkNavy,
-                    fontFamily: 'Inter',
-                  ),
-                ),
-                const SizedBox(height: 6),
-                Text(
-                  duration,
-                  style: TextStyle(
-                    color: Colors.grey.shade500,
-                    fontSize: 13,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          // Download Icon
-          IconButton(
-            icon: Container(
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: AppTheme.primaryGoldLight.withValues(alpha: 0.15),
-                shape: BoxShape.circle,
-              ),
-              child: const Icon(
-                Icons.cloud_download_rounded,
-                color: AppTheme.primaryGoldDark,
-                size: 22,
-              ),
-            ),
-            onPressed: onDownload,
-            splashRadius: 24,
-          ),
-        ],
+        ),
       ),
     );
   }
