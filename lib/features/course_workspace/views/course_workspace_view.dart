@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -49,10 +50,10 @@ class CourseWorkspaceView extends StatelessWidget {
           backgroundColor: const Color(0xFFF4F6F9),
           appBar: CourseWorkspaceAppBar(title: title, topic: topic),
           body: Column(
-            children: const [
-              SizedBox(height: 16),
+            children: [
+              SizedBox(height: 16.h,),
               CourseWorkspaceTabBar(),
-              SizedBox(height: 12),
+              SizedBox(height: 12.h,),
               Expanded(
                 child: TabBarView(
                   children: [

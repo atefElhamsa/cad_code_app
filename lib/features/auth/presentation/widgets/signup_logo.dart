@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
@@ -11,14 +12,14 @@ class SignupLogo extends StatelessWidget {
     return Column(
           children: [
             Container(
-              width: 70,
-              height: 70,
+              width: 70.w,
+              height: 70.h,
               decoration: BoxDecoration(
                 color: Colors.transparent,
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(16.r),
                 border: Border.all(
                   color: AppTheme.primaryGoldLight,
-                  width: 2.5,
+                  width: 2.5.w,
                 ),
                 boxShadow: [
                   BoxShadow(
@@ -34,10 +35,10 @@ class SignupLogo extends StatelessWidget {
                       AppTheme.goldGradient.createShader(
                         Rect.fromLTWH(0, 0, bounds.width, bounds.height),
                       ),
-                  child: const Text(
+                  child: Text(
                     'C',
                     style: TextStyle(
-                      fontSize: 40,
+                      fontSize: 40.sp,
                       fontWeight: FontWeight.w900,
                       color: Colors.white,
                       fontFamily: 'Inter',
@@ -46,15 +47,15 @@ class SignupLogo extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 12),
+            SizedBox(height: 12.h,),
             ShaderMask(
               shaderCallback: (bounds) => AppTheme.goldGradient.createShader(
                 Rect.fromLTWH(0, 0, bounds.width, bounds.height),
               ),
-              child: const Text(
+              child: Text(
                 'C&C Academy',
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 20.sp,
                   fontWeight: FontWeight.w900,
                   color: Colors.white,
                   letterSpacing: 2.0,

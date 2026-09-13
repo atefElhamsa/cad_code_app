@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/theme/app_theme.dart';
@@ -24,18 +25,18 @@ class PrimaryGradientButton extends StatelessWidget {
       color: Colors.transparent,
       child: InkWell(
         onTap: isLoading ? null : onPressed,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(16.r),
         splashColor: AppTheme.primaryGoldLight.withValues(alpha: 0.3),
         child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 24),
+          padding: EdgeInsets.symmetric(vertical: 18, horizontal: 24),
           decoration: BoxDecoration(
             gradient: outlined || isLoading ? null : AppTheme.goldGradient,
             color: outlined || isLoading
                 ? (isLoading ? Colors.grey.shade800 : Colors.transparent)
                 : null,
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(16.r),
             border: outlined && !isLoading
-                ? Border.all(color: AppTheme.primaryGoldLight, width: 2)
+                ? Border.all(color: AppTheme.primaryGoldLight, width: 2.w,)
                 : null,
             boxShadow: outlined || isLoading
                 ? []
@@ -52,15 +53,15 @@ class PrimaryGradientButton extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               if (isLoading) ...[
-                const SizedBox(
-                  width: 24,
-                  height: 24,
+                SizedBox(
+                  width: 24.w,
+                  height: 24.h,
                   child: CircularProgressIndicator(
                     strokeWidth: 3,
                     color: Colors.white70,
                   ),
                 ),
-                const SizedBox(width: 12),
+                SizedBox(width: 12.w,),
               ] else if (icon != null) ...[
                 Icon(
                   icon,
@@ -69,12 +70,12 @@ class PrimaryGradientButton extends StatelessWidget {
                       : AppTheme.textDarkNavy,
                   size: 24,
                 ),
-                const SizedBox(width: 12),
+                SizedBox(width: 12.w,),
               ],
               Text(
                 isLoading ? 'Please wait...' : text,
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: 18.sp,
                   fontWeight: FontWeight.w900,
                   color: outlined || isLoading
                       ? (isLoading ? Colors.white70 : AppTheme.primaryGoldLight)

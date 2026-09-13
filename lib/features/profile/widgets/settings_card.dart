@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 
 class SettingsCard extends StatelessWidget {
@@ -13,8 +14,8 @@ class SettingsCard extends StatelessWidget {
       if (i < children.length - 1) {
         separatedChildren.add(
           Padding(
-            padding: const EdgeInsets.only(left: 80.0, right: 20.0),
-            child: Divider(height: 1, color: Colors.grey.shade100),
+            padding: EdgeInsets.only(left: 80.0, right: 20.0),
+            child: Divider(height: 1.h, color: Colors.grey.shade100),
           ),
         );
       }
@@ -22,7 +23,7 @@ class SettingsCard extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(24),
+        borderRadius: BorderRadius.circular(24.r),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.03),
@@ -33,10 +34,10 @@ class SettingsCard extends StatelessWidget {
       ),
       child: Material(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(24),
+        borderRadius: BorderRadius.circular(24.r),
         clipBehavior: Clip.antiAlias,
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 6.0),
+          padding: EdgeInsets.symmetric(vertical: 6.0),
           child: Column(children: separatedChildren),
         ),
       ),

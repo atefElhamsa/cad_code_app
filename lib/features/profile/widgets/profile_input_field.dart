@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_theme.dart';
 
@@ -22,7 +23,7 @@ class ProfileInputField extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.02),
@@ -35,23 +36,23 @@ class ProfileInputField extends StatelessWidget {
         controller: controller,
         keyboardType: keyboardType,
         enabled: enabled,
-        style: const TextStyle(
+        style: TextStyle(
           color: AppTheme.textDarkNavy,
-          fontSize: 16,
+          fontSize: 16.sp,
           fontWeight: FontWeight.w500,
           fontFamily: 'Inter',
         ),
         decoration: InputDecoration(
           hintText: hintText,
-          hintStyle: TextStyle(color: Colors.grey.shade400, fontSize: 15),
+          hintStyle: TextStyle(color: Colors.grey.shade400, fontSize: 15.sp,),
           prefixIcon: Icon(icon, color: AppTheme.primaryCyan, size: 22),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(16.r),
             borderSide: BorderSide.none,
           ),
           filled: true,
           fillColor: Colors.transparent,
-          contentPadding: const EdgeInsets.symmetric(
+          contentPadding: EdgeInsets.symmetric(
             horizontal: 20,
             vertical: 16,
           ),

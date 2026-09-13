@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../widgets/session_tile.dart';
 import '../../../widgets/empty_state_widget.dart';
 import '../presentation/viewmodels/sessions_cubit/sessions_cubit.dart';
 import '../presentation/viewmodels/sessions_cubit/sessions_state.dart';
-import 'session_video_player_view.dart';
 
 class WorkspaceSessionsTab extends StatelessWidget {
   const WorkspaceSessionsTab({super.key});
@@ -15,12 +17,27 @@ class WorkspaceSessionsTab extends StatelessWidget {
     return BlocBuilder<SessionsCubit, SessionsState>(
       builder: (context, state) {
         if (state is SessionsLoading) {
-          return const Center(child: CircularProgressIndicator());
+          return ListView.builder(
+            padding: EdgeInsets.all(16.w),
+            itemCount: 5,
+            itemBuilder: (context, index) {
+              return Container(
+                    margin: EdgeInsets.only(bottom: 12.h),
+                    height: 80.h,
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade300,
+                      borderRadius: BorderRadius.circular(16.r),
+                    ),
+                  )
+                  .animate(onPlay: (controller) => controller.repeat())
+                  .shimmer(duration: 1200.ms, color: Colors.white54);
+            },
+          );
         } else if (state is SessionsError) {
           return Center(
             child: Text(
               'Failed to load sessions: ${state.message}',
-              style: const TextStyle(color: Colors.red),
+              style: TextStyle(color: Colors.red),
             ),
           );
         } else if (state is SessionsLoaded) {
@@ -33,7 +50,7 @@ class WorkspaceSessionsTab extends StatelessWidget {
           }
 
           return ListView.builder(
-            padding: const EdgeInsets.all(16),
+            padding: EdgeInsets.all(16),
             itemCount: state.sessions.length,
             itemBuilder: (context, index) {
               final session = state.sessions[index];
@@ -41,13 +58,12 @@ class WorkspaceSessionsTab extends StatelessWidget {
                 title: session.title,
                 duration: session.duration ?? '',
                 onPlay: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) => SessionVideoPlayerView(
-                        driveUrl: session.driveUrl,
-                        title: session.title,
-                      ),
-                    ),
+                  context.push(
+                    '/video-player',
+                    extra: {
+                      'driveUrl': session.driveUrl,
+                      'title': session.title,
+                    },
                   );
                 },
               );
@@ -55,7 +71,7 @@ class WorkspaceSessionsTab extends StatelessWidget {
           );
         }
 
-        return const SizedBox.shrink();
+        return SizedBox.shrink();
       },
     );
   }

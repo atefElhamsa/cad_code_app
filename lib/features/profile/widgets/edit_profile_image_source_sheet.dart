@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -11,29 +12,29 @@ class EditProfileImageSourceSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.all(24),
+        padding: EdgeInsets.all(24),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              width: 40,
-              height: 4,
+              width: 40.w,
+              height: 4.h,
               decoration: BoxDecoration(
                 color: Colors.grey[300],
-                borderRadius: BorderRadius.circular(2),
+                borderRadius: BorderRadius.circular(2.r),
               ),
             ),
-            const SizedBox(height: 20),
-            const Text(
+            SizedBox(height: 20.h,),
+            Text(
               'Change Profile Photo',
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 18.sp,
                 fontWeight: FontWeight.w800,
                 color: AppTheme.textDarkNavy,
                 fontFamily: 'Inter',
               ),
             ),
-            const SizedBox(height: 24),
+            SizedBox(height: 24.h,),
             Row(
               children: [
                 Expanded(
@@ -43,7 +44,7 @@ class EditProfileImageSourceSheet extends StatelessWidget {
                     onTap: () => Navigator.pop(context, ImageSource.gallery),
                   ),
                 ),
-                const SizedBox(width: 16),
+                SizedBox(width: 16.w,),
                 Expanded(
                   child: EditProfileSourceOption(
                     icon: Icons.camera_alt_rounded,
@@ -53,7 +54,7 @@ class EditProfileImageSourceSheet extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 8),
+            SizedBox(height: 8.h,),
           ],
         ),
       ),

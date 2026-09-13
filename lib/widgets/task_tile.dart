@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/theme/app_theme.dart';
@@ -30,11 +31,11 @@ class TaskTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 16),
-      padding: const EdgeInsets.all(16),
+      margin: EdgeInsets.only(bottom: 16),
+      padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(20.r),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.04),
@@ -47,13 +48,13 @@ class TaskTile extends StatelessWidget {
         children: [
           // Icon Box
           Container(
-            width: 52,
-            height: 52,
-            decoration: const BoxDecoration(
+            width: 52.w,
+            height: 52.h,
+            decoration: BoxDecoration(
               color: Color(0xFFFDF7E6),
               shape: BoxShape.circle,
             ),
-            child: const Center(
+            child: Center(
               child: Icon(
                 Icons.assignment_rounded,
                 color: Color(0xFFB8860B),
@@ -61,7 +62,7 @@ class TaskTile extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(width: 16),
+          SizedBox(width: 16.w,),
           // Texts and Badge
           Expanded(
             child: Column(
@@ -69,40 +70,40 @@ class TaskTile extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontWeight: FontWeight.w900,
-                    fontSize: 16,
+                    fontSize: 16.sp,
                     color: AppTheme.textDarkNavy,
                     fontFamily: 'Inter',
                   ),
                 ),
-                const SizedBox(height: 8),
+                SizedBox(height: 8.h,),
                 Container(
-                  padding: const EdgeInsets.symmetric(
+                  padding: EdgeInsets.symmetric(
                     horizontal: 10,
                     vertical: 4,
                   ),
                   decoration: BoxDecoration(
                     color: _getStatusColor().withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(20.r),
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Container(
-                        width: 6,
-                        height: 6,
+                        width: 6.w,
+                        height: 6.h,
                         decoration: BoxDecoration(
                           color: _getStatusColor(),
                           shape: BoxShape.circle,
                         ),
                       ),
-                      const SizedBox(width: 6),
+                      SizedBox(width: 6.w,),
                       Text(
                         status.toUpperCase(),
                         style: TextStyle(
                           color: _getStatusColor(),
-                          fontSize: 11,
+                          fontSize: 11.sp,
                           fontWeight: FontWeight.w900,
                           letterSpacing: 0.5,
                         ),
@@ -117,12 +118,12 @@ class TaskTile extends StatelessWidget {
           if (status.toLowerCase() == 'pending')
             IconButton(
               icon: Container(
-                padding: const EdgeInsets.all(10),
+                padding: EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   color: AppTheme.primaryCyan.withValues(alpha: 0.15),
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(
+                child: Icon(
                   Icons.cloud_upload_rounded,
                   color: AppTheme.primaryCyan,
                   size: 22,
@@ -132,7 +133,7 @@ class TaskTile extends StatelessWidget {
               splashRadius: 24,
             )
           else if (status.toLowerCase() == 'reviewed')
-            const Padding(
+            Padding(
               padding: EdgeInsets.only(right: 8.0),
               child: Icon(
                 Icons.check_circle_rounded,
@@ -141,7 +142,7 @@ class TaskTile extends StatelessWidget {
               ),
             )
           else if (status.toLowerCase() == 'submitted')
-            const Padding(
+            Padding(
               padding: EdgeInsets.only(right: 8.0),
               child: Icon(
                 Icons.hourglass_bottom_rounded,

@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/theme/app_theme.dart';
@@ -19,10 +20,10 @@ class EditProfileSourceOption extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 20),
+        padding: EdgeInsets.symmetric(vertical: 20),
         decoration: BoxDecoration(
           color: AppTheme.primaryCyan.withValues(alpha: 0.08),
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(16.r),
           border: Border.all(
             color: AppTheme.primaryCyan.withValues(alpha: 0.2),
           ),
@@ -30,14 +31,14 @@ class EditProfileSourceOption extends StatelessWidget {
         child: Column(
           children: [
             Icon(icon, color: AppTheme.primaryCyan, size: 32),
-            const SizedBox(height: 8),
+            SizedBox(height: 8.h,),
             Text(
               label,
-              style: const TextStyle(
+              style: TextStyle(
                 color: AppTheme.textDarkNavy,
                 fontWeight: FontWeight.w600,
                 fontFamily: 'Inter',
-                fontSize: 14,
+                fontSize: 14.sp,
               ),
             ),
           ],

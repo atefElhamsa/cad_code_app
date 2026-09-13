@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -53,13 +54,13 @@ class BottomNavItem extends StatelessWidget {
                       : Colors.grey.shade400,
                 ),
                 if (isActive) ...[
-                  const SizedBox(width: 6),
+                  SizedBox(width: 6.w,),
                   Text(
                     label,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppTheme.primaryGoldDark,
                       fontWeight: FontWeight.bold,
-                      fontSize: 14,
+                      fontSize: 14.sp,
                       letterSpacing: 0.3,
                       fontFamily: 'Inter',
                     ),

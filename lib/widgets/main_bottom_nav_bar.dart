@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -16,18 +17,18 @@ class MainBottomNavBar extends StatelessWidget {
         alignment: Alignment.bottomCenter,
         heightFactor: 1.0,
         child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 600),
+          constraints: BoxConstraints(maxWidth: 600),
           child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+            margin: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
             clipBehavior: Clip.antiAlias,
             decoration: BoxDecoration(
               color: AppTheme.backgroundWhite,
-              borderRadius: BorderRadius.circular(32),
+              borderRadius: BorderRadius.circular(32.r),
               border: Border.all(
                 color: AppTheme.primaryGoldLight.withValues(alpha: 0.3),
-                width: 1,
+                width: 1.w,
               ),
-              boxShadow: const [
+              boxShadow: [
                 BoxShadow(
                   color: Colors.black12,
                   blurRadius: 15,
@@ -49,7 +50,7 @@ class MainBottomNavBar extends StatelessWidget {
                 }
 
                 return SizedBox(
-                  height: 60,
+                  height: 60.h,
                   child: Stack(
                     alignment: Alignment.center,
                     children: [
@@ -65,12 +66,12 @@ class MainBottomNavBar extends StatelessWidget {
                               color: AppTheme.primaryGoldLight.withValues(
                                 alpha: 0.15,
                               ),
-                              borderRadius: BorderRadius.circular(32),
+                              borderRadius: BorderRadius.circular(32.r),
                               border: Border.all(
                                 color: AppTheme.primaryGoldLight.withValues(
                                   alpha: 0.4,
                                 ),
-                                width: 1,
+                                width: 1.w,
                               ),
                             ),
                           ),

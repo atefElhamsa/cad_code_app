@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,36 +26,36 @@ class EditProfileFormSection extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               'Personal Information',
               style: TextStyle(
-                fontSize: 20,
+                fontSize: 20.sp,
                 fontWeight: FontWeight.w800,
                 color: AppTheme.textDarkNavy,
                 fontFamily: 'Inter',
               ),
             ).animate().fade(delay: 100.ms).slideY(begin: 0.1),
-            const SizedBox(height: 8),
-            const Text(
+            SizedBox(height: 8.h,),
+            Text(
               'Update your name and phone number so we can reach you.',
               style: TextStyle(
-                fontSize: 14,
+                fontSize: 14.sp,
                 color: AppTheme.textGray,
                 fontFamily: 'Inter',
               ),
             ).animate().fade(delay: 200.ms).slideY(begin: 0.1),
-            const SizedBox(height: 32),
+            SizedBox(height: 32.h,),
             const FieldLabel('Full Name').animate().fade(delay: 300.ms),
-            const SizedBox(height: 8),
+            SizedBox(height: 8.h,),
             ProfileInputField(
               controller: cubit.nameController,
               hintText: 'e.g. John Doe',
               icon: Icons.person_outline_rounded,
               enabled: !isAuthLoading,
             ).animate().fade(delay: 350.ms).slideY(begin: 0.1),
-            const SizedBox(height: 24),
+            SizedBox(height: 24.h,),
             const FieldLabel('Phone Number').animate().fade(delay: 400.ms),
-            const SizedBox(height: 8),
+            SizedBox(height: 8.h,),
             ProfileInputField(
               controller: cubit.phoneController,
               hintText: 'e.g. 01012345678',
@@ -62,7 +63,7 @@ class EditProfileFormSection extends StatelessWidget {
               keyboardType: TextInputType.phone,
               enabled: !isAuthLoading,
             ).animate().fade(delay: 450.ms).slideY(begin: 0.1),
-            const SizedBox(height: 48),
+            SizedBox(height: 48.h,),
             PrimaryActionButton(
               text: 'Save Changes',
               isLoading: isAuthLoading,

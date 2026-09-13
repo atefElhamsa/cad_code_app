@@ -17,7 +17,7 @@ class CcLogo extends StatelessWidget {
         borderRadius: BorderRadius.circular(size * 0.15),
         boxShadow: [
           BoxShadow(
-            color: AppTheme.primaryCyan.withOpacity(0.3),
+            color: AppTheme.primaryCyan.withValues(alpha: 0.3),
             blurRadius: size * 0.25,
             spreadRadius: size * 0.05,
           ),

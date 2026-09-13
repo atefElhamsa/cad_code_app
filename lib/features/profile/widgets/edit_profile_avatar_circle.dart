@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -20,8 +21,8 @@ class EditProfileAvatarCircle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 110,
-      height: 110,
+      width: 110.w,
+      height: 110.h,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         color: AppTheme.primaryCyan.withValues(alpha: 0.1),
@@ -39,7 +40,7 @@ class EditProfileAvatarCircle extends StatelessWidget {
 
   Widget _buildChild() {
     if (isLoading) {
-      return const Center(
+      return Center(
         child: CircularProgressIndicator(
           strokeWidth: 2,
           color: AppTheme.primaryCyan,
@@ -51,11 +52,13 @@ class EditProfileAvatarCircle extends StatelessWidget {
     if (localImagePath != null && localImagePath!.isNotEmpty) {
       return Image.file(
         File(localImagePath!),
-        width: 110,
-        height: 110,
+        width: 110.w,
+        height: 110.h,
         fit: BoxFit.cover,
         filterQuality: FilterQuality.high,
-        errorBuilder: (_, __, _e) => const EditProfilePersonIcon(),
+        cacheWidth: 330,
+        cacheHeight: 330,
+        errorBuilder: (_, _, e) => const EditProfilePersonIcon(),
       );
     }
 
@@ -63,12 +66,14 @@ class EditProfileAvatarCircle extends StatelessWidget {
     if (avatarUrl != null && avatarUrl!.isNotEmpty) {
       return Image.network(
         avatarUrl!,
-        width: 110,
-        height: 110,
+        width: 110.w,
+        height: 110.h,
         fit: BoxFit.cover,
         filterQuality: FilterQuality.high,
         isAntiAlias: true,
-        errorBuilder: (_, __, _e) => const EditProfilePersonIcon(),
+        cacheWidth: 330,
+        cacheHeight: 330,
+        errorBuilder: (_, _, e) => const EditProfilePersonIcon(),
       );
     }
 

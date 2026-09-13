@@ -27,7 +27,7 @@ class CourseDetailView extends StatelessWidget {
           BrandHeader(title: title, showBack: true),
           Expanded(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.only(
+              padding: EdgeInsets.only(
                 left: 16.0,
                 right: 16.0,
                 bottom: 24.0,

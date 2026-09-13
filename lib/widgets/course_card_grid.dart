@@ -1,5 +1,4 @@
-import 'dart:ui';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/theme/app_theme.dart';
@@ -25,10 +24,10 @@ class CourseCardGrid extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: AppTheme.backgroundDarkNavy,
-          borderRadius: BorderRadius.circular(24),
+          borderRadius: BorderRadius.circular(24.r),
           border: Border.all(
             color: AppTheme.primaryGoldLight.withValues(alpha: 0.5),
-            width: 1,
+            width: 1.w,
           ),
           boxShadow: [
             BoxShadow(
@@ -57,7 +56,7 @@ class CourseCardGrid extends StatelessWidget {
                       Colors.black.withValues(alpha: 0.2),
                       Colors.black.withValues(alpha: 0.85),
                     ],
-                    stops: const [0.0, 0.4, 1.0],
+                    stops: [0.0, 0.4, 1.0],
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                   ),
@@ -67,32 +66,35 @@ class CourseCardGrid extends StatelessWidget {
 
             // Bottom Content: Title and Action Button
             Positioned(
-              left: 16,
-              bottom: 16,
-              right: 16,
+              left: 10,
+              bottom: 10,
+              right: 10,
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Expanded(
-                    child: Text(
-                      title,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w900,
-                        fontSize: 18,
-                        fontFamily: 'Inter',
-                        height: 1.2,
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      alignment: AlignmentDirectional.centerStart,
+                      child: Text(
+                        title,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w900,
+                          fontSize: 15.sp,
+                          fontFamily: 'Inter',
+                          height: 1.2,
+                        ),
+                        maxLines: 1,
                       ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  const SizedBox(width: 8),
+                  SizedBox(width: 12.w,),
 
                   // Premium Action Button
                   Container(
-                    width: 32,
-                    height: 32,
+                    width: 32.w,
+                    height: 32.h,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       gradient: AppTheme.goldGradient,
@@ -106,7 +108,7 @@ class CourseCardGrid extends StatelessWidget {
                         ),
                       ],
                     ),
-                    child: const Icon(
+                    child: Icon(
                       Icons.arrow_forward_rounded,
                       color: Colors.white,
                       size: 18,

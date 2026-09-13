@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -45,8 +46,8 @@ class _SplashViewState extends State<SplashView> {
 
   @override
   Widget build(BuildContext context) {
-    const textStyle = TextStyle(
-      fontSize: 36,
+    final textStyle = TextStyle(
+      fontSize: 36.sp,
       fontWeight: FontWeight.w900,
       fontFamily: 'Inter',
     );
@@ -64,16 +65,16 @@ class _SplashViewState extends State<SplashView> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const SplashLogo(),
-                  const SizedBox(height: 30),
+                  SizedBox(height: 30.h,),
                   Row(
                     mainAxisSize: MainAxisSize.min,
-                    children: const [
+                    children: [
                       AnimatedSplashText(
                         text: 'C&C',
                         style: textStyle,
                         delayOffset: 800,
                       ),
-                      SizedBox(width: 8),
+                      SizedBox(width: 8.w,),
                       AnimatedSplashText(
                         text: 'Academy',
                         style: textStyle,

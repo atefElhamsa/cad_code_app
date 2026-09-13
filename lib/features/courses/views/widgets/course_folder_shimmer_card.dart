@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
@@ -14,7 +15,7 @@ class CourseFolderShimmerCard extends StatelessWidget {
     return Container(
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(20.r),
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withValues(alpha: 0.05),
@@ -30,49 +31,49 @@ class CourseFolderShimmerCard extends StatelessWidget {
                 height: imageHeight,
                 decoration: BoxDecoration(
                   color: AppTheme.backgroundDarkNavy.withValues(alpha: 0.1),
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20.r),
+                    topRight: Radius.circular(20.r),
                   ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: EdgeInsets.all(20.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Container(
-                      height: 24,
-                      width: 150,
+                      height: 24.h,
+                      width: 150.w,
                       decoration: BoxDecoration(
                         color: AppTheme.backgroundDarkNavy.withValues(
                           alpha: 0.1,
                         ),
-                        borderRadius: BorderRadius.circular(4),
+                        borderRadius: BorderRadius.circular(4.r),
                       ),
                     ),
-                    const SizedBox(height: 12),
+                    SizedBox(height: 12.h,),
                     Container(
-                      height: 16,
+                      height: 16.h,
                       width: double.infinity,
                       decoration: BoxDecoration(
                         color: AppTheme.backgroundDarkNavy.withValues(
                           alpha: 0.1,
                         ),
-                        borderRadius: BorderRadius.circular(4),
+                        borderRadius: BorderRadius.circular(4.r),
                       ),
                     ),
-                    const SizedBox(height: 24),
+                    SizedBox(height: 24.h,),
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Container(
-                        height: 48,
-                        width: 140,
+                        height: 48.h,
+                        width: 140.w,
                         decoration: BoxDecoration(
                           color: AppTheme.backgroundDarkNavy.withValues(
                             alpha: 0.1,
                           ),
-                          borderRadius: BorderRadius.circular(24),
+                          borderRadius: BorderRadius.circular(24.r),
                         ),
                       ),
                     ),

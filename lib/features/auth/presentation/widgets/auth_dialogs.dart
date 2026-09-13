@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/theme/app_theme.dart';
@@ -17,11 +18,11 @@ class AuthDialogs {
       builder: (ctx) => Dialog(
         backgroundColor: Colors.transparent,
         child: Container(
-          padding: const EdgeInsets.all(24),
+          padding: EdgeInsets.all(24),
           decoration: BoxDecoration(
             color: AppTheme.backgroundDarkNavy,
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: color.withValues(alpha: 0.3), width: 1),
+            borderRadius: BorderRadius.circular(20.r),
+            border: Border.all(color: color.withValues(alpha: 0.3), width: 1.w,),
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withValues(alpha: 0.5),
@@ -34,28 +35,28 @@ class AuthDialogs {
             mainAxisSize: MainAxisSize.min,
             children: [
               Icon(icon, color: color, size: 48),
-              const SizedBox(height: 16),
+              SizedBox(height: 16.h,),
               Text(
                 title,
-                style: const TextStyle(
+                style: TextStyle(
                   color: Colors.white,
-                  fontSize: 22,
+                  fontSize: 22.sp,
                   fontWeight: FontWeight.bold,
                   letterSpacing: 0.5,
                 ),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 12),
+              SizedBox(height: 12.h,),
               Text(
                 message,
-                style: const TextStyle(
+                style: TextStyle(
                   color: Colors.white70,
-                  fontSize: 15,
+                  fontSize: 15.sp,
                   height: 1.5,
                 ),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 24),
+              SizedBox(height: 24.h,),
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
@@ -63,16 +64,16 @@ class AuthDialogs {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: color,
                     foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    padding: EdgeInsets.symmetric(vertical: 14),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(12.r),
                     ),
                     elevation: 0,
                   ),
                   child: Text(
                     buttonText,
-                    style: const TextStyle(
-                      fontSize: 16,
+                    style: TextStyle(
+                      fontSize: 16.sp,
                       fontWeight: FontWeight.bold,
                     ),
                   ),

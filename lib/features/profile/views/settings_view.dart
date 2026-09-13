@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -31,9 +32,9 @@ class SettingsView extends StatelessWidget {
           Expanded(
             child: Center(
               child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 700),
+                constraints: BoxConstraints(maxWidth: 700),
                 child: ListView(
-                  padding: const EdgeInsets.only(
+                  padding: EdgeInsets.only(
                     left: 20.0,
                     right: 20.0,
                     top: 20.0,
@@ -66,7 +67,7 @@ class SettingsView extends StatelessWidget {
                         .fade(duration: 400.ms, delay: 100.ms)
                         .slideY(begin: 0.1, curve: Curves.easeOutQuad),
 
-                    const SizedBox(height: 24),
+                    SizedBox(height: 24.h,),
 
                     // Social Media Group
                     SettingsCard(

@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,69 +14,69 @@ class DeleteAccountDialog extends StatelessWidget {
     return AlertDialog(
       backgroundColor: Colors.white,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(24),
+        borderRadius: BorderRadius.circular(24.r),
       ),
-      contentPadding: const EdgeInsets.all(24),
+      contentPadding: EdgeInsets.all(24),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            padding: const EdgeInsets.all(16),
+            padding: EdgeInsets.all(16),
             decoration: BoxDecoration(
               color: Colors.redAccent.withValues(alpha: 0.1),
               shape: BoxShape.circle,
             ),
-            child: const Icon(
+            child: Icon(
               Icons.warning_rounded,
               color: Colors.redAccent,
               size: 36,
             ),
           ).animate().scale(delay: 100.ms, curve: Curves.easeOutBack),
-          const SizedBox(height: 20),
-          const Text(
+          SizedBox(height: 20.h,),
+          Text(
             'Delete Account?',
             style: TextStyle(
               color: AppTheme.textDarkNavy,
               fontWeight: FontWeight.w900,
-              fontSize: 22,
+              fontSize: 22.sp,
               fontFamily: 'Inter',
             ),
           ),
-          const SizedBox(height: 12),
-          const Text(
+          SizedBox(height: 12.h,),
+          Text(
             'Are you sure you want to permanently delete your account? This action cannot be undone and all your data will be lost.',
             textAlign: TextAlign.center,
             style: TextStyle(
               color: AppTheme.textGray,
-              fontSize: 15,
+              fontSize: 15.sp,
               height: 1.5,
               fontFamily: 'Inter',
             ),
           ),
-          const SizedBox(height: 32),
+          SizedBox(height: 32.h,),
           Row(
             children: [
               Expanded(
                 child: TextButton(
                   onPressed: () => context.pop(),
                   style: TextButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    padding: EdgeInsets.symmetric(vertical: 14),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(12.r),
                     ),
                   ),
-                  child: const Text(
+                  child: Text(
                     'Cancel',
                     style: TextStyle(
                       color: AppTheme.textGray,
                       fontWeight: FontWeight.bold,
-                      fontSize: 16,
+                      fontSize: 16.sp,
                       fontFamily: 'Inter',
                     ),
                   ),
                 ),
               ),
-              const SizedBox(width: 12),
+              SizedBox(width: 12.w,),
               Expanded(
                 child: ElevatedButton(
                   onPressed: () {
@@ -86,17 +87,17 @@ class DeleteAccountDialog extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.redAccent,
                     elevation: 0,
-                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    padding: EdgeInsets.symmetric(vertical: 14),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(12.r),
                     ),
                   ),
-                  child: const Text(
+                  child: Text(
                     'Delete',
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
-                      fontSize: 16,
+                      fontSize: 16.sp,
                       fontFamily: 'Inter',
                     ),
                   ),

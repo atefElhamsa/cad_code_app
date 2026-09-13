@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
@@ -65,8 +66,8 @@ class ProfileUserInfo extends StatelessWidget {
     return Column(
       children: [
         Container(
-          width: 140,
-          height: 140,
+          width: 140.w,
+          height: 140.h,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: AppTheme.primaryCyan.withValues(alpha: 0.1),
@@ -82,14 +83,14 @@ class ProfileUserInfo extends StatelessWidget {
             child: highQualityUrl != null
                 ? Image.network(
                     highQualityUrl,
-                    width: 140,
-                    height: 140,
+                    width: 140.w,
+                    height: 140.h,
                     fit: BoxFit.cover,
                     filterQuality: FilterQuality.high,
                     isAntiAlias: true,
                     cacheWidth: 400,
                     cacheHeight: 400,
-                    errorBuilder: (context, error, stackTrace) => const Icon(
+                    errorBuilder: (context, error, stackTrace) => Icon(
                       Icons.person_rounded,
                       color: AppTheme.primaryCyan,
                       size: 72,
@@ -108,42 +109,42 @@ class ProfileUserInfo extends StatelessWidget {
                       );
                     },
                   )
-                : const Icon(
+                : Icon(
                     Icons.person_rounded,
                     color: AppTheme.primaryCyan,
                     size: 72,
                   ),
           ),
         ).animate().scale(duration: 500.ms, curve: Curves.easeOutBack),
-        const SizedBox(height: 24),
+        SizedBox(height: 24.h,),
         Text(
           name,
-          style: const TextStyle(
-            fontSize: 28,
+          style: TextStyle(
+            fontSize: 28.sp,
             fontWeight: FontWeight.w900,
             color: AppTheme.textDarkNavy,
             fontFamily: 'Inter',
           ),
         ).animate().fade(delay: 200.ms).slideY(begin: 0.2),
-        const SizedBox(height: 12),
+        SizedBox(height: 12.h,),
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           decoration: BoxDecoration(
             color: Colors.green.withValues(alpha: 0.1),
-            borderRadius: BorderRadius.circular(100),
+            borderRadius: BorderRadius.circular(100.r),
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Icon(Icons.call_rounded, color: Colors.green, size: 18),
-              const SizedBox(width: 8),
+              Icon(Icons.call_rounded, color: Colors.green, size: 18),
+              SizedBox(width: 8.w,),
               Text(
                 phone,
-                style: const TextStyle(
+                style: TextStyle(
                   color: Colors.green,
                   fontWeight: FontWeight.w700,
                   fontFamily: 'Inter',
-                  fontSize: 14,
+                  fontSize: 14.sp,
                 ),
               ),
             ],

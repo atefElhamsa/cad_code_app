@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -24,7 +25,7 @@ class PaymentView extends StatelessWidget {
           Expanded(
             child: Center(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.all(24.0),
+                padding: EdgeInsets.all(24.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -32,13 +33,13 @@ class PaymentView extends StatelessWidget {
                         .animate()
                         .scale(duration: 600.ms, curve: Curves.easeOutBack)
                         .fade(duration: 500.ms),
-                    const SizedBox(height: 32),
-                    const Text(
+                    SizedBox(height: 32.h,),
+                    Text(
                       'Please transfer the amount to the\nInstaPay number above.',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.grey,
-                        fontSize: 14,
+                        fontSize: 14.sp,
                         fontFamily: 'Inter',
                         height: 1.5,
                       ),

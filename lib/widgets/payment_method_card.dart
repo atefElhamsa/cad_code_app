@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 
 import '../core/theme/app_theme.dart';
@@ -19,10 +20,10 @@ class PaymentMethodCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 16),
+      margin: EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(20.r),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.04),
@@ -34,29 +35,29 @@ class PaymentMethodCard extends StatelessWidget {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(20.r),
           onTap: onTap,
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(16.0),
             child: Row(
               children: [
                 Container(
-                  width: 50,
-                  height: 50,
+                  width: 50.w,
+                  height: 50.h,
                   decoration: BoxDecoration(
                     color: iconColor.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(14),
+                    borderRadius: BorderRadius.circular(14.r),
                   ),
                   child: Center(child: Icon(icon, color: iconColor, size: 26)),
                 ),
-                const SizedBox(width: 16),
+                SizedBox(width: 16.w,),
                 Expanded(
                   child: Text(
                     label,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppTheme.textDarkNavy,
                       fontWeight: FontWeight.w700,
-                      fontSize: 16,
+                      fontSize: 16.sp,
                       fontFamily: 'Inter',
                     ),
                   ),

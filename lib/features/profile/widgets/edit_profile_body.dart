@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -41,17 +42,17 @@ class EditProfileBody extends StatelessWidget {
               ),
               Expanded(
                 child: SingleChildScrollView(
-                  padding: const EdgeInsets.all(24),
+                  padding: EdgeInsets.all(24),
                   child: Center(
                     child: ConstrainedBox(
-                      constraints: const BoxConstraints(maxWidth: 700),
+                      constraints: BoxConstraints(maxWidth: 700),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           EditProfileAvatarSection(
                             isAuthLoading: isAuthLoading,
                           ),
-                          const SizedBox(height: 32),
+                          SizedBox(height: 32.h,),
                           EditProfileFormSection(isAuthLoading: isAuthLoading),
                         ],
                       ),

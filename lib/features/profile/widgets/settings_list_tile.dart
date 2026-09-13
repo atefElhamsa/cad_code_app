@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
@@ -26,13 +27,13 @@ class SettingsListTile extends StatelessWidget {
         (isDestructive ? const Color(0xFFE53935) : AppTheme.primaryCyan);
 
     return ListTile(
-      contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
+      contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 6),
       leading: Container(
-        width: 44,
-        height: 44,
+        width: 44.w,
+        height: 44.h,
         decoration: BoxDecoration(
           color: iconColor.withValues(alpha: 0.1),
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(12.r),
         ),
         child: Center(
           child: iconBuilder(iconColor).animate().scale(
@@ -47,7 +48,7 @@ class SettingsListTile extends StatelessWidget {
         style: TextStyle(
           color: isDestructive ? iconColor : AppTheme.textDarkNavy,
           fontWeight: FontWeight.w700,
-          fontSize: 16,
+          fontSize: 16.sp,
           fontFamily: 'Inter',
         ),
       ),

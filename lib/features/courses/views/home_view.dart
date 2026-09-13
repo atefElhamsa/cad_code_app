@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 
 import '../../../widgets/brand_header.dart';
@@ -17,12 +18,12 @@ class HomeView extends StatelessWidget {
           const BrandHeader(title: 'C&C Academy'),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: EdgeInsets.all(20.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const CoursesHeader(),
-                  const SizedBox(height: 12),
+                  SizedBox(height: 12.h,),
                   const Expanded(child: CoursesGridView()),
                 ],
               ),

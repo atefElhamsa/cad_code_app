@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -64,7 +65,7 @@ class _SignupViewState extends State<SignupView> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios, color: AppTheme.primaryGoldLight),
+          icon: Icon(Icons.arrow_back_ios, color: AppTheme.primaryGoldLight),
           onPressed: () => context.pop(),
         ),
       ),
@@ -85,22 +86,22 @@ class _SignupViewState extends State<SignupView> {
 
           return SafeArea(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.fromLTRB(24, 10, 24, 24),
+              padding: EdgeInsets.fromLTRB(24, 10, 24, 24),
               child: Center(
                 child: ConstrainedBox(
-                  constraints: const BoxConstraints(maxWidth: 500),
+                  constraints: BoxConstraints(maxWidth: 500),
                   child: Form(
                     key: _formKey,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         const SignupLogo(),
-                        const SizedBox(height: 30),
+                        SizedBox(height: 30.h,),
                         const AuthTitle(
                           title: 'Create Account',
                           subtitle: 'Join the ultimate coding journey',
                         ),
-                        const SizedBox(height: 40),
+                        SizedBox(height: 40.h,),
                         CustomTextField(
                           controller: _nameController,
                           hintText: 'Full Name',
@@ -109,7 +110,7 @@ class _SignupViewState extends State<SignupView> {
                               ? 'Please enter your name'
                               : null,
                         ).animate().fadeIn(delay: 400.ms).slideX(begin: 0.2, curve: Curves.easeOut),
-                        const SizedBox(height: 16),
+                        SizedBox(height: 16.h,),
                         CustomTextField(
                           controller: _emailController,
                           hintText: 'Email',
@@ -119,7 +120,7 @@ class _SignupViewState extends State<SignupView> {
                               ? 'Please enter your email'
                               : null,
                         ).animate().fadeIn(delay: 500.ms).slideX(begin: -0.2, curve: Curves.easeOut),
-                        const SizedBox(height: 16),
+                        SizedBox(height: 16.h,),
                         CustomTextField(
                           controller: _phoneController,
                           hintText: 'Guardian Phone (WhatsApp)',
@@ -129,7 +130,7 @@ class _SignupViewState extends State<SignupView> {
                               ? 'Please enter your phone number'
                               : null,
                         ).animate().fadeIn(delay: 600.ms).slideX(begin: 0.2, curve: Curves.easeOut),
-                        const SizedBox(height: 16),
+                        SizedBox(height: 16.h,),
                         CustomTextField(
                           controller: _passwordController,
                           hintText: 'Password',
@@ -139,7 +140,7 @@ class _SignupViewState extends State<SignupView> {
                               ? 'Password must be 6+ characters'
                               : null,
                         ).animate().fadeIn(delay: 700.ms).slideX(begin: -0.2, curve: Curves.easeOut),
-                        const SizedBox(height: 16),
+                        SizedBox(height: 16.h,),
                         CustomTextField(
                           controller: _confirmPasswordController,
                           hintText: 'Confirm Password',
@@ -149,19 +150,19 @@ class _SignupViewState extends State<SignupView> {
                               ? 'Please confirm your password'
                               : null,
                         ).animate().fadeIn(delay: 800.ms).slideX(begin: 0.2, curve: Curves.easeOut),
-                        const SizedBox(height: 40),
+                        SizedBox(height: 40.h,),
                         PrimaryGradientButton(
                           text: 'Sign Up',
                           isLoading: _isEmailLoading,
                           onPressed: isLoading ? null : _onSignUp,
                         ).animate().fadeIn(delay: 900.ms).scale(curve: Curves.easeOutBack),
-                        const SizedBox(height: 25),
+                        SizedBox(height: 25.h,),
                         AuthFooterLink(
                           normalText: 'Already have an account? ',
                           linkText: 'Sign in',
                           onTap: () => context.pop(),
                         ),
-                        const SizedBox(height: 40),
+                        SizedBox(height: 40.h,),
                       ],
                     ),
                   ),

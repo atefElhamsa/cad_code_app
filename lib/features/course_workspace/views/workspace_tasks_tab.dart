@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,7 +16,7 @@ class WorkspaceTasksTab extends StatelessWidget {
     return BlocBuilder<WorkspaceTasksCubit, WorkspaceTasksState>(
       builder: (context, state) {
         if (state is WorkspaceTasksLoading) {
-          return const Center(
+          return Center(
             child: CircularProgressIndicator(color: Color(0xFFD4AF37)),
           );
         } else if (state is WorkspaceTasksLoaded) {
@@ -27,7 +28,7 @@ class WorkspaceTasksTab extends StatelessWidget {
             );
           }
           return ListView.builder(
-            padding: const EdgeInsets.all(16),
+            padding: EdgeInsets.all(16),
             itemCount: state.tasks.length,
             itemBuilder: (context, index) {
               final task = state.tasks[index];
@@ -51,11 +52,11 @@ class WorkspaceTasksTab extends StatelessWidget {
           return Center(
             child: Text(
               state.message,
-              style: const TextStyle(color: Colors.red),
+              style: TextStyle(color: Colors.red),
             ),
           );
         }
-        return const SizedBox();
+        return SizedBox();
       },
     );
   }
@@ -79,11 +80,11 @@ class _ItemTile extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: const EdgeInsets.only(bottom: 16),
-        padding: const EdgeInsets.all(16),
+        margin: EdgeInsets.only(bottom: 16),
+        padding: EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(20.r),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withValues(alpha: 0.04),
@@ -96,22 +97,22 @@ class _ItemTile extends StatelessWidget {
           children: [
             // Icon box
             Container(
-              width: 52,
-              height: 52,
+              width: 52.w,
+              height: 52.h,
               decoration: BoxDecoration(
                 color: iconColor.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(16.r),
               ),
               child: Icon(icon, color: iconColor, size: 28),
             ),
-            const SizedBox(width: 16),
+            SizedBox(width: 16.w,),
             // Title
             Expanded(
               child: Text(
                 title,
-                style: const TextStyle(
+                style: TextStyle(
                   fontWeight: FontWeight.w900,
-                  fontSize: 15,
+                  fontSize: 15.sp,
                   color: AppTheme.textDarkNavy,
                   fontFamily: 'Inter',
                 ),
@@ -119,17 +120,17 @@ class _ItemTile extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
             ),
-            const SizedBox(width: 8),
+            SizedBox(width: 8.w,),
             // View button
             GestureDetector(
               onTap: onTap,
               child: Container(
-                padding: const EdgeInsets.all(10),
+                padding: EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   color: AppTheme.primaryGoldLight.withValues(alpha: 0.15),
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(
+                child: Icon(
                   Icons.visibility_rounded,
                   color: AppTheme.primaryGoldDark,
                   size: 22,

@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/theme/app_theme.dart';
@@ -20,16 +21,16 @@ class CourseCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: BorderRadius.circular(16.r),
       child: Container(
-        padding: const EdgeInsets.all(20),
+        padding: EdgeInsets.all(20),
         decoration: BoxDecoration(
           color: AppTheme.backgroundWhite,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: AppTheme.primaryCyan.withOpacity(0.5)),
+          borderRadius: BorderRadius.circular(16.r),
+          border: Border.all(color: AppTheme.primaryCyan.withValues(alpha: 0.5)),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: Colors.black.withValues(alpha: 0.05),
               blurRadius: 8,
               offset: const Offset(0, 4),
             ),
@@ -38,13 +39,13 @@ class CourseCard extends StatelessWidget {
         child: Row(
           children: [
             Container(
-              width: 50,
-              height: 50,
+              width: 50.w,
+              height: 50.h,
               decoration: BoxDecoration(
                 color: AppTheme.backgroundLight,
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(10.r),
                 border: Border.all(
-                  color: AppTheme.primaryCyan.withOpacity(0.3),
+                  color: AppTheme.primaryCyan.withValues(alpha: 0.3),
                 ),
               ),
               child: Icon(
@@ -52,24 +53,24 @@ class CourseCard extends StatelessWidget {
                 color: AppTheme.primaryCyan,
               ),
             ),
-            const SizedBox(width: 16),
+            SizedBox(width: 16.w,),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     title,
-                    style: const TextStyle(
-                      fontSize: 18,
+                    style: TextStyle(
+                      fontSize: 18.sp,
                       fontWeight: FontWeight.bold,
                       color: AppTheme.textDarkNavy,
                     ),
                   ),
-                  const SizedBox(height: 4),
+                  SizedBox(height: 4.h,),
                   Text(
                     'Learn basics of $topic',
-                    style: const TextStyle(
-                      fontSize: 14,
+                    style: TextStyle(
+                      fontSize: 14.sp,
                       color: AppTheme.textDarkNavy,
                     ),
                   ),
@@ -78,7 +79,7 @@ class CourseCard extends StatelessWidget {
             ),
             Icon(
               Icons.chevron_right,
-              color: AppTheme.primaryCyan.withOpacity(0.5),
+              color: AppTheme.primaryCyan.withValues(alpha: 0.5),
             ),
           ],
         ),

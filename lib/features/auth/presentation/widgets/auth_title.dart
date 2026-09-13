@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
@@ -13,8 +14,8 @@ class AuthTitle extends StatelessWidget {
       children: [
         Text(
               title,
-              style: const TextStyle(
-                fontSize: 32,
+              style: TextStyle(
+                fontSize: 32.sp,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
               ),
@@ -23,11 +24,11 @@ class AuthTitle extends StatelessWidget {
             .animate()
             .fadeIn(delay: 200.ms)
             .slideY(begin: 0.2, curve: Curves.easeOut),
-        const SizedBox(height: 8),
+        SizedBox(height: 8.h,),
         Text(
               subtitle,
               style: TextStyle(
-                fontSize: 16,
+                fontSize: 16.sp,
                 color: Colors.white.withValues(alpha: 0.6),
               ),
               textAlign: TextAlign.center,

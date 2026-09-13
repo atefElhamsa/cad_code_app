@@ -156,7 +156,9 @@ class SupabaseAuthRemoteDataSourceImpl implements AuthRemoteDataSource {
             .update(updateData)
             .eq('id', response.user!.id);
       }
-    } catch (e) {}
+    } catch (e) {
+      // Ignore error if profile update fails
+    }
 
     return _mapSupabaseUserToAuthUser(response.user!);
   }
@@ -205,7 +207,9 @@ class SupabaseAuthRemoteDataSourceImpl implements AuthRemoteDataSource {
           .from('profiles')
           .update({'avatar_url': urlWithTimestamp})
           .eq('id', user.id);
-    } catch (e) {}
+    } catch (e) {
+      // Ignore error if profile update fails
+    }
 
     return urlWithTimestamp;
   }

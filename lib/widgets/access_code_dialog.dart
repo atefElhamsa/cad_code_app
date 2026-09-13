@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -37,16 +38,16 @@ class _AccessCodeDialogState extends State<AccessCodeDialog> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Row(
-                children: const [
+                children: [
                   Icon(Icons.check_circle, color: Colors.white, size: 24),
-                  SizedBox(width: 12),
+                  SizedBox(width: 12.w,),
                   Expanded(
                     child: Text(
                       'Access granted! Folder unlocked.',
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
-                        fontSize: 16,
+                        fontSize: 16.sp,
                       ),
                     ),
                   ),
@@ -55,9 +56,9 @@ class _AccessCodeDialogState extends State<AccessCodeDialog> {
               backgroundColor: Colors.green.shade600,
               behavior: SnackBarBehavior.floating,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(16.r),
               ),
-              margin: const EdgeInsets.only(bottom: 24, left: 24, right: 24),
+              margin: EdgeInsets.only(bottom: 24, left: 24, right: 24),
               elevation: 8,
               duration: const Duration(seconds: 3),
             ),
@@ -73,40 +74,40 @@ class _AccessCodeDialogState extends State<AccessCodeDialog> {
       },
       child: Dialog(
         backgroundColor: Colors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28.r)),
         child: SingleChildScrollView(
           child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 450),
+            constraints: BoxConstraints(maxWidth: 450),
             child: Padding(
-              padding: const EdgeInsets.all(28.0),
+              padding: EdgeInsets.all(28.0),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   const AccessCodeHeader(),
-                  const SizedBox(height: 28),
+                  SizedBox(height: 28.h,),
 
                   // Premium Text Field
                   AccessCodeInputField(controller: _codeController),
-                  const SizedBox(height: 16),
+                  SizedBox(height: 16.h,),
 
                   // Error Message
                   BlocBuilder<AccessCodeCubit, AccessCodeState>(
                     builder: (context, state) {
                       if (state is AccessCodeError) {
                         return Padding(
-                          padding: const EdgeInsets.only(bottom: 16.0),
+                          padding: EdgeInsets.only(bottom: 16.0),
                           child: Text(
                             state.message,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: Colors.red,
-                              fontSize: 14,
+                              fontSize: 14.sp,
                               fontWeight: FontWeight.bold,
                             ),
                             textAlign: TextAlign.center,
                           ),
                         );
                       }
-                      return const SizedBox(height: 16);
+                      return SizedBox(height: 16.h,);
                     },
                   ),
 

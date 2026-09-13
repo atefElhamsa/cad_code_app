@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:cad_code_academy/features/course_workspace/presentation/cubits/workspace_files_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,7 +16,7 @@ class WorkspaceFilesTab extends StatelessWidget {
     return BlocBuilder<WorkspaceFilesCubit, WorkspaceFilesState>(
       builder: (context, state) {
         if (state is WorkspaceFilesLoading) {
-          return const Center(
+          return Center(
             child: CircularProgressIndicator(color: Color(0xFFD4AF37)),
           );
         } else if (state is WorkspaceFilesLoaded) {
@@ -27,7 +28,7 @@ class WorkspaceFilesTab extends StatelessWidget {
             );
           }
           return ListView.builder(
-            padding: const EdgeInsets.all(16),
+            padding: EdgeInsets.all(16),
             itemCount: state.files.length,
             itemBuilder: (context, index) {
               final file = state.files[index];
@@ -49,11 +50,11 @@ class WorkspaceFilesTab extends StatelessWidget {
           return Center(
             child: Text(
               state.message,
-              style: const TextStyle(color: Colors.red),
+              style: TextStyle(color: Colors.red),
             ),
           );
         }
-        return const SizedBox();
+        return SizedBox();
       },
     );
   }
@@ -95,11 +96,11 @@ class _FileTileItem extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: const EdgeInsets.only(bottom: 16),
-        padding: const EdgeInsets.all(16),
+        margin: EdgeInsets.only(bottom: 16),
+        padding: EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(20.r),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withValues(alpha: 0.04),
@@ -112,22 +113,22 @@ class _FileTileItem extends StatelessWidget {
           children: [
             // Icon box
             Container(
-              width: 52,
-              height: 52,
+              width: 52.w,
+              height: 52.h,
               decoration: BoxDecoration(
                 color: color.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(16.r),
               ),
               child: Icon(_getIcon(), color: color, size: 28),
             ),
-            const SizedBox(width: 16),
+            SizedBox(width: 16.w,),
             // Title
             Expanded(
               child: Text(
                 title,
-                style: const TextStyle(
+                style: TextStyle(
                   fontWeight: FontWeight.w900,
-                  fontSize: 15,
+                  fontSize: 15.sp,
                   color: AppTheme.textDarkNavy,
                   fontFamily: 'Inter',
                 ),
@@ -135,17 +136,17 @@ class _FileTileItem extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
             ),
-            const SizedBox(width: 8),
+            SizedBox(width: 8.w,),
             // View button
             GestureDetector(
               onTap: onTap,
               child: Container(
-                padding: const EdgeInsets.all(10),
+                padding: EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   color: AppTheme.primaryGoldLight.withValues(alpha: 0.15),
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(
+                child: Icon(
                   Icons.visibility_rounded,
                   color: AppTheme.primaryGoldDark,
                   size: 22,

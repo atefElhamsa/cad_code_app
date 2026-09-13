@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
@@ -11,12 +12,12 @@ class AuthLogo extends StatelessWidget {
     return Column(
           children: [
             Container(
-              width: 80,
-              height: 80,
+              width: 80.w,
+              height: 80.h,
               decoration: BoxDecoration(
                 color: Colors.transparent,
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: AppTheme.primaryGoldLight, width: 3),
+                borderRadius: BorderRadius.circular(16.r),
+                border: Border.all(color: AppTheme.primaryGoldLight, width: 3.w,),
                 boxShadow: [
                   BoxShadow(
                     color: AppTheme.primaryGoldDark.withValues(alpha: 0.3),
@@ -31,10 +32,10 @@ class AuthLogo extends StatelessWidget {
                       AppTheme.goldGradient.createShader(
                         Rect.fromLTWH(0, 0, bounds.width, bounds.height),
                       ),
-                  child: const Text(
+                  child: Text(
                     'C',
                     style: TextStyle(
-                      fontSize: 50,
+                      fontSize: 50.sp,
                       fontWeight: FontWeight.w900,
                       color: Colors.white,
                       fontFamily: 'Inter',
@@ -43,15 +44,15 @@ class AuthLogo extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: 16.h,),
             ShaderMask(
               shaderCallback: (bounds) => AppTheme.goldGradient.createShader(
                 Rect.fromLTWH(0, 0, bounds.width, bounds.height),
               ),
-              child: const Text(
+              child: Text(
                 'C&C Academy',
                 style: TextStyle(
-                  fontSize: 24,
+                  fontSize: 24.sp,
                   fontWeight: FontWeight.w900,
                   color: Colors.white,
                   letterSpacing: 2.0,

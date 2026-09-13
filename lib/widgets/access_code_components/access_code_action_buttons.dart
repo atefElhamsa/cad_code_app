@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../core/theme/app_theme.dart';
@@ -25,15 +26,15 @@ class AccessCodeActionButtons extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                   color: Colors.grey.shade100,
-                  borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: Colors.grey.shade300, width: 1),
+                  borderRadius: BorderRadius.circular(16.r),
+                  border: Border.all(color: Colors.grey.shade300, width: 1.w,),
                 ),
                 child: TextButton(
                   onPressed: isLoading ? null : () => Navigator.pop(context),
                   style: TextButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 18),
+                    padding: EdgeInsets.symmetric(vertical: 18),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
+                      borderRadius: BorderRadius.circular(16.r),
                     ),
                   ),
                   child: Text(
@@ -41,18 +42,18 @@ class AccessCodeActionButtons extends StatelessWidget {
                     style: TextStyle(
                       color: Colors.grey.shade700,
                       fontWeight: FontWeight.bold,
-                      fontSize: 16,
+                      fontSize: 16.sp,
                     ),
                   ),
                 ),
               ),
             ),
-            const SizedBox(width: 12),
+            SizedBox(width: 12.w,),
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
                   color: AppTheme.primaryCyan,
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.circular(16.r),
                   boxShadow: [
                     BoxShadow(
                       color: AppTheme.primaryCyan.withValues(alpha: 0.4),
@@ -77,26 +78,26 @@ class AccessCodeActionButtons extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.transparent,
                     shadowColor: Colors.transparent,
-                    padding: const EdgeInsets.symmetric(vertical: 18),
+                    padding: EdgeInsets.symmetric(vertical: 18),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
+                      borderRadius: BorderRadius.circular(16.r),
                     ),
                   ),
                   child: isLoading
-                      ? const SizedBox(
-                          height: 20,
-                          width: 20,
+                      ? SizedBox(
+                          height: 20.h,
+                          width: 20.w,
                           child: CircularProgressIndicator(
                             color: Colors.white,
                             strokeWidth: 2.5,
                           ),
                         )
-                      : const Text(
+                      : Text(
                           'Unlock',
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w900,
-                            fontSize: 16,
+                            fontSize: 16.sp,
                           ),
                         ),
                 ),

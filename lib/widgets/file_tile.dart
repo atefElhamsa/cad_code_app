@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/theme/app_theme.dart';
@@ -43,11 +44,11 @@ class FileTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 16),
-      padding: const EdgeInsets.all(16),
+      margin: EdgeInsets.only(bottom: 16),
+      padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(20.r),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.04),
@@ -60,22 +61,22 @@ class FileTile extends StatelessWidget {
         children: [
           // File Icon Box
           Container(
-            width: 52,
-            height: 52,
+            width: 52.w,
+            height: 52.h,
             decoration: BoxDecoration(
               color: _getIconColor().withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(16.r),
             ),
             child: Icon(_getIcon(), color: _getIconColor(), size: 28),
           ),
-          const SizedBox(width: 16),
+          SizedBox(width: 16.w,),
           // File Name
           Expanded(
             child: Text(
               name,
-              style: const TextStyle(
+              style: TextStyle(
                 fontWeight: FontWeight.w900,
-                fontSize: 15,
+                fontSize: 15.sp,
                 color: AppTheme.textDarkNavy,
                 fontFamily: 'Inter',
               ),
@@ -83,16 +84,16 @@ class FileTile extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
             ),
           ),
-          const SizedBox(width: 8),
+          SizedBox(width: 8.w,),
           // Download Button
           IconButton(
             icon: Container(
-              padding: const EdgeInsets.all(10),
+              padding: EdgeInsets.all(10),
               decoration: BoxDecoration(
                 color: AppTheme.primaryGoldLight.withValues(alpha: 0.15),
                 shape: BoxShape.circle,
               ),
-              child: const Icon(
+              child: Icon(
                 Icons.cloud_download_rounded,
                 color: AppTheme.primaryGoldDark,
                 size: 22,

@@ -16,7 +16,7 @@ class PrimaryGradientText extends StatelessWidget {
       ),
       child: Text(
         text,
-        style: (style ?? const TextStyle()).copyWith(color: Colors.white),
+        style: (style ?? TextStyle()).copyWith(color: Colors.white),
       ),
     );
   }

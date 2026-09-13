@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 
 class CustomSnackBar {
@@ -10,15 +11,15 @@ class CustomSnackBar {
           showCloseIcon: true,
           content: Row(
             children: [
-              const Icon(Icons.error_outline, color: Colors.white, size: 28),
-              const SizedBox(width: 16),
+              Icon(Icons.error_outline, color: Colors.white, size: 28),
+              SizedBox(width: 16.w,),
               Expanded(
                 child: Text(
                   message,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w600,
-                    fontSize: 14,
+                    fontSize: 14.sp,
                   ),
                 ),
               ),
@@ -27,9 +28,9 @@ class CustomSnackBar {
           backgroundColor: Colors.redAccent.shade700,
           behavior: SnackBarBehavior.floating,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(16.r),
           ),
-          margin: const EdgeInsets.all(20),
+          margin: EdgeInsets.all(20),
           elevation: 10,
           duration: const Duration(seconds: 3),
         ),
@@ -45,19 +46,19 @@ class CustomSnackBar {
           showCloseIcon: true,
           content: Row(
             children: [
-              const Icon(
+              Icon(
                 Icons.check_circle_outline,
                 color: Colors.white,
                 size: 28,
               ),
-              const SizedBox(width: 16),
+              SizedBox(width: 16.w,),
               Expanded(
                 child: Text(
                   message,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w600,
-                    fontSize: 14,
+                    fontSize: 14.sp,
                   ),
                 ),
               ),
@@ -66,9 +67,9 @@ class CustomSnackBar {
           backgroundColor: Colors.green.shade600,
           behavior: SnackBarBehavior.floating,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(16.r),
           ),
-          margin: const EdgeInsets.all(20),
+          margin: EdgeInsets.all(20),
           elevation: 10,
           duration: const Duration(seconds: 1),
         ),

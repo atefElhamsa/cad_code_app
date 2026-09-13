@@ -73,10 +73,10 @@ class _LoginViewState extends State<LoginView> {
         builder: (context, state) {
           return SafeArea(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.fromLTRB(24, 30, 24, 24),
+              padding: EdgeInsets.fromLTRB(24, 30, 24, 24),
               child: Center(
                 child: ConstrainedBox(
-                  constraints: const BoxConstraints(maxWidth: 500),
+                  constraints: BoxConstraints(maxWidth: 500),
                   child: LoginForm(
                     isEmailLoading: _isEmailLoading,
                     isGoogleLoading: _isGoogleLoading,

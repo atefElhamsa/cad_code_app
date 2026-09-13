@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
@@ -12,34 +13,34 @@ class SocialLoginButton extends StatelessWidget {
     return OutlinedButton.icon(
       onPressed: isLoading ? null : onPressed,
       style: OutlinedButton.styleFrom(
-        padding: const EdgeInsets.symmetric(vertical: 16),
+        padding: EdgeInsets.symmetric(vertical: 16),
         side: BorderSide(
           color: Colors.white.withValues(alpha: 0.2),
-          width: 1.5,
+          width: 1.5.w,
         ),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
       ),
       icon: isLoading
-          ? const SizedBox(
-              width: 24,
-              height: 24,
+          ? SizedBox(
+              width: 24.w,
+              height: 24.h,
               child: CircularProgressIndicator(
                 strokeWidth: 2,
                 color: Colors.white,
               ),
             )
-          : const Text(
+          : Text(
               'G',
               style: TextStyle(
-                fontSize: 24,
+                fontSize: 24.sp,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
               ),
             ),
       label: Text(
         isLoading ? 'Please wait...' : 'Continue with Google',
-        style: const TextStyle(
-          fontSize: 16,
+        style: TextStyle(
+          fontSize: 16.sp,
           color: Colors.white,
           fontWeight: FontWeight.w600,
         ),

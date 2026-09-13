@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import '../../core/theme/app_theme.dart';
 
@@ -11,9 +12,9 @@ class AccessCodeInputField extends StatelessWidget {
     return TextField(
       controller: controller,
       textAlign: TextAlign.center,
-      style: const TextStyle(
+      style: TextStyle(
         fontWeight: FontWeight.w900,
-        fontSize: 18,
+        fontSize: 18.sp,
         color: AppTheme.textDarkNavy,
         letterSpacing: 2,
       ),
@@ -22,21 +23,21 @@ class AccessCodeInputField extends StatelessWidget {
         hintStyle: TextStyle(
           color: Colors.grey.shade400,
           letterSpacing: 0,
-          fontSize: 16,
+          fontSize: 16.sp,
         ),
         filled: true,
         fillColor: AppTheme.backgroundDarkNavy.withValues(alpha: 0.03),
-        contentPadding: const EdgeInsets.symmetric(
+        contentPadding: EdgeInsets.symmetric(
           horizontal: 16,
           vertical: 18,
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(color: Colors.grey.shade200, width: 1.5),
+          borderRadius: BorderRadius.circular(16.r),
+          borderSide: BorderSide(color: Colors.grey.shade200, width: 1.5.w,),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
-          borderSide: const BorderSide(color: AppTheme.primaryCyan, width: 2),
+          borderRadius: BorderRadius.circular(16.r),
+          borderSide: BorderSide(color: AppTheme.primaryCyan, width: 2.w,),
         ),
       ),
     );

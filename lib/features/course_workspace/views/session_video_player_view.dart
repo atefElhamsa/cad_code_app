@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
@@ -260,10 +261,10 @@ class _SessionVideoPlayerViewState extends State<SessionVideoPlayerView> {
         errorBuilder: (context, errorMessage) {
           return Center(
             child: Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: EdgeInsets.all(16.0),
               child: Text(
                 'عذراً، فشل تشغيل الفيديو',
-                style: const TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.white),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -301,12 +302,12 @@ class _SessionVideoPlayerViewState extends State<SessionVideoPlayerView> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        iconTheme: const IconThemeData(color: Colors.white),
+        iconTheme: IconThemeData(color: Colors.white),
         title: Text(
           widget.title,
-          style: const TextStyle(
+          style: TextStyle(
             color: Colors.white,
-            fontSize: 18,
+            fontSize: 18.sp,
             fontWeight: FontWeight.w600,
             letterSpacing: 0.5,
           ),
@@ -334,12 +335,12 @@ class _SessionVideoPlayerViewState extends State<SessionVideoPlayerView> {
           color: AppTheme.primaryGoldLight,
           strokeWidth: 3,
         ),
-        const SizedBox(height: 24),
-        const Text(
+        SizedBox(height: 24.h,),
+        Text(
           'جاري معالجة الفيديو وبدء البث',
           style: TextStyle(
             color: Colors.white70,
-            fontSize: 16,
+            fontSize: 16.sp,
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -349,24 +350,24 @@ class _SessionVideoPlayerViewState extends State<SessionVideoPlayerView> {
 
   Widget _buildErrorState(String errorMessage) {
     return Padding(
-      padding: const EdgeInsets.all(32.0),
+      padding: EdgeInsets.all(32.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Icon(Icons.error_outline, color: Colors.redAccent, size: 64),
-          const SizedBox(height: 16),
+          Icon(Icons.error_outline, color: Colors.redAccent, size: 64),
+          SizedBox(height: 16.h,),
           Text(
             'حدث خطأ أثناء تحميل الفيديو',
             style: TextStyle(
               color: Colors.white,
-              fontSize: 18,
+              fontSize: 18.sp,
               fontWeight: FontWeight.bold,
             ),
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: 16.h,),
           Text(
             _debugMessage,
-            style: const TextStyle(color: Colors.white54, fontSize: 12),
+            style: TextStyle(color: Colors.white54, fontSize: 12.sp,),
             textAlign: TextAlign.center,
           ),
         ],

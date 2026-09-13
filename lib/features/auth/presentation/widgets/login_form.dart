@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:go_router/go_router.dart';
@@ -58,11 +59,11 @@ class _LoginFormState extends State<LoginForm> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const AuthLogo(),
-          const SizedBox(height: 30),
-          const Text(
+          SizedBox(height: 30.h,),
+          Text(
                 'Welcome Back',
                 style: TextStyle(
-                  fontSize: 32,
+                  fontSize: 32.sp,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
                 ),
@@ -71,11 +72,11 @@ class _LoginFormState extends State<LoginForm> {
               .animate()
               .fadeIn(delay: 200.ms)
               .slideY(begin: 0.2, curve: Curves.easeOut),
-          const SizedBox(height: 8),
+          SizedBox(height: 8.h,),
           Text(
                 'Sign in to continue your journey',
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 16.sp,
                   color: Colors.white.withValues(alpha: 0.6),
                 ),
                 textAlign: TextAlign.center,
@@ -83,7 +84,7 @@ class _LoginFormState extends State<LoginForm> {
               .animate()
               .fadeIn(delay: 300.ms)
               .slideY(begin: 0.2, curve: Curves.easeOut),
-          const SizedBox(height: 40),
+          SizedBox(height: 40.h,),
           CustomTextField(
                 controller: _emailController,
                 hintText: 'Email',
@@ -96,7 +97,7 @@ class _LoginFormState extends State<LoginForm> {
               .animate()
               .fadeIn(delay: 400.ms)
               .slideX(begin: 0.2, curve: Curves.easeOut),
-          const SizedBox(height: 16),
+          SizedBox(height: 16.h,),
           CustomTextField(
                 controller: _passwordController,
                 hintText: 'Password',
@@ -109,26 +110,26 @@ class _LoginFormState extends State<LoginForm> {
               .animate()
               .fadeIn(delay: 500.ms)
               .slideX(begin: -0.2, curve: Curves.easeOut),
-          const SizedBox(height: 40),
+          SizedBox(height: 40.h,),
           PrimaryGradientButton(
             text: 'Login',
             isLoading: widget.isEmailLoading,
             onPressed: isLoading ? null : _submit,
           ).animate().fadeIn(delay: 600.ms).scale(curve: Curves.easeOutBack),
-          const SizedBox(height: 20),
+          SizedBox(height: 20.h,),
           const AuthDivider(),
-          const SizedBox(height: 20),
+          SizedBox(height: 20.h,),
           SocialLoginButton(
             isLoading: widget.isGoogleLoading,
             onPressed: isLoading ? null : widget.onGoogleLogin,
           ),
-          const SizedBox(height: 15),
+          SizedBox(height: 15.h,),
           TextButton(
             onPressed: () => context.push('/signup'),
             child: RichText(
-              text: const TextSpan(
+              text: TextSpan(
                 text: "Don't have an account? ",
-                style: TextStyle(color: Colors.white70, fontSize: 16),
+                style: TextStyle(color: Colors.white70, fontSize: 16.sp,),
                 children: [
                   TextSpan(
                     text: "Sign up",

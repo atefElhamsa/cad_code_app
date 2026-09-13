@@ -14,6 +14,7 @@ import '../../features/profile/views/edit_profile_view.dart';
 import '../../features/profile/views/change_password_view.dart';
 import '../../features/profile/views/payment_view.dart';
 import '../../features/course_workspace/views/course_workspace_view.dart';
+import '../../features/course_workspace/views/session_video_player_view.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorHomeKey = GlobalKey<NavigatorState>(debugLabel: 'home');
@@ -101,6 +102,16 @@ class AppRouter {
             courseId: extra?['id'] as int?,
             title: extra?['title'] as String? ?? 'Scratch courses',
             imageUrl: extra?['imageUrl'] as String? ?? 'https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=400&q=80',
+          );
+        },
+      ),
+      GoRoute(
+        path: '/video-player',
+        builder: (context, state) {
+          final extra = state.extra as Map<String, dynamic>?;
+          return SessionVideoPlayerView(
+            driveUrl: extra?['driveUrl'] as String? ?? '',
+            title: extra?['title'] as String? ?? '',
           );
         },
       ),

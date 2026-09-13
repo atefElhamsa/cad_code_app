@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -26,7 +27,7 @@ class CoursesGridView extends StatelessWidget {
           builder: (context, state) {
             if (state is CoursesLoading) {
               return GridView.builder(
-                padding: const EdgeInsets.only(bottom: 120),
+                padding: EdgeInsets.only(bottom: 120),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: crossAxisCount,
                   crossAxisSpacing: 8,
@@ -40,7 +41,7 @@ class CoursesGridView extends StatelessWidget {
                           color: AppTheme.backgroundDarkNavy.withValues(
                             alpha: 0.1,
                           ),
-                          borderRadius: BorderRadius.circular(16),
+                          borderRadius: BorderRadius.circular(16.r),
                           border: Border.all(
                             color: AppTheme.backgroundDarkNavy.withValues(
                               alpha: 0.05,
@@ -101,7 +102,7 @@ class CoursesGridView extends StatelessWidget {
                 color: AppTheme.primaryGoldDark,
                 backgroundColor: AppTheme.backgroundLight,
                 child: GridView.builder(
-                  padding: const EdgeInsets.only(bottom: 120),
+                  padding: EdgeInsets.only(bottom: 120),
                   physics: const AlwaysScrollableScrollPhysics(),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: crossAxisCount,
@@ -134,7 +135,7 @@ class CoursesGridView extends StatelessWidget {
                 ),
               );
             }
-            return const SizedBox.shrink();
+            return SizedBox.shrink();
           },
         );
       },

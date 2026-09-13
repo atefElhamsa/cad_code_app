@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -89,33 +90,33 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
               ),
               Expanded(
                 child: SingleChildScrollView(
-                  padding: const EdgeInsets.all(24),
+                  padding: EdgeInsets.all(24),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         'Security',
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 20.sp,
                           fontWeight: FontWeight.w800,
                           color: AppTheme.textDarkNavy,
                           fontFamily: 'Inter',
                         ),
                       ).animate().fade(delay: 100.ms).slideY(begin: 0.1),
-                      const SizedBox(height: 8),
-                      const Text(
+                      SizedBox(height: 8.h,),
+                      Text(
                         'Create a new strong password for your account. Please remember it!',
                         style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 14.sp,
                           color: AppTheme.textGray,
                           fontFamily: 'Inter',
                         ),
                       ).animate().fade(delay: 200.ms).slideY(begin: 0.1),
-                      const SizedBox(height: 32),
+                      SizedBox(height: 32.h,),
                       const FieldLabel('New Password')
                           .animate()
                           .fade(delay: 300.ms),
-                      const SizedBox(height: 8),
+                      SizedBox(height: 8.h,),
                       PasswordInputField(
                         controller: _passwordController,
                         hintText: 'Enter new password',
@@ -125,11 +126,11 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                         ),
                         enabled: !isLoading,
                       ).animate().fade(delay: 350.ms).slideY(begin: 0.1),
-                      const SizedBox(height: 24),
+                      SizedBox(height: 24.h,),
                       const FieldLabel('Confirm Password')
                           .animate()
                           .fade(delay: 400.ms),
-                      const SizedBox(height: 8),
+                      SizedBox(height: 8.h,),
                       PasswordInputField(
                         controller: _confirmPasswordController,
                         hintText: 'Re-enter new password',
@@ -140,7 +141,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                         ),
                         enabled: !isLoading,
                       ).animate().fade(delay: 450.ms).slideY(begin: 0.1),
-                      const SizedBox(height: 48),
+                      SizedBox(height: 48.h,),
                       PrimaryActionButton(
                         text: 'Update Password',
                         isLoading: isLoading,

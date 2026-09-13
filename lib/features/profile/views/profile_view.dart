@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:go_router/go_router.dart';
@@ -54,7 +55,7 @@ class _ProfileViewState extends State<ProfileView> {
               ),
               Expanded(
                 child: SingleChildScrollView(
-                  padding: const EdgeInsets.only(
+                  padding: EdgeInsets.only(
                     top: 24,
                     bottom: 32,
                     left: 20,
@@ -62,7 +63,7 @@ class _ProfileViewState extends State<ProfileView> {
                   ),
                   child: Center(
                     child: ConstrainedBox(
-                      constraints: const BoxConstraints(maxWidth: 700),
+                      constraints: BoxConstraints(maxWidth: 700),
                       child: Column(
                         children: [
                           ProfileUserInfo(
@@ -70,16 +71,16 @@ class _ProfileViewState extends State<ProfileView> {
                             phone: phone,
                             avatarUrl: avatarUrl,
                           ),
-                          const SizedBox(height: 12),
+                          SizedBox(height: 12.h,),
                           Text(
                             email,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: AppTheme.textGray,
-                              fontSize: 16,
+                              fontSize: 16.sp,
                               fontWeight: FontWeight.w500,
                             ),
                           ).animate().fade(delay: 300.ms),
-                          const SizedBox(height: 40),
+                          SizedBox(height: 40.h,),
 
                           // Profile Menu Options
                           ProfileMenuCard(
@@ -102,7 +103,7 @@ class _ProfileViewState extends State<ProfileView> {
                             ],
                           ).animate().fade(delay: 400.ms).slideY(begin: 0.1),
 
-                          const SizedBox(height: 24),
+                          SizedBox(height: 24.h,),
 
                           ProfileMenuCard(
                             children: [
@@ -134,7 +135,7 @@ class _ProfileViewState extends State<ProfileView> {
                             ],
                           ).animate().fade(delay: 500.ms).slideY(begin: 0.1),
 
-                          const SizedBox(height: 32),
+                          SizedBox(height: 32.h,),
                         ],
                       ),
                     ),

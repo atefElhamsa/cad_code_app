@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_theme.dart';
 
@@ -10,8 +11,8 @@ class FieldLabel extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: const TextStyle(
-        fontSize: 14,
+      style: TextStyle(
+        fontSize: 14.sp,
         fontWeight: FontWeight.w600,
         color: AppTheme.textDarkNavy,
         fontFamily: 'Inter',

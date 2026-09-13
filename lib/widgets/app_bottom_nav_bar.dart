@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/theme/app_theme.dart';
@@ -21,7 +22,7 @@ class AppBottomNavBar extends StatelessWidget {
         border: Border(
           top: BorderSide(
             color: AppTheme.primaryGoldLight.withValues(alpha: 0.3),
-            width: 1.5,
+            width: 1.5.w,
           ),
         ),
         boxShadow: [
@@ -42,18 +43,18 @@ class AppBottomNavBar extends StatelessWidget {
           selectedItemColor: AppTheme
               .primaryGoldDark, // Darker gold for better contrast on white
           unselectedItemColor: Colors.grey.shade400,
-          selectedLabelStyle: const TextStyle(
+          selectedLabelStyle: TextStyle(
             fontWeight: FontWeight.bold,
             fontFamily: 'Inter',
-            fontSize: 13,
+            fontSize: 13.sp,
           ),
-          unselectedLabelStyle: const TextStyle(
+          unselectedLabelStyle: TextStyle(
             fontWeight: FontWeight.normal,
             fontFamily: 'Inter',
-            fontSize: 12,
+            fontSize: 12.sp,
           ),
           type: BottomNavigationBarType.fixed,
-          items: const [
+          items: [
             BottomNavigationBarItem(
               icon: Padding(
                 padding: EdgeInsets.only(bottom: 4),

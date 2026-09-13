@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/theme/app_theme.dart';
@@ -22,12 +23,12 @@ class ProfileHeader extends StatelessWidget {
           alignment: Alignment.center,
           children: [
             SizedBox(
-              width: 100,
-              height: 100,
+              width: 100.w,
+              height: 100.h,
               child: CircularProgressIndicator(
                 value: progress,
                 strokeWidth: 4,
-                backgroundColor: AppTheme.primaryCyan.withOpacity(0.2),
+                backgroundColor: AppTheme.primaryCyan.withValues(alpha: 0.2),
                 valueColor: const AlwaysStoppedAnimation<Color>(
                   AppTheme.primaryCyan,
                 ),
@@ -38,25 +39,25 @@ class ProfileHeader extends StatelessWidget {
               backgroundColor: AppTheme.backgroundLight,
               child: Text(
                 name.isNotEmpty ? name[0].toUpperCase() : '?',
-                style: const TextStyle(
-                  fontSize: 32,
+                style: TextStyle(
+                  fontSize: 32.sp,
                   color: AppTheme.textDarkNavy,
                 ),
               ),
             ),
           ],
         ),
-        const SizedBox(height: 16),
+        SizedBox(height: 16.h,),
         Text(
           name,
-          style: const TextStyle(
-            fontSize: 24,
+          style: TextStyle(
+            fontSize: 24.sp,
             fontWeight: FontWeight.bold,
             color: AppTheme.textDarkNavy,
           ),
         ),
-        const SizedBox(height: 4),
-        Text(email, style: const TextStyle(fontSize: 14, color: Colors.grey)),
+        SizedBox(height: 4.h,),
+        Text(email, style: TextStyle(fontSize: 14.sp, color: Colors.grey)),
       ],
     );
   }

@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
@@ -20,11 +21,11 @@ class DownloadCourseCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 16),
-      padding: const EdgeInsets.all(16),
+      margin: EdgeInsets.only(bottom: 16),
+      padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(20.r),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.03),
@@ -36,11 +37,11 @@ class DownloadCourseCard extends StatelessWidget {
       child: Row(
         children: [
           _buildThumbnail(),
-          const SizedBox(width: 16),
+          SizedBox(width: 16.w,),
           _buildInfo(),
           IconButton(
             onPressed: () {},
-            icon: const Icon(
+            icon: Icon(
               Icons.delete_outline_rounded,
               color: Colors.redAccent,
             ),
@@ -52,13 +53,13 @@ class DownloadCourseCard extends StatelessWidget {
 
   Widget _buildThumbnail() {
     return Container(
-      width: 80,
-      height: 80,
+      width: 80.w,
+      height: 80.h,
       decoration: BoxDecoration(
         color: AppTheme.primaryCyan.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(16.r),
       ),
-      child: const Center(
+      child: Center(
         child: Icon(
           Icons.play_circle_fill_rounded,
           color: AppTheme.primaryCyan,
@@ -75,19 +76,19 @@ class DownloadCourseCard extends StatelessWidget {
         children: [
           Text(
             topic,
-            style: const TextStyle(
+            style: TextStyle(
               color: AppTheme.textDarkNavy,
-              fontSize: 16,
+              fontSize: 16.sp,
               fontWeight: FontWeight.bold,
               fontFamily: 'Inter',
             ),
           ),
-          const SizedBox(height: 8),
+          SizedBox(height: 8.h,),
           Text(
             '$size • $videoCount Videos',
-            style: const TextStyle(
+            style: TextStyle(
               color: Colors.grey,
-              fontSize: 12,
+              fontSize: 12.sp,
               fontFamily: 'Inter',
             ),
           ),

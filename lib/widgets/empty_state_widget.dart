@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../../core/theme/app_theme.dart';
@@ -18,13 +19,13 @@ class EmptyStateWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 32.0),
+        padding: EdgeInsets.symmetric(horizontal: 32.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // Icon with glowing pulsating background
             Container(
-              padding: const EdgeInsets.all(32),
+              padding: EdgeInsets.all(32),
               decoration: BoxDecoration(
                 color: AppTheme.primaryGoldLight.withValues(alpha: 0.1),
                 shape: BoxShape.circle,
@@ -52,15 +53,15 @@ class EmptyStateWidget extends StatelessWidget {
               curve: Curves.easeInOutSine,
             ),
 
-            const SizedBox(height: 32),
+            SizedBox(height: 32.h,),
             
             // Title text with bouncy slide up
             Text(
               title,
               textAlign: TextAlign.center,
-              style: const TextStyle(
+              style: TextStyle(
                 color: AppTheme.backgroundDarkNavy,
-                fontSize: 22,
+                fontSize: 22.sp,
                 fontWeight: FontWeight.w900,
                 letterSpacing: 0.5,
               ),
@@ -69,15 +70,15 @@ class EmptyStateWidget extends StatelessWidget {
             .fadeIn(duration: 600.ms)
             .slideY(begin: 0.5, end: 0, duration: 600.ms, curve: Curves.easeOutBack),
 
-            const SizedBox(height: 12),
+            SizedBox(height: 12.h,),
             
             // Subtitle text with bouncy slide up
             Text(
               subtitle,
               textAlign: TextAlign.center,
-              style: const TextStyle(
+              style: TextStyle(
                 color: AppTheme.textGray,
-                fontSize: 15,
+                fontSize: 15.sp,
                 height: 1.5,
                 fontWeight: FontWeight.w500,
               ),

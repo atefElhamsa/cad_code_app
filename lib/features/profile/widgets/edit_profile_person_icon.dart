@@ -7,7 +7,7 @@ class EditProfilePersonIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Icon(
+    return Icon(
       Icons.person_rounded,
       color: AppTheme.primaryCyan,
       size: 60,

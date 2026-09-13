@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -27,7 +28,7 @@ class EnrolledCoursesGridView extends StatelessWidget {
             if (state is EnrolledCoursesLoading ||
                 state is EnrolledCoursesInitial) {
               return GridView.builder(
-                padding: const EdgeInsets.only(
+                padding: EdgeInsets.only(
                   left: 20,
                   right: 20,
                   top: 20,
@@ -46,7 +47,7 @@ class EnrolledCoursesGridView extends StatelessWidget {
                           color: AppTheme.backgroundDarkNavy.withValues(
                             alpha: 0.1,
                           ),
-                          borderRadius: BorderRadius.circular(24),
+                          borderRadius: BorderRadius.circular(24.r),
                         ),
                       )
                       .animate(onPlay: (controller) => controller.repeat())
@@ -90,7 +91,7 @@ class EnrolledCoursesGridView extends StatelessWidget {
                 color: AppTheme.primaryGoldDark,
                 backgroundColor: AppTheme.backgroundLight,
                 child: GridView.builder(
-                  padding: const EdgeInsets.only(
+                  padding: EdgeInsets.only(
                     left: 20,
                     right: 20,
                     top: 20,
@@ -130,7 +131,7 @@ class EnrolledCoursesGridView extends StatelessWidget {
                 ),
               );
             }
-            return const SizedBox.shrink();
+            return SizedBox.shrink();
           },
         );
       },

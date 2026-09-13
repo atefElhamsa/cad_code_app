@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 
 import '../core/theme/app_theme.dart';
@@ -17,7 +18,7 @@ class ProfileProgressRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 20.0),
+      padding: EdgeInsets.only(bottom: 20.0),
       child: TweenAnimationBuilder<double>(
         tween: Tween<double>(begin: 0, end: percentage),
         duration: const Duration(milliseconds: 600),
@@ -31,10 +32,10 @@ class ProfileProgressRow extends StatelessWidget {
                 children: [
                   Text(
                     label,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppTheme.textDarkNavy,
                       fontWeight: FontWeight.w700,
-                      fontSize: 15,
+                      fontSize: 15.sp,
                       fontFamily: 'Inter',
                     ),
                   ),
@@ -43,19 +44,19 @@ class ProfileProgressRow extends StatelessWidget {
                     style: TextStyle(
                       color: color,
                       fontWeight: FontWeight.w900,
-                      fontSize: 15,
+                      fontSize: 15.sp,
                       fontFamily: 'Inter',
                     ),
                   ),
                 ],
               ),
-              const SizedBox(height: 10),
+              SizedBox(height: 10.h,),
               LinearProgressIndicator(
                 value: value,
                 backgroundColor: color.withValues(alpha: 0.1),
                 valueColor: AlwaysStoppedAnimation(color),
                 minHeight: 10,
-                borderRadius: BorderRadius.circular(100),
+                borderRadius: BorderRadius.circular(100.r),
               ),
             ],
           );

@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_theme.dart';
 
@@ -17,7 +18,7 @@ class PrimaryActionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: 56,
+      height: 56.h,
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
@@ -25,13 +26,13 @@ class PrimaryActionButton extends StatelessWidget {
           foregroundColor: AppTheme.textDarkNavy,
           elevation: 0,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(16.r),
           ),
         ),
         child: isLoading
-            ? const SizedBox(
-                width: 24,
-                height: 24,
+            ? SizedBox(
+                width: 24.w,
+                height: 24.h,
                 child: CircularProgressIndicator(
                   color: AppTheme.textDarkNavy,
                   strokeWidth: 2.5,
@@ -39,8 +40,8 @@ class PrimaryActionButton extends StatelessWidget {
               )
             : Text(
                 text,
-                style: const TextStyle(
-                  fontSize: 18,
+                style: TextStyle(
+                  fontSize: 18.sp,
                   fontWeight: FontWeight.bold,
                   fontFamily: 'Inter',
                 ),

@@ -11,12 +11,12 @@ class EditProfileCameraBadge extends StatelessWidget {
       bottom: 0,
       right: 0,
       child: Container(
-        padding: const EdgeInsets.all(8),
-        decoration: const BoxDecoration(
+        padding: EdgeInsets.all(8),
+        decoration: BoxDecoration(
           color: AppTheme.primaryCyan,
           shape: BoxShape.circle,
         ),
-        child: const Icon(
+        child: Icon(
           Icons.camera_alt_rounded,
           color: Colors.white,
           size: 16,

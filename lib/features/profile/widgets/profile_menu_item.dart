@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_theme.dart';
 
@@ -22,12 +23,12 @@ class ProfileMenuItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+      contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
       leading: Container(
-        padding: const EdgeInsets.all(8),
+        padding: EdgeInsets.all(8),
         decoration: BoxDecoration(
           color: iconColor.withValues(alpha: 0.1),
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(10.r),
         ),
         child: Icon(icon, color: iconColor, size: 22),
       ),
@@ -36,12 +37,12 @@ class ProfileMenuItem extends StatelessWidget {
         style: TextStyle(
           color: titleColor,
           fontWeight: FontWeight.w600,
-          fontSize: 16,
+          fontSize: 16.sp,
           fontFamily: 'Inter',
         ),
       ),
       trailing: showTrailing
-          ? const Icon(
+          ? Icon(
               Icons.arrow_forward_ios_rounded,
               size: 16,
               color: AppTheme.textGray,

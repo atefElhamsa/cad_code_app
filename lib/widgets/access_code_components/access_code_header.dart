@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import '../../core/theme/app_theme.dart';
 
@@ -10,7 +11,7 @@ class AccessCodeHeader extends StatelessWidget {
       children: [
         // Premium Lock Icon
         Container(
-          padding: const EdgeInsets.all(20),
+          padding: EdgeInsets.all(20),
           decoration: BoxDecoration(
             color: AppTheme.backgroundDarkNavy,
             shape: BoxShape.circle,
@@ -22,26 +23,26 @@ class AccessCodeHeader extends StatelessWidget {
               ),
             ],
           ),
-          child: const Icon(
+          child: Icon(
             Icons.lock_outline_rounded,
             color: AppTheme.primaryGoldLight,
             size: 36,
           ),
         ),
-        const SizedBox(height: 24),
+        SizedBox(height: 24.h,),
 
         // Title
-        const Text(
+        Text(
           'Enter Access Code',
           style: TextStyle(
-            fontSize: 22,
+            fontSize: 22.sp,
             fontWeight: FontWeight.w900,
             color: AppTheme.textDarkNavy,
             fontFamily: 'Inter',
             letterSpacing: -0.5,
           ),
         ),
-        const SizedBox(height: 12),
+        SizedBox(height: 12.h,),
 
         // Subtitle
         Text(
@@ -49,7 +50,7 @@ class AccessCodeHeader extends StatelessWidget {
           textAlign: TextAlign.center,
           style: TextStyle(
             color: AppTheme.textDarkNavy.withValues(alpha: 0.6),
-            fontSize: 14,
+            fontSize: 14.sp,
             height: 1.5,
           ),
         ),

@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -37,17 +38,17 @@ class CourseFoldersList extends StatelessWidget {
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemCount: 2,
-              separatorBuilder: (context, index) => const SizedBox(height: 24),
+              separatorBuilder: (context, index) => SizedBox(height: 24.h),
               itemBuilder: (context, index) {
                 return const CourseFolderShimmerCard();
               },
             );
           } else if (state is CourseFoldersError) {
             return Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: EdgeInsets.all(16.0),
               child: Text(
                 'Error loading folders: ${state.message}',
-                style: const TextStyle(color: Colors.red),
+                style: TextStyle(color: Colors.red),
               ),
             );
           } else if (state is CourseFoldersLoaded) {
@@ -65,20 +66,20 @@ class CourseFoldersList extends StatelessWidget {
                         size: 80,
                         color: AppTheme.primaryGoldLight.withValues(alpha: 0.5),
                       ),
-                      const SizedBox(height: 16),
-                      const Text(
+                      SizedBox(height: 16.h),
+                      Text(
                         'لا يوجد محتوى حالياً',
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 20.sp,
                           fontWeight: FontWeight.bold,
                           color: AppTheme.textDarkNavy,
                         ),
                       ),
-                      const SizedBox(height: 8),
-                      const Text(
+                      SizedBox(height: 8.h),
+                      Text(
                         'لم يتم إضافة أي مجلدات لهذا الكورس بعد.',
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 16.sp,
                           color: AppTheme.textGray,
                         ),
                       ),
@@ -91,12 +92,11 @@ class CourseFoldersList extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 ListView.separated(
-                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10.w),
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: folders.length,
-                  separatorBuilder: (context, index) =>
-                      const SizedBox(height: 24),
+                  separatorBuilder: (context, index) => SizedBox(height: 24.h),
                   itemBuilder: (context, index) {
                     final folder = folders[index];
                     final isUnlocked = unlockedFolderIds.contains(folder.id);
@@ -114,7 +114,7 @@ class CourseFoldersList extends StatelessWidget {
               ],
             );
           }
-          return const SizedBox.shrink();
+          return SizedBox.shrink();
         },
       ),
     );

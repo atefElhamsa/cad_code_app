@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:cad_code_academy/core/theme/app_theme.dart';
@@ -10,10 +11,10 @@ class CoursesHeader extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const Text(
+        Text(
           'Courses',
           style: TextStyle(
-            fontSize: 32,
+            fontSize: 32.sp,
             fontWeight: FontWeight.w900,
             color: AppTheme.textDarkNavy,
             fontFamily: 'Inter',
@@ -24,18 +25,18 @@ class CoursesHeader extends StatelessWidget {
         .slideX(begin: -0.2),
         const Spacer(),
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
           decoration: BoxDecoration(
             color: AppTheme.primaryGoldLight.withValues(alpha: 0.15),
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(20.r),
             border: Border.all(
               color: AppTheme.primaryGoldLight.withValues(alpha: 0.3),
             ),
           ),
-          child: const Text(
+          child: Text(
             'معاك خطوة بخطوة',
             style: TextStyle(
-              fontSize: 14,
+              fontSize: 14.sp,
               fontWeight: FontWeight.bold,
               color: AppTheme.primaryGoldDark,
             ),

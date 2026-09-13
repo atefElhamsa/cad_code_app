@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -189,10 +190,10 @@ class _NativeFileViewerViewState extends State<NativeFileViewerView>
       Clipboard.setData(ClipboardData(text: _textContent!));
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: const Row(
+          content: Row(
             children: [
               Icon(Icons.check_circle_rounded, color: Colors.white, size: 18),
-              SizedBox(width: 8),
+              SizedBox(width: 8.w,),
               Text(
                 'تم نسخ الكود بنجاح!',
                 style: TextStyle(color: Colors.white),
@@ -202,9 +203,9 @@ class _NativeFileViewerViewState extends State<NativeFileViewerView>
           backgroundColor: const Color(0xFF2EA043),
           behavior: SnackBarBehavior.floating,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(12.r),
           ),
-          margin: const EdgeInsets.all(16),
+          margin: EdgeInsets.all(16),
           duration: const Duration(seconds: 2),
         ),
       );
@@ -226,12 +227,12 @@ class _NativeFileViewerViewState extends State<NativeFileViewerView>
       elevation: 0,
       leading: IconButton(
         icon: Container(
-          padding: const EdgeInsets.all(6),
+          padding: EdgeInsets.all(6),
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.08),
-            borderRadius: BorderRadius.circular(8),
+            color: Colors.white.withValues(alpha: 0.08),
+            borderRadius: BorderRadius.circular(8.r),
           ),
-          child: const Icon(
+          child: Icon(
             Icons.arrow_back_ios_new_rounded,
             color: Colors.white,
             size: 16,
@@ -243,20 +244,20 @@ class _NativeFileViewerViewState extends State<NativeFileViewerView>
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            padding: const EdgeInsets.all(7),
+            padding: EdgeInsets.all(7),
             decoration: BoxDecoration(
-              color: _getLanguageColor().withOpacity(0.15),
-              borderRadius: BorderRadius.circular(8),
+              color: _getLanguageColor().withValues(alpha: 0.15),
+              borderRadius: BorderRadius.circular(8.r),
             ),
             child: Icon(_getFileIcon(), color: _getLanguageColor(), size: 18),
           ),
-          const SizedBox(width: 10),
+          SizedBox(width: 10.w,),
           Flexible(
             child: Text(
               widget.fileName,
-              style: const TextStyle(
+              style: TextStyle(
                 color: Colors.white,
-                fontSize: 15,
+                fontSize: 15.sp,
                 fontWeight: FontWeight.w600,
               ),
               overflow: TextOverflow.ellipsis,
@@ -267,7 +268,7 @@ class _NativeFileViewerViewState extends State<NativeFileViewerView>
       actions: [
         if (_textContent != null) ...[
           IconButton(
-            icon: const Icon(
+            icon: Icon(
               Icons.remove_rounded,
               color: Colors.white70,
               size: 20,
@@ -277,7 +278,7 @@ class _NativeFileViewerViewState extends State<NativeFileViewerView>
             tooltip: 'تصغير النص',
           ),
           IconButton(
-            icon: const Icon(
+            icon: Icon(
               Icons.add_rounded,
               color: Colors.white70,
               size: 20,
@@ -287,7 +288,7 @@ class _NativeFileViewerViewState extends State<NativeFileViewerView>
             tooltip: 'تكبير النص',
           ),
           IconButton(
-            icon: const Icon(
+            icon: Icon(
               Icons.copy_rounded,
               color: Colors.white70,
               size: 20,
@@ -296,11 +297,11 @@ class _NativeFileViewerViewState extends State<NativeFileViewerView>
             tooltip: 'نسخ الكود',
           ),
         ],
-        const SizedBox(width: 4),
+        SizedBox(width: 4.w,),
       ],
       bottom: PreferredSize(
         preferredSize: const Size.fromHeight(1),
-        child: Container(height: 1, color: Colors.white.withOpacity(0.08)),
+        child: Container(height: 1.h, color: Colors.white.withValues(alpha: 0.08)),
       ),
     );
   }
@@ -312,19 +313,19 @@ class _NativeFileViewerViewState extends State<NativeFileViewerView>
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
-              width: 50,
-              height: 50,
+              width: 50.w,
+              height: 50.h,
               child: CircularProgressIndicator(
                 color: _getLanguageColor(),
                 strokeWidth: 3,
               ),
             ),
-            const SizedBox(height: 20),
-            const Text(
+            SizedBox(height: 20.h,),
+            Text(
               'جارٍ تحميل الملف...',
               style: TextStyle(
                 color: Colors.white54,
-                fontSize: 14,
+                fontSize: 14.sp,
                 fontWeight: FontWeight.w400,
               ),
             ),
@@ -336,49 +337,49 @@ class _NativeFileViewerViewState extends State<NativeFileViewerView>
     if (_errorMessage != null) {
       return Center(
         child: Padding(
-          padding: const EdgeInsets.all(32.0),
+          padding: EdgeInsets.all(32.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                padding: const EdgeInsets.all(20),
+                padding: EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  color: Colors.red.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: Colors.red.withOpacity(0.3)),
+                  color: Colors.red.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(20.r),
+                  border: Border.all(color: Colors.red.withValues(alpha: 0.3)),
                 ),
-                child: const Icon(
+                child: Icon(
                   Icons.error_outline_rounded,
                   color: Colors.redAccent,
                   size: 56,
                 ),
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: 20.h,),
               Text(
                 _errorMessage!,
                 textAlign: TextAlign.center,
-                style: const TextStyle(
+                style: TextStyle(
                   color: Colors.white60,
-                  fontSize: 14,
+                  fontSize: 14.sp,
                   height: 1.5,
                 ),
               ),
-              const SizedBox(height: 28),
+              SizedBox(height: 28.h,),
               ElevatedButton.icon(
                 onPressed: _fetchFile,
-                icon: const Icon(Icons.refresh_rounded, size: 18),
-                label: const Text('إعادة المحاولة'),
+                icon: Icon(Icons.refresh_rounded, size: 18),
+                label: Text('إعادة المحاولة'),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppTheme.primaryCyan,
                   foregroundColor: AppTheme.backgroundDarkNavy,
-                  padding: const EdgeInsets.symmetric(
+                  padding: EdgeInsets.symmetric(
                     horizontal: 24,
                     vertical: 12,
                   ),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(12.r),
                   ),
-                  textStyle: const TextStyle(fontWeight: FontWeight.bold),
+                  textStyle: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
             ],
@@ -403,9 +404,9 @@ class _NativeFileViewerViewState extends State<NativeFileViewerView>
         maxScale: 5.0,
         child: Center(
           child: Padding(
-            padding: const EdgeInsets.all(16),
+            padding: EdgeInsets.all(16),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(12.r),
               child: Image.memory(_imageBytes!, fit: BoxFit.contain),
             ),
           ),
@@ -415,7 +416,7 @@ class _NativeFileViewerViewState extends State<NativeFileViewerView>
   }
 
   Widget _buildCodeViewer() {
-    if (_textContent == null) return const SizedBox();
+    if (_textContent == null) return SizedBox();
 
     final lines = _textContent!.split('\n');
     final langColor = _getLanguageColor();
@@ -425,44 +426,44 @@ class _NativeFileViewerViewState extends State<NativeFileViewerView>
         // File info bar
         Container(
           width: double.infinity,
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
           decoration: BoxDecoration(
             color: const Color(0xFF161B22),
             border: Border(
-              bottom: BorderSide(color: Colors.white.withOpacity(0.06)),
+              bottom: BorderSide(color: Colors.white.withValues(alpha: 0.06)),
             ),
           ),
           child: Row(
             children: [
               Container(
-                width: 10,
-                height: 10,
+                width: 10.w,
+                height: 10.h,
                 decoration: BoxDecoration(
                   color: langColor,
                   shape: BoxShape.circle,
                 ),
               ),
-              const SizedBox(width: 8),
+              SizedBox(width: 8.w,),
               Text(
                 _getFileExtension().toUpperCase().isNotEmpty
                     ? _getFileExtension().toUpperCase()
                     : 'TEXT',
                 style: TextStyle(
                   color: langColor,
-                  fontSize: 11,
+                  fontSize: 11.sp,
                   fontWeight: FontWeight.bold,
                   letterSpacing: 1,
                 ),
               ),
-              const SizedBox(width: 16),
+              SizedBox(width: 16.w,),
               Text(
                 '${lines.length} سطر',
-                style: const TextStyle(color: Colors.white30, fontSize: 11),
+                style: TextStyle(color: Colors.white30, fontSize: 11.sp,),
               ),
               const Spacer(),
               Text(
                 'UTF-8',
-                style: const TextStyle(color: Colors.white30, fontSize: 11),
+                style: TextStyle(color: Colors.white30, fontSize: 11.sp,),
               ),
             ],
           ),
@@ -478,7 +479,7 @@ class _NativeFileViewerViewState extends State<NativeFileViewerView>
                   children: [
                     // Line numbers
                     Container(
-                      padding: const EdgeInsets.symmetric(
+                      padding: EdgeInsets.symmetric(
                         vertical: 16,
                         horizontal: 12,
                       ),
@@ -502,10 +503,10 @@ class _NativeFileViewerViewState extends State<NativeFileViewerView>
                         ),
                       ),
                     ),
-                    Container(width: 1, color: Colors.white.withOpacity(0.06)),
+                    Container(width: 1.w, color: Colors.white.withValues(alpha: 0.06)),
                     // Code content
                     Padding(
-                      padding: const EdgeInsets.symmetric(
+                      padding: EdgeInsets.symmetric(
                         horizontal: 16,
                         vertical: 16,
                       ),
@@ -518,7 +519,7 @@ class _NativeFileViewerViewState extends State<NativeFileViewerView>
                             child: Text(
                               lines[i].isEmpty ? ' ' : lines[i],
                               style: TextStyle(
-                                color: Colors.white.withOpacity(0.88),
+                                color: Colors.white.withValues(alpha: 0.88),
                                 fontFamily: 'monospace',
                                 fontSize: _fontSize,
                                 height: 1.7,

@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,8 +26,8 @@ class EditProfileAvatarSection extends StatelessWidget {
     return showModalBottomSheet<ImageSource>(
       context: context,
       backgroundColor: Colors.white,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),
       ),
       builder: (_) => const EditProfileImageSourceSheet(),
     );
@@ -59,13 +60,13 @@ class EditProfileAvatarSection extends StatelessWidget {
                 ),
               ),
             ).animate().scale(duration: 400.ms, curve: Curves.easeOutBack),
-            const SizedBox(height: 8),
+            SizedBox(height: 8.h),
             Center(
               child: Text(
                 'Tap to change photo',
                 style: TextStyle(
                   color: AppTheme.primaryCyan.withValues(alpha: 0.8),
-                  fontSize: 12,
+                  fontSize: 12.sp,
                   fontFamily: 'Inter',
                   fontWeight: FontWeight.w500,
                 ),

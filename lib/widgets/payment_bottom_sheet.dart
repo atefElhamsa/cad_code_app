@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 
 import '../core/theme/app_theme.dart';
@@ -17,47 +18,47 @@ class PaymentBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(24),
-      decoration: const BoxDecoration(
+      padding: EdgeInsets.all(24),
+      decoration: BoxDecoration(
         color: AppTheme.textDarkNavy,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Icon(icon, color: iconColor, size: 64),
-          const SizedBox(height: 16),
+          SizedBox(height: 16.h,),
           Text(
             methodName,
-            style: const TextStyle(
-              fontSize: 24,
+            style: TextStyle(
+              fontSize: 24.sp,
               fontWeight: FontWeight.bold,
               color: AppTheme.backgroundLight,
             ),
           ),
-          const SizedBox(height: 8),
+          SizedBox(height: 8.h,),
           Text(
             '01012345678', // Mock data
             style: TextStyle(
-              fontSize: 18,
-              color: AppTheme.backgroundLight.withOpacity(0.7),
+              fontSize: 18.sp,
+              color: AppTheme.backgroundLight.withValues(alpha: 0.7),
             ),
           ),
-          const SizedBox(height: 32),
+          SizedBox(height: 32.h,),
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () => Navigator.pop(context),
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppTheme.backgroundLight,
-                padding: const EdgeInsets.symmetric(vertical: 16),
+                padding: EdgeInsets.symmetric(vertical: 16),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(12.r),
                 ),
               ),
-              child: const Text(
+              child: Text(
                 'Confirm Payment',
-                style: TextStyle(color: AppTheme.textDarkNavy, fontSize: 16),
+                style: TextStyle(color: AppTheme.textDarkNavy, fontSize: 16.sp,),
               ),
             ),
           ),

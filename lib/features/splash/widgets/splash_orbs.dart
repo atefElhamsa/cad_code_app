@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
@@ -11,13 +12,13 @@ class SplashOrbs extends StatelessWidget {
     return Stack(
       children: [
         Positioned(
-          top: -40,
-          left: -40,
+          top: -40.h,
+          left: -40.w,
           child:
               Container(
-                    width: 140,
-                    height: 140,
-                    decoration: const BoxDecoration(
+                    width: 140.w,
+                    height: 140.h,
+                    decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: AppTheme.primaryGoldLight,
                     ),
@@ -27,13 +28,13 @@ class SplashOrbs extends StatelessWidget {
                   .fadeIn(duration: 1000.ms),
         ),
         Positioned(
-          top: 100,
-          left: 50,
+          top: 100.h,
+          left: 50.w,
           child:
               Container(
-                width: 20,
-                height: 20,
-                decoration: const BoxDecoration(
+                width: 20.w,
+                height: 20.h,
+                decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: AppTheme.primaryGoldDark,
                 ),
@@ -44,13 +45,13 @@ class SplashOrbs extends StatelessWidget {
               ),
         ),
         Positioned(
-          bottom: -50,
-          right: -30,
+          bottom: -50.h,
+          right: -30.w,
           child:
               Container(
-                    width: 160,
-                    height: 160,
-                    decoration: const BoxDecoration(
+                    width: 160.w,
+                    height: 160.h,
+                    decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: AppTheme.primaryGoldDark,
                     ),
@@ -60,13 +61,13 @@ class SplashOrbs extends StatelessWidget {
                   .fadeIn(duration: 1000.ms),
         ),
         Positioned(
-          bottom: 120,
-          right: 80,
+          bottom: 120.h,
+          right: 80.w,
           child:
               Container(
-                width: 25,
-                height: 25,
-                decoration: const BoxDecoration(
+                width: 25.w,
+                height: 25.h,
+                decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: AppTheme.primaryGoldLight,
                 ),

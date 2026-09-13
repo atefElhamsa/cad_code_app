@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 
 import '../core/theme/app_theme.dart';
@@ -19,10 +20,10 @@ class CourseBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(24),
+      padding: EdgeInsets.all(24),
       decoration: BoxDecoration(
         color: AppTheme.backgroundWhite,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(16.r),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,25 +33,25 @@ class CourseBanner extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: const TextStyle(
+                style: TextStyle(
                   color: AppTheme.primaryCyan,
-                  fontSize: 24,
+                  fontSize: 24.sp,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(
+                padding: EdgeInsets.symmetric(
                   horizontal: 12,
                   vertical: 6,
                 ),
                 decoration: BoxDecoration(
                   color: AppTheme.backgroundLight,
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(20.r),
                   border: Border.all(color: AppTheme.primaryCyan),
                 ),
                 child: Text(
                   level,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppTheme.primaryCyan,
                     fontWeight: FontWeight.bold,
                   ),
@@ -58,24 +59,24 @@ class CourseBanner extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: 16.h,),
           ...outcomes.map(
             (o) => Padding(
-              padding: const EdgeInsets.only(bottom: 8.0),
+              padding: EdgeInsets.only(bottom: 8.0),
               child: Row(
                 children: [
-                  const Icon(
+                  Icon(
                     Icons.check_circle,
                     color: AppTheme.primaryCyan,
                     size: 16,
                   ),
-                  const SizedBox(width: 8),
-                  Text(o, style: const TextStyle(color: AppTheme.textDarkNavy)),
+                  SizedBox(width: 8.w,),
+                  Text(o, style: TextStyle(color: AppTheme.textDarkNavy)),
                 ],
               ),
             ),
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: 16.h,),
           LinearProgressIndicator(
             value: progress,
             backgroundColor: AppTheme.backgroundLight,

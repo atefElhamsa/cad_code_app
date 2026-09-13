@@ -5,6 +5,7 @@ import 'package:cad_code_academy/features/courses/presentation/viewmodels/course
 import 'package:cad_code_academy/features/courses/presentation/viewmodels/enrolled_courses_cubit/enrolled_courses_cubit.dart';
 
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'core/di/injection_container.dart' as di;
 import 'core/theme/app_theme.dart';
@@ -35,15 +36,20 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => di.sl<CoursesCubit>()..fetchCourses(),
         ),
-        BlocProvider(
-          create: (context) => di.sl<EnrolledCoursesCubit>(),
-        ),
+        BlocProvider(create: (context) => di.sl<EnrolledCoursesCubit>()),
       ],
-      child: MaterialApp.router(
-        title: 'C&C Academy',
-        theme: AppTheme.lightTheme,
-        routerConfig: AppRouter.router,
-        debugShowCheckedModeBanner: false,
+      child: ScreenUtilInit(
+        designSize: const Size(390, 844),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        builder: (context, child) {
+          return MaterialApp.router(
+            title: 'C&C Academy',
+            theme: AppTheme.lightTheme,
+            routerConfig: AppRouter.router,
+            debugShowCheckedModeBanner: false,
+          );
+        },
       ),
     );
   }

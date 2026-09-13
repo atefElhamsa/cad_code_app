@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -38,9 +39,7 @@ class CourseFolderCard extends StatelessWidget {
         builder: (dialogContext) => BlocProvider(
           create: (_) => AccessCodeCubit(
             AccessCodeRepositoryImpl(
-              SupabaseAccessCodeRemoteDataSourceImpl(
-                Supabase.instance.client,
-              ),
+              SupabaseAccessCodeRemoteDataSourceImpl(Supabase.instance.client),
             ),
           ),
           child: AccessCodeDialog(
@@ -56,16 +55,14 @@ class CourseFolderCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final buttonColor = isUnlocked ? const Color(0xFF22C55E) : AppTheme.primaryCyan;
-    
-    // Responsive image height
-    final double screenWidth = MediaQuery.of(context).size.width;
-    final double imageHeight = screenWidth > 600 ? 250.0 : 170.0;
+    final buttonColor = isUnlocked
+        ? const Color(0xFF22C55E)
+        : AppTheme.primaryCyan;
 
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(24),
+        borderRadius: BorderRadius.circular(24.r),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.07),
@@ -85,90 +82,97 @@ class CourseFolderCard extends StatelessWidget {
             children: [
               // ── Cover image ──────────────────────────────────
               if (folder.imageUrl != null)
-                Stack(
-                  children: [
-                    Image.network(
-                      folder.imageUrl!,
-                      height: imageHeight,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                      errorBuilder: (_, __, ___) => Container(
-                        height: imageHeight,
-                        color: const Color(0xFF0F172A),
-                        child: const Center(
-                          child: Icon(
-                            Icons.school_rounded,
-                            color: Color(0xFFD4AF37),
-                            size: 48,
+                AspectRatio(
+                  aspectRatio: 16 / 9,
+                  child: Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      Image.network(
+                        folder.imageUrl!,
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                        cacheWidth: 800,
+                        cacheHeight: 500,
+                        errorBuilder: (context, error, stackTrace) => Container(
+                          color: const Color(0xFF0F172A),
+                          child: Center(
+                            child: Icon(
+                              Icons.school_rounded,
+                              color: Color(0xFFD4AF37),
+                              size: 48,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    // subtle bottom gradient
-                    Positioned(
-                      bottom: 0,
-                      left: 0,
-                      right: 0,
-                      child: Container(
-                        height: 60,
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [
-                              Colors.transparent,
-                              Colors.black.withValues(alpha: 0.25),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    // Lock badge (top-right)
-                    if (!isUnlocked)
+                      // subtle bottom gradient
                       Positioned(
-                        top: 12,
-                        right: 12,
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
                         child: Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 6,
-                          ),
+                          height: 60.h,
                           decoration: BoxDecoration(
-                            color: Colors.black.withValues(alpha: 0.55),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: const Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(Icons.lock_rounded,
-                                  color: Color(0xFFD4AF37), size: 14),
-                              SizedBox(width: 5),
-                              Text(
-                                'مغلق',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Colors.transparent,
+                                Colors.black.withValues(alpha: 0.25),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                  ],
+                      // Lock badge (top-right)
+                      if (!isUnlocked)
+                        Positioned(
+                          top: 12,
+                          right: 12,
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 6,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.black.withValues(alpha: 0.55),
+                              borderRadius: BorderRadius.circular(20.r),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(
+                                  Icons.lock_rounded,
+                                  color: Color(0xFFD4AF37),
+                                  size: 14,
+                                ),
+                                SizedBox(width: 5.w),
+                                Text(
+                                  'مغلق',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
                 ),
 
               // ── Info section ─────────────────────────────────
               Padding(
-                padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
+                padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     // Title
                     Text(
                       folder.title,
-                      style: const TextStyle(
-                        fontSize: 17,
+                      style: TextStyle(
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.w900,
                         color: AppTheme.textDarkNavy,
                         fontFamily: 'Inter',
@@ -176,7 +180,7 @@ class CourseFolderCard extends StatelessWidget {
                       ),
                       textAlign: TextAlign.right,
                     ),
-                    const SizedBox(height: 6),
+                    SizedBox(height: 6.h),
 
                     // Description
                     Text(
@@ -186,12 +190,12 @@ class CourseFolderCard extends StatelessWidget {
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                        fontSize: 13,
+                        fontSize: 12.sp,
                         color: Colors.grey.shade500,
                         height: 1.5,
                       ),
                     ),
-                    const SizedBox(height: 20),
+                    SizedBox(height: 16.h),
 
                     // ── Action button ──────────────────────────
                     Row(
@@ -201,9 +205,9 @@ class CourseFolderCard extends StatelessWidget {
                         GestureDetector(
                           onTap: () => _onTap(context),
                           child: Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 28,
-                              vertical: 12,
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 20,
+                              vertical: 10,
                             ),
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
@@ -214,7 +218,7 @@ class CourseFolderCard extends StatelessWidget {
                                 begin: Alignment.topLeft,
                                 end: Alignment.bottomRight,
                               ),
-                              borderRadius: BorderRadius.circular(50),
+                              borderRadius: BorderRadius.circular(50.r),
                               boxShadow: [
                                 BoxShadow(
                                   color: buttonColor.withValues(alpha: 0.35),
@@ -233,13 +237,13 @@ class CourseFolderCard extends StatelessWidget {
                                   color: Colors.white,
                                   size: 18,
                                 ),
-                                const SizedBox(width: 6),
+                                SizedBox(width: 6.w),
                                 Text(
                                   isUnlocked ? 'ابدأ الآن' : 'فتح',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.w900,
-                                    fontSize: 15,
+                                    fontSize: 14.sp,
                                     letterSpacing: 0.5,
                                   ),
                                 ),
@@ -250,10 +254,11 @@ class CourseFolderCard extends StatelessWidget {
 
                         // Chapters count or lock icon
                         Container(
-                          padding: const EdgeInsets.all(10),
+                          padding: EdgeInsets.all(10),
                           decoration: BoxDecoration(
-                            color: const Color(0xFFD4AF37).withValues(alpha: 0.1),
-                            borderRadius: BorderRadius.circular(14),
+                            color: const Color(0xFFD4AF37)
+                                .withValues(alpha: 0.1),
+                            borderRadius: BorderRadius.circular(14.r),
                           ),
                           child: Icon(
                             isUnlocked
