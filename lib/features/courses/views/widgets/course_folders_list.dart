@@ -92,11 +92,11 @@ class CourseFoldersList extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 ListView.separated(
-                  padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10.w),
+                  padding: EdgeInsets.symmetric(vertical: 15),
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: folders.length,
-                  separatorBuilder: (context, index) => SizedBox(height: 24.h),
+                  separatorBuilder: (context, index) => SizedBox(height: 10.h),
                   itemBuilder: (context, index) {
                     final folder = folders[index];
                     final isUnlocked = unlockedFolderIds.contains(folder.id);

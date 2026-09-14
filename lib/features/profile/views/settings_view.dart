@@ -67,7 +67,7 @@ class SettingsView extends StatelessWidget {
                         .fade(duration: 400.ms, delay: 100.ms)
                         .slideY(begin: 0.1, curve: Curves.easeOutQuad),
 
-                    SizedBox(height: 24.h,),
+                    SizedBox(height: 24.h),
 
                     // Social Media Group
                     SettingsCard(

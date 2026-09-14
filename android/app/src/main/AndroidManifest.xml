@@ -6,14 +6,7 @@
     <!-- INTERNET permission required for Supabase, Google Drive, etc. -->
     <uses-permission android:name="android.permission.INTERNET"/>
 
-    <!-- Storage permissions for gallery access -->
-    <!-- Android 9-12 -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
-        android:maxSdkVersion="32"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="29"/>
-    <!-- Android 13+ -->
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
+
 
     <application
         android:label="C&amp;C Academy"

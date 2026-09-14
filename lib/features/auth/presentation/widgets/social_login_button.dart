@@ -18,7 +18,9 @@ class SocialLoginButton extends StatelessWidget {
           color: Colors.white.withValues(alpha: 0.2),
           width: 1.5.w,
         ),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.r),
+        ),
       ),
       icon: isLoading
           ? SizedBox(
@@ -29,13 +31,11 @@ class SocialLoginButton extends StatelessWidget {
                 color: Colors.white,
               ),
             )
-          : Text(
-              'G',
-              style: TextStyle(
-                fontSize: 24.sp,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
+          : Image.asset(
+              'assets/images/google_logo.png',
+              width: 24.w,
+              height: 24.h,
+              fit: BoxFit.contain,
             ),
       label: Text(
         isLoading ? 'Please wait...' : 'Continue with Google',

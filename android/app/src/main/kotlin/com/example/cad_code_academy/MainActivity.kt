@@ -1,4 +1,4 @@
-package com.example.cad_code_academy
+package com.cadandcode.academy
 
 import io.flutter.embedding.android.FlutterActivity
 

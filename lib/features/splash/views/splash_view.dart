@@ -65,7 +65,7 @@ class _SplashViewState extends State<SplashView> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const SplashLogo(),
-                  SizedBox(height: 30.h,),
+                  SizedBox(height: 25.h,),
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
