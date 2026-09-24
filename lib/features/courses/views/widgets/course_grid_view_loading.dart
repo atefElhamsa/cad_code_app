@@ -10,7 +10,7 @@ class CourseGridViewLoading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      padding: EdgeInsets.only(bottom: 120),
+      padding: EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 120),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: crossAxisCount,
         crossAxisSpacing: 8,
