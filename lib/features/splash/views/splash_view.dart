@@ -2,6 +2,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../auth/presentation/viewmodels/auth_cubit.dart';
 import '../../auth/presentation/viewmodels/auth_state.dart';
@@ -46,10 +47,9 @@ class _SplashViewState extends State<SplashView> {
 
   @override
   Widget build(BuildContext context) {
-    final textStyle = TextStyle(
+    final textStyle = GoogleFonts.inter(
       fontSize: 36.sp,
-      fontWeight: FontWeight.w900,
-      fontFamily: 'Inter',
+      fontWeight: FontWeight.w800,
     );
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
@@ -65,16 +65,16 @@ class _SplashViewState extends State<SplashView> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const SplashLogo(),
-                  SizedBox(height: 25.h,),
+                  SizedBox(height: 15.h),
                   Row(
-                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       AnimatedSplashText(
                         text: 'C&C',
                         style: textStyle,
                         delayOffset: 800,
                       ),
-                      SizedBox(width: 8.w,),
+                      SizedBox(width: 8.w),
                       AnimatedSplashText(
                         text: 'Academy',
                         style: textStyle,

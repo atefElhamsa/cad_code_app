@@ -122,9 +122,11 @@ class EditProfileCubit extends Cubit<EditProfileState> {
   // ── Permissions ───────────────────────────────────────────────────
 
   Future<bool> _requestPermission(ImageSource source) async {
-    final permission = source == ImageSource.camera
-        ? Permission.camera
-        : Permission.photos;
+    if (source == ImageSource.gallery) {
+      return true; // No permissions needed for gallery (uses Photo Picker)
+    }
+
+    final permission = Permission.camera;
 
     final status = await permission.request();
     if (status.isGranted) return true;

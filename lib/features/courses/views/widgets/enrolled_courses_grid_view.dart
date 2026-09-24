@@ -1,11 +1,11 @@
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:cad_code_academy/features/courses/views/widgets/course_grid_view_loading.dart';
+import 'package:cad_code_academy/features/courses/views/widgets/empty_courses_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../../../widgets/course_card_grid.dart';
-import '../../../../widgets/empty_state_widget.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../presentation/viewmodels/enrolled_courses_cubit/enrolled_courses_cubit.dart';
 import '../../presentation/viewmodels/enrolled_courses_cubit/enrolled_courses_state.dart';
@@ -27,62 +27,16 @@ class EnrolledCoursesGridView extends StatelessWidget {
           builder: (context, state) {
             if (state is EnrolledCoursesLoading ||
                 state is EnrolledCoursesInitial) {
-              return GridView.builder(
-                padding: EdgeInsets.only(
-                  left: 20,
-                  right: 20,
-                  top: 20,
-                  bottom: 120,
-                ),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: crossAxisCount,
-                  crossAxisSpacing: 16,
-                  mainAxisSpacing: 16,
-                  childAspectRatio: 0.85,
-                ),
-                itemCount: 4,
-                itemBuilder: (context, index) {
-                  return Container(
-                        decoration: BoxDecoration(
-                          color: AppTheme.backgroundDarkNavy.withValues(
-                            alpha: 0.1,
-                          ),
-                          borderRadius: BorderRadius.circular(24.r),
-                        ),
-                      )
-                      .animate(onPlay: (controller) => controller.repeat())
-                      .shimmer(
-                        duration: 1200.ms,
-                        color: AppTheme.backgroundDarkNavy.withValues(
-                          alpha: 0.15,
-                        ),
-                      );
-                },
-              );
+              return CourseGridViewLoading(crossAxisCount: crossAxisCount);
             } else if (state is EnrolledCoursesError) {
               return Center(child: Text('Error: ${state.message}'));
             } else if (state is EnrolledCoursesLoaded) {
               final courses = state.courses;
               if (courses.isEmpty) {
-                return RefreshIndicator(
-                  onRefresh: () => context
-                      .read<EnrolledCoursesCubit>()
-                      .fetchEnrolledCourses(),
-                  color: AppTheme.primaryGoldDark,
-                  backgroundColor: AppTheme.backgroundLight,
-                  child: CustomScrollView(
-                    physics: const AlwaysScrollableScrollPhysics(),
-                    slivers: [
-                      const SliverFillRemaining(
-                        hasScrollBody: false,
-                        child: EmptyStateWidget(
-                          icon: Icons.lock_outline_rounded,
-                          title: 'No Unlocked Courses',
-                          subtitle: 'You have not unlocked any courses yet.\nUse an access code to unlock a course.',
-                        ),
-                      ),
-                    ],
-                  ),
+                return const EmptyCoursesHome(
+                  title: 'No Unlocked Courses',
+                  subtitle: 'You have not unlocked any courses yet.\nUse an access code to unlock a course.',
+                  icon: Icons.lock_outline_rounded,
                 );
               }
               return RefreshIndicator(
@@ -102,9 +56,9 @@ class EnrolledCoursesGridView extends StatelessWidget {
                   ),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: crossAxisCount,
-                    crossAxisSpacing: 16,
+                    crossAxisSpacing: 8,
                     mainAxisSpacing: 16,
-                    childAspectRatio: 0.85,
+                    childAspectRatio: 0.8,
                   ),
                   itemCount: courses.length,
                   itemBuilder: (context, index) {

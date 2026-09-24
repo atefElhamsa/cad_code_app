@@ -4,7 +4,8 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:cad_code_academy/core/theme/app_theme.dart';
 
 class CoursesHeader extends StatelessWidget {
-  const CoursesHeader({super.key});
+  final String title;
+  const CoursesHeader({super.key, this.title = 'Courses'});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +13,7 @@ class CoursesHeader extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          'Courses',
+          title,
           style: TextStyle(
             fontSize: 32.sp,
             fontWeight: FontWeight.w900,
