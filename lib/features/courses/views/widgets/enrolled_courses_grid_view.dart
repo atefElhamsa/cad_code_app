@@ -27,7 +27,10 @@ class EnrolledCoursesGridView extends StatelessWidget {
           builder: (context, state) {
             if (state is EnrolledCoursesLoading ||
                 state is EnrolledCoursesInitial) {
-              return CourseGridViewLoading(crossAxisCount: crossAxisCount);
+              return Padding(
+                padding: const EdgeInsets.only(top: 20,right: 20,left: 20),
+                child: CourseGridViewLoading(crossAxisCount: crossAxisCount),
+              );
             } else if (state is EnrolledCoursesError) {
               return Center(child: Text('Error: ${state.message}'));
             } else if (state is EnrolledCoursesLoaded) {
