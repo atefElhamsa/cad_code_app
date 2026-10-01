@@ -1,18 +1,59 @@
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
+import '../../../core/theme/app_theme.dart';
 import '../../../widgets/brand_header.dart';
-import '../../../widgets/instapay_card.dart';
+import '../widgets/number_card.dart';
+import '../widgets/payment_method_tile.dart';
 
-class PaymentView extends StatelessWidget {
+enum _PaymentMethod { instapay, vodafoneCash }
+
+class PaymentView extends StatefulWidget {
   const PaymentView({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    const String instapayNumber = '01552946586';
+  State<PaymentView> createState() => _PaymentViewState();
+}
 
+class _PaymentViewState extends State<PaymentView> {
+  static const String _instapayNumber = '01552946586';
+  static const String _vodafoneCashNumber = '01272442829';
+
+  _PaymentMethod _selected = _PaymentMethod.instapay;
+
+  String get _selectedNumber => _selected == _PaymentMethod.instapay
+      ? _instapayNumber
+      : _vodafoneCashNumber;
+
+  String get _selectedLabel =>
+      _selected == _PaymentMethod.instapay ? 'InstaPay' : 'Vodafone Cash';
+
+  Future<void> _copyNumber() async {
+    await Clipboard.setData(ClipboardData(text: _selectedNumber));
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          '$_selectedLabel number copied!',
+          style: const TextStyle(
+            fontFamily: 'Inter',
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        backgroundColor: AppTheme.primaryCyan,
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.r),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF4F6F9),
       body: Column(
@@ -24,26 +65,98 @@ class PaymentView extends StatelessWidget {
           ),
           Expanded(
             child: Center(
-              child: SingleChildScrollView(
-                padding: EdgeInsets.all(24.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 700),
+                child: ListView(
+                  padding: EdgeInsets.fromLTRB(20, 24, 20, 40),
                   children: [
-                    InstapayCard(instapayNumber: instapayNumber)
-                        .animate()
-                        .scale(duration: 600.ms, curve: Curves.easeOutBack)
-                        .fade(duration: 500.ms),
-                    SizedBox(height: 32.h,),
                     Text(
-                      'Please transfer the amount to the\nInstaPay number above.',
-                      textAlign: TextAlign.center,
+                          'Choose a transfer method',
+                          style: TextStyle(
+                            color: AppTheme.textDarkNavy,
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.w800,
+                            fontFamily: 'Inter',
+                          ),
+                        )
+                        .animate()
+                        .fade(duration: 400.ms)
+                        .slideY(begin: 0.1, curve: Curves.easeOutQuad),
+                    SizedBox(height: 8.h),
+                    Text(
+                          'Send the course amount, then share your receipt on WhatsApp.',
+                          style: TextStyle(
+                            color: AppTheme.textGray,
+                            fontSize: 14.sp,
+                            fontFamily: 'Inter',
+                            height: 1.5,
+                          ),
+                        )
+                        .animate()
+                        .fade(duration: 400.ms, delay: 80.ms)
+                        .slideY(begin: 0.1, curve: Curves.easeOutQuad),
+                    SizedBox(height: 24.h),
+                    PaymentMethodTile(
+                          title: 'InstaPay',
+                          subtitle: 'Instant bank transfer',
+                          accentColor: const Color(0xFF5A2C82),
+                          isSelected: _selected == _PaymentMethod.instapay,
+                          image: Image.asset(
+                            'assets/images/InstaPay_Logo.png',
+                            fit: BoxFit.contain,
+                          ),
+                          onTap: () => setState(
+                            () => _selected = _PaymentMethod.instapay,
+                          ),
+                        )
+                        .animate()
+                        .fade(duration: 400.ms, delay: 120.ms)
+                        .slideY(begin: 0.1, curve: Curves.easeOutQuad),
+                    SizedBox(height: 12.h),
+                    PaymentMethodTile(
+                          title: 'Vodafone Cash',
+                          subtitle: 'Mobile wallet transfer',
+                          accentColor: const Color(0xFFE60000),
+                          isSelected: _selected == _PaymentMethod.vodafoneCash,
+                          image: Image.asset(
+                            'assets/images/vodafone_cash_logo.png',
+                            fit: BoxFit.contain,
+                          ),
+                          onTap: () => setState(
+                            () => _selected = _PaymentMethod.vodafoneCash,
+                          ),
+                        )
+                        .animate()
+                        .fade(duration: 400.ms, delay: 180.ms)
+                        .slideY(begin: 0.1, curve: Curves.easeOutQuad),
+                    SizedBox(height: 28.h),
+                    Text(
+                      'Transfer to $_selectedLabel',
                       style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 14.sp,
+                        color: AppTheme.textGray,
+                        fontSize: 13.sp,
+                        fontWeight: FontWeight.w600,
                         fontFamily: 'Inter',
-                        height: 1.5,
+                        letterSpacing: 0.4,
                       ),
-                    ).animate().fade(delay: 300.ms).slideY(begin: 0.2),
+                    ),
+                    SizedBox(height: 12.h),
+                    NumberCard(
+                          number: _selectedNumber,
+                          onCopy: _copyNumber,
+                          icon: _selected == _PaymentMethod.instapay
+                              ? Image.asset(
+                                  'assets/images/InstaPay_Logo.png',
+                                  fit: BoxFit.contain,
+                                )
+                              : Image.asset(
+                                  'assets/images/vodafone_cash_logo.png',
+                                  fit: BoxFit.contain,
+                                ),
+                        )
+                        .animate(key: ValueKey(_selectedNumber))
+                        .fade(duration: 250.ms)
+                        .slideY(begin: 0.08, curve: Curves.easeOutQuad),
                   ],
                 ),
               ),
