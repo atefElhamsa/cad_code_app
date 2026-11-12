@@ -1,6 +1,7 @@
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+
+import '../../../../core/responsive/responsive.dart';
 
 class AuthTitle extends StatelessWidget {
   final String title;
@@ -10,26 +11,41 @@ class AuthTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final titleFontSize = ResponsiveUtils.fontSize(
+      context,
+      28,
+      minScale: 1.0,
+      maxScale: 1.15,
+    );
+    final subtitleFontSize = ResponsiveUtils.fontSize(
+      context,
+      16,
+      minScale: 1.0,
+      maxScale: 1.15,
+    );
+
     return Column(
       children: [
         Text(
               title,
               style: TextStyle(
-                fontSize: 32.sp,
+                fontSize: titleFontSize,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
+                fontFamily: 'Inter',
               ),
               textAlign: TextAlign.center,
             )
             .animate()
             .fadeIn(delay: 200.ms)
             .slideY(begin: 0.2, curve: Curves.easeOut),
-        SizedBox(height: 8.h,),
+        const SizedBox(height: 8),
         Text(
               subtitle,
               style: TextStyle(
-                fontSize: 16.sp,
+                fontSize: subtitleFontSize,
                 color: Colors.white.withValues(alpha: 0.6),
+                fontFamily: 'Inter',
               ),
               textAlign: TextAlign.center,
             )

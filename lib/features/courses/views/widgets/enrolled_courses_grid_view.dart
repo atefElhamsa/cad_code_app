@@ -28,7 +28,7 @@ class EnrolledCoursesGridView extends StatelessWidget {
             if (state is EnrolledCoursesLoading ||
                 state is EnrolledCoursesInitial) {
               return Padding(
-                padding: const EdgeInsets.only(top: 20,right: 20,left: 20),
+                padding: const EdgeInsets.only(top: 20, right: 20, left: 20),
                 child: CourseGridViewLoading(crossAxisCount: crossAxisCount),
               );
             } else if (state is EnrolledCoursesError) {
@@ -48,7 +48,7 @@ class EnrolledCoursesGridView extends StatelessWidget {
                 color: AppTheme.primaryGoldDark,
                 backgroundColor: AppTheme.backgroundLight,
                 child: GridView.builder(
-                  padding: EdgeInsets.only(
+                  padding: const EdgeInsets.only(
                     left: 20,
                     right: 20,
                     top: 20,
@@ -76,6 +76,7 @@ class EnrolledCoursesGridView extends StatelessWidget {
                               'id': course.id,
                               'title': course.title,
                               'imageUrl': course.imageUrl,
+                              'description': course.description,
                             },
                           ),
                         )
@@ -88,7 +89,7 @@ class EnrolledCoursesGridView extends StatelessWidget {
                 ),
               );
             }
-            return SizedBox.shrink();
+            return const SizedBox.shrink();
           },
         );
       },

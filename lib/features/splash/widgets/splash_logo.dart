@@ -1,7 +1,7 @@
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
+import '../../../../core/responsive/responsive.dart';
 import '../../../../core/theme/app_theme.dart';
 
 class SplashLogo extends StatelessWidget {
@@ -9,34 +9,87 @@ class SplashLogo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-          width: 100.w,
-          height: 100.h,
+    final shortestSide = context.shortestSide;
+    final logoSize = (shortestSide * 0.26).clamp(112.0, 176.0);
+    final borderRadius = logoSize * 0.22;
+
+    return Stack(
+      clipBehavior: Clip.none,
+      alignment: Alignment.center,
+      children: [
+        Container(
+          width: logoSize * 0.9,
+          height: logoSize * 0.9,
           decoration: BoxDecoration(
-            color: Colors.transparent,
-            borderRadius: BorderRadius.circular(20.r),
-            border: Border.all(color: AppTheme.primaryGoldLight, width: 4.w,),
-          ),
-          child: Center(
-            child: ShaderMask(
-              shaderCallback: (bounds) => AppTheme.goldGradient.createShader(
-                Rect.fromLTWH(0, 0, bounds.width, bounds.height),
+            shape: BoxShape.circle,
+            boxShadow: [
+              BoxShadow(
+                color: AppTheme.primaryGoldLight.withValues(alpha: 0.4),
+                blurRadius: 48,
+                spreadRadius: 4,
               ),
-              child: Text(
-                'C',
-                style: TextStyle(
-                  fontSize: 60.sp,
-                  fontWeight: FontWeight.w900,
-                  color: Colors.white,
-                  fontFamily: 'Inter',
+            ],
+          ),
+        )
+            .animate(onPlay: (controller) => controller.repeat(reverse: true))
+            .scale(
+              begin: const Offset(0.92, 0.92),
+              end: const Offset(1.08, 1.08),
+              duration: 1600.ms,
+              curve: Curves.easeInOut,
+            ),
+        Container(
+          width: logoSize,
+          height: logoSize,
+          padding: EdgeInsets.all((logoSize * 0.02).clamp(2.2, 3.5)),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(borderRadius),
+            gradient: AppTheme.goldGradient,
+            boxShadow: [
+              BoxShadow(
+                color: AppTheme.primaryGoldDark.withValues(alpha: 0.4),
+                blurRadius: 22,
+                offset: const Offset(0, 8),
+              ),
+            ],
+          ),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(borderRadius - 3),
+              color: AppTheme.backgroundDarkNavy,
+            ),
+            child: Center(
+              child: Padding(
+                padding: EdgeInsets.all(logoSize * 0.1),
+                child: FittedBox(
+                  fit: BoxFit.contain,
+                  child: Text(
+                    'C',
+                    style: TextStyle(
+                      fontSize: 100,
+                      fontWeight: FontWeight.w900,
+                      color: AppTheme.primaryGoldLight,
+                      fontFamily: 'Inter',
+                      height: 1.0,
+                    ),
+                    textHeightBehavior: const TextHeightBehavior(
+                      applyHeightToFirstAscent: false,
+                      applyHeightToLastDescent: false,
+                    ),
+                  ),
                 ),
               ),
             ),
           ),
-        )
+        ),
+      ],
+    )
         .animate()
-        .slideY(begin: -1.0, end: 0, duration: 800.ms, curve: Curves.bounceOut)
-        .fadeIn(duration: 800.ms)
-        .shimmer(delay: 1000.ms, duration: 1500.ms, color: Colors.white);
+        .scale(
+          begin: const Offset(0.88, 0.88),
+          end: const Offset(1, 1),
+          duration: 800.ms,
+          curve: Curves.easeOutCubic,
+        );
   }
 }

@@ -1,4 +1,3 @@
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -6,6 +5,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../auth/presentation/viewmodels/auth_cubit.dart';
 import '../../auth/presentation/viewmodels/auth_state.dart';
+import '../../../core/responsive/responsive.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../widgets/brand_header.dart';
 import '../../../core/utils/custom_snackbar.dart';
@@ -68,6 +68,19 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
 
   @override
   Widget build(BuildContext context) {
+    final titleFontSize = ResponsiveUtils.fontSize(
+      context,
+      20,
+      minScale: 1.0,
+      maxScale: 1.15,
+    );
+    final descFontSize = ResponsiveUtils.fontSize(
+      context,
+      14,
+      minScale: 1.0,
+      maxScale: 1.15,
+    );
+
     return Scaffold(
       backgroundColor: AppTheme.backgroundLight,
       body: BlocConsumer<AuthCubit, AuthState>(
@@ -90,66 +103,69 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
               ),
               Expanded(
                 child: SingleChildScrollView(
-                  padding: EdgeInsets.all(24),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Security',
-                        style: TextStyle(
-                          fontSize: 20.sp,
-                          fontWeight: FontWeight.w800,
-                          color: AppTheme.textDarkNavy,
-                          fontFamily: 'Inter',
-                        ),
-                      ).animate().fade(delay: 100.ms).slideY(begin: 0.1),
-                      SizedBox(height: 8.h,),
-                      Text(
-                        'Create a new strong password for your account. Please remember it!',
-                        style: TextStyle(
-                          fontSize: 14.sp,
-                          color: AppTheme.textGray,
-                          fontFamily: 'Inter',
-                        ),
-                      ).animate().fade(delay: 200.ms).slideY(begin: 0.1),
-                      SizedBox(height: 32.h,),
-                      const FieldLabel('New Password')
-                          .animate()
-                          .fade(delay: 300.ms),
-                      SizedBox(height: 8.h,),
-                      PasswordInputField(
-                        controller: _passwordController,
-                        hintText: 'Enter new password',
-                        obscureText: _obscurePassword,
-                        onToggleVisibility: () => setState(
-                          () => _obscurePassword = !_obscurePassword,
-                        ),
-                        enabled: !isLoading,
-                      ).animate().fade(delay: 350.ms).slideY(begin: 0.1),
-                      SizedBox(height: 24.h,),
-                      const FieldLabel('Confirm Password')
-                          .animate()
-                          .fade(delay: 400.ms),
-                      SizedBox(height: 8.h,),
-                      PasswordInputField(
-                        controller: _confirmPasswordController,
-                        hintText: 'Re-enter new password',
-                        obscureText: _obscureConfirmPassword,
-                        onToggleVisibility: () => setState(
-                          () => _obscureConfirmPassword =
-                              !_obscureConfirmPassword,
-                        ),
-                        enabled: !isLoading,
-                      ).animate().fade(delay: 450.ms).slideY(begin: 0.1),
-                      SizedBox(height: 48.h,),
-                      PrimaryActionButton(
-                        text: 'Update Password',
-                        isLoading: isLoading,
-                        onPressed: (isLoading || !_isValid)
-                            ? null
-                            : _updatePassword,
-                      ).animate().fade(delay: 500.ms).slideY(begin: 0.2),
-                    ],
+                  padding: const EdgeInsets.all(24),
+                  child: ResponsiveConstraint(
+                    tabletMaxWidth: 680,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Security',
+                          style: TextStyle(
+                            fontSize: titleFontSize,
+                            fontWeight: FontWeight.w800,
+                            color: AppTheme.textDarkNavy,
+                            fontFamily: 'Inter',
+                          ),
+                        ).animate().fade(delay: 100.ms).slideY(begin: 0.1),
+                        const SizedBox(height: 8),
+                        Text(
+                          'Create a new strong password for your account. Please remember it!',
+                          style: TextStyle(
+                            fontSize: descFontSize,
+                            color: AppTheme.textGray,
+                            fontFamily: 'Inter',
+                          ),
+                        ).animate().fade(delay: 200.ms).slideY(begin: 0.1),
+                        const SizedBox(height: 32),
+                        const FieldLabel('New Password')
+                            .animate()
+                            .fade(delay: 300.ms),
+                        const SizedBox(height: 8),
+                        PasswordInputField(
+                          controller: _passwordController,
+                          hintText: 'Enter new password',
+                          obscureText: _obscurePassword,
+                          onToggleVisibility: () => setState(
+                            () => _obscurePassword = !_obscurePassword,
+                          ),
+                          enabled: !isLoading,
+                        ).animate().fade(delay: 350.ms).slideY(begin: 0.1),
+                        const SizedBox(height: 24),
+                        const FieldLabel('Confirm Password')
+                            .animate()
+                            .fade(delay: 400.ms),
+                        const SizedBox(height: 8),
+                        PasswordInputField(
+                          controller: _confirmPasswordController,
+                          hintText: 'Re-enter new password',
+                          obscureText: _obscureConfirmPassword,
+                          onToggleVisibility: () => setState(
+                            () => _obscureConfirmPassword =
+                                !_obscureConfirmPassword,
+                          ),
+                          enabled: !isLoading,
+                        ).animate().fade(delay: 450.ms).slideY(begin: 0.1),
+                        const SizedBox(height: 48),
+                        PrimaryActionButton(
+                          text: 'Update Password',
+                          isLoading: isLoading,
+                          onPressed: (isLoading || !_isValid)
+                              ? null
+                              : _updatePassword,
+                        ).animate().fade(delay: 500.ms).slideY(begin: 0.2),
+                      ],
+                    ),
                   ),
                 ),
               ),

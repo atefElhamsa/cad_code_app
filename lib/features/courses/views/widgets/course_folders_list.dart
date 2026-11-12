@@ -1,9 +1,9 @@
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../../../core/responsive/responsive.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../data/datasources/course_folders_remote_data_source.dart';
 import '../../data/datasources/access_code_remote_data_source.dart';
@@ -16,8 +16,13 @@ import 'course_folder_shimmer_card.dart';
 
 class CourseFoldersList extends StatelessWidget {
   final int courseId;
+  final bool isLandscapeTablet;
 
-  const CourseFoldersList({super.key, required this.courseId});
+  const CourseFoldersList({
+    super.key,
+    required this.courseId,
+    this.isLandscapeTablet = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -38,17 +43,17 @@ class CourseFoldersList extends StatelessWidget {
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemCount: 2,
-              separatorBuilder: (context, index) => SizedBox(height: 24.h),
+              separatorBuilder: (context, index) => const SizedBox(height: 24),
               itemBuilder: (context, index) {
                 return const CourseFolderShimmerCard();
               },
             );
           } else if (state is CourseFoldersError) {
             return Padding(
-              padding: EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16.0),
               child: Text(
                 'Error loading folders: ${state.message}',
-                style: TextStyle(color: Colors.red),
+                style: const TextStyle(color: Colors.red),
               ),
             );
           } else if (state is CourseFoldersLoaded) {
@@ -56,7 +61,7 @@ class CourseFoldersList extends StatelessWidget {
             final unlockedFolderIds = state.unlockedFolderIds;
             if (folders.isEmpty) {
               return SizedBox(
-                height: MediaQuery.of(context).size.height - 150,
+                height: context.screenHeight - 200,
                 child: Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -66,20 +71,20 @@ class CourseFoldersList extends StatelessWidget {
                         size: 80,
                         color: AppTheme.primaryGoldLight.withValues(alpha: 0.5),
                       ),
-                      SizedBox(height: 16.h),
+                      const SizedBox(height: 16),
                       Text(
                         'لا يوجد محتوى حالياً',
                         style: TextStyle(
-                          fontSize: 20.sp,
+                          fontSize: ResponsiveUtils.fontSize(context, 20),
                           fontWeight: FontWeight.bold,
                           color: AppTheme.textDarkNavy,
                         ),
                       ),
-                      SizedBox(height: 8.h),
+                      const SizedBox(height: 8),
                       Text(
                         'لم يتم إضافة أي مجلدات لهذا الكورس بعد.',
                         style: TextStyle(
-                          fontSize: 16.sp,
+                          fontSize: ResponsiveUtils.fontSize(context, 16),
                           color: AppTheme.textGray,
                         ),
                       ),
@@ -88,33 +93,59 @@ class CourseFoldersList extends StatelessWidget {
                 ),
               );
             }
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                ListView.separated(
-                  padding: EdgeInsets.symmetric(vertical: 15),
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: folders.length,
-                  separatorBuilder: (context, index) => SizedBox(height: 10.h),
-                  itemBuilder: (context, index) {
-                    final folder = folders[index];
-                    final isUnlocked = unlockedFolderIds.contains(folder.id);
-                    return CourseFolderCard(
-                          folder: folder,
-                          isUnlocked: isUnlocked,
-                        )
-                        .animate()
-                        .fadeIn(
-                          delay: Duration(milliseconds: 500 + (index * 100)),
-                        )
-                        .slideY(begin: 0.1);
-                  },
+
+            if (isLandscapeTablet) {
+              return GridView.builder(
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 16,
+                  mainAxisSpacing: 16,
+                  childAspectRatio: 1.1,
                 ),
-              ],
+                itemCount: folders.length,
+                itemBuilder: (context, index) {
+                  final folder = folders[index];
+                  final isUnlocked = unlockedFolderIds.contains(folder.id);
+                  return CourseFolderCard(
+                        folder: folder,
+                        isUnlocked: isUnlocked,
+                        index: index,
+                      )
+                      .animate()
+                      .fadeIn(
+                        delay: Duration(milliseconds: 200 + (index * 80)),
+                      )
+                      .slideY(begin: 0.08);
+                },
+              );
+            }
+
+            return ListView.separated(
+              padding: const EdgeInsets.symmetric(vertical: 12),
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: folders.length,
+              separatorBuilder: (context, index) => const SizedBox(height: 16),
+              itemBuilder: (context, index) {
+                final folder = folders[index];
+                final isUnlocked = unlockedFolderIds.contains(folder.id);
+                return CourseFolderCard(
+                      folder: folder,
+                      isUnlocked: isUnlocked,
+                      index: index,
+                    )
+                    .animate()
+                    .fadeIn(
+                      delay: Duration(milliseconds: 200 + (index * 80)),
+                    )
+                    .slideY(begin: 0.08);
+              },
             );
           }
-          return SizedBox.shrink();
+          return const SizedBox.shrink();
         },
       ),
     );

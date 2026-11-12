@@ -1,6 +1,6 @@
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 
+import '../../../core/responsive/responsive.dart';
 import '../../../widgets/brand_header.dart';
 import '../../../core/theme/app_theme.dart';
 import 'widgets/courses_header.dart';
@@ -17,14 +17,15 @@ class HomeView extends StatelessWidget {
         children: [
           const BrandHeader(title: 'C&C Academy'),
           Expanded(
-            child: Padding(
-              padding: EdgeInsets.all(20.0),
+            child: ResponsiveConstraint(
+              tabletMaxWidth: 960,
+              padding: const EdgeInsets.all(20.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const CoursesHeader(),
-                  SizedBox(height: 12.h),
-                  const Expanded(child: CoursesGridView()),
+                children: const [
+                  CoursesHeader(),
+                  SizedBox(height: 12),
+                  Expanded(child: CoursesGridView()),
                 ],
               ),
             ),

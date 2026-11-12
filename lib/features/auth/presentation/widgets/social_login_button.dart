@@ -1,6 +1,7 @@
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+
+import '../../../../core/responsive/responsive.dart';
 
 class SocialLoginButton extends StatelessWidget {
   final VoidCallback? onPressed;
@@ -10,39 +11,51 @@ class SocialLoginButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return OutlinedButton.icon(
-      onPressed: isLoading ? null : onPressed,
-      style: OutlinedButton.styleFrom(
-        padding: EdgeInsets.symmetric(vertical: 16),
-        side: BorderSide(
-          color: Colors.white.withValues(alpha: 0.2),
-          width: 1.5.w,
+    final fieldHeight = context.isTablet ? 56.0 : 52.0;
+    final fontSize = ResponsiveUtils.fontSize(
+      context,
+      16,
+      minScale: 1.0,
+      maxScale: 1.15,
+    );
+
+    return SizedBox(
+      height: fieldHeight,
+      child: OutlinedButton.icon(
+        onPressed: isLoading ? null : onPressed,
+        style: OutlinedButton.styleFrom(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          side: BorderSide(
+            color: Colors.white.withValues(alpha: 0.2),
+            width: 1.5,
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
         ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16.r),
-        ),
-      ),
-      icon: isLoading
-          ? SizedBox(
-              width: 24.w,
-              height: 24.h,
-              child: CircularProgressIndicator(
-                strokeWidth: 2,
-                color: Colors.white,
+        icon: isLoading
+            ? const SizedBox(
+                width: 22,
+                height: 22,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  color: Colors.white,
+                ),
+              )
+            : Image.asset(
+                'assets/images/google_logo.png',
+                width: 22,
+                height: 22,
+                fit: BoxFit.contain,
               ),
-            )
-          : Image.asset(
-              'assets/images/google_logo.png',
-              width: 24.w,
-              height: 24.h,
-              fit: BoxFit.contain,
-            ),
-      label: Text(
-        isLoading ? 'Please wait...' : 'Continue with Google',
-        style: TextStyle(
-          fontSize: 16.sp,
-          color: Colors.white,
-          fontWeight: FontWeight.w600,
+        label: Text(
+          isLoading ? 'Please wait...' : 'Continue with Google',
+          style: TextStyle(
+            fontSize: fontSize,
+            color: Colors.white,
+            fontWeight: FontWeight.w600,
+            fontFamily: 'Inter',
+          ),
         ),
       ),
     ).animate().fadeIn(delay: 700.ms).slideY(begin: 0.2, curve: Curves.easeOut);

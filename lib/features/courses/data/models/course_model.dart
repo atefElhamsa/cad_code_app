@@ -6,6 +6,7 @@ class CourseModel extends CourseEntity {
     required super.title,
     required super.tag,
     required super.imageUrl,
+    super.description,
   });
 
   factory CourseModel.fromJson(Map<String, dynamic> json) {
@@ -14,6 +15,7 @@ class CourseModel extends CourseEntity {
       title: json['title'] ?? '',
       tag: json['tag'] ?? '',
       imageUrl: json['image_url'] ?? '',
+      description: json['description'] ?? json['details'],
     );
   }
 
@@ -23,6 +25,7 @@ class CourseModel extends CourseEntity {
       'title': title,
       'tag': tag,
       'image_url': imageUrl,
+      'description': description,
     };
   }
 }

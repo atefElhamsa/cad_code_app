@@ -1,5 +1,6 @@
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
+
+import '../../../core/responsive/responsive.dart';
 import '../../../core/theme/app_theme.dart';
 
 class ProfileInputField extends StatelessWidget {
@@ -20,41 +21,56 @@ class ProfileInputField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16.r),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.02),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: TextField(
-        controller: controller,
-        keyboardType: keyboardType,
-        enabled: enabled,
-        style: TextStyle(
-          color: AppTheme.textDarkNavy,
-          fontSize: 16.sp,
-          fontWeight: FontWeight.w500,
-          fontFamily: 'Inter',
+    final fontSize = ResponsiveUtils.fontSize(
+      context,
+      16,
+      minScale: 1.0,
+      maxScale: 1.15,
+    );
+
+    return SizedBox(
+      height: 56,
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.02),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
+          ],
         ),
-        decoration: InputDecoration(
-          hintText: hintText,
-          hintStyle: TextStyle(color: Colors.grey.shade400, fontSize: 15.sp,),
-          prefixIcon: Icon(icon, color: AppTheme.primaryCyan, size: 22),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16.r),
-            borderSide: BorderSide.none,
+        child: TextField(
+          controller: controller,
+          keyboardType: keyboardType,
+          enabled: enabled,
+          style: TextStyle(
+            color: AppTheme.textDarkNavy,
+            fontSize: fontSize,
+            fontWeight: FontWeight.w500,
+            fontFamily: 'Inter',
           ),
-          filled: true,
-          fillColor: Colors.transparent,
-          contentPadding: EdgeInsets.symmetric(
-            horizontal: 20,
-            vertical: 16,
+          decoration: InputDecoration(
+            isDense: true,
+            hintText: hintText,
+            hintStyle: TextStyle(
+              color: Colors.grey.shade400,
+              fontSize: fontSize,
+              fontFamily: 'Inter',
+            ),
+            prefixIcon: Icon(icon, color: AppTheme.primaryCyan, size: 22),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16),
+              borderSide: BorderSide.none,
+            ),
+            filled: true,
+            fillColor: Colors.transparent,
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 20,
+              vertical: 16,
+            ),
           ),
         ),
       ),

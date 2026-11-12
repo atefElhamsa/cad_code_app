@@ -1,6 +1,6 @@
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 
+import '../core/responsive/responsive.dart';
 import '../core/theme/app_theme.dart';
 
 class BrandHeader extends StatelessWidget implements PreferredSizeWidget {
@@ -17,17 +17,28 @@ class BrandHeader extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final titleFontSize = ResponsiveUtils.fontSize(
+      context,
+      22,
+      minScale: 1.0,
+      maxScale: 1.15,
+    );
+    final displayTitle = title.fixBidi;
+    final hasArabic = RegExp(r'[\u0600-\u06FF]').hasMatch(displayTitle);
+    final titleDirection =
+        hasArabic ? TextDirection.rtl : TextDirection.ltr;
+
     return Container(
       decoration: BoxDecoration(
         color: AppTheme.backgroundDarkNavy,
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(24.r),
-          bottomRight: Radius.circular(24.r),
+        borderRadius: const BorderRadius.only(
+          bottomLeft: Radius.circular(24),
+          bottomRight: Radius.circular(24),
         ),
         border: Border(
           bottom: BorderSide(
             color: AppTheme.primaryGoldLight.withValues(alpha: 0.5),
-            width: 1.5.w,
+            width: 1.5,
           ),
         ),
         boxShadow: [
@@ -41,13 +52,13 @@ class BrandHeader extends StatelessWidget implements PreferredSizeWidget {
       child: SafeArea(
         bottom: false,
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               if (showBack)
                 IconButton(
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.arrow_back_ios,
                     color: AppTheme.primaryGoldLight,
                   ),
@@ -62,11 +73,12 @@ class BrandHeader extends StatelessWidget implements PreferredSizeWidget {
                         Rect.fromLTWH(0, 0, bounds.width, bounds.height),
                       ),
                   child: Text(
-                    title,
+                    displayTitle,
                     textAlign: TextAlign.center,
+                    textDirection: titleDirection,
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 22.sp,
+                      fontSize: titleFontSize,
                       fontWeight: FontWeight.w900,
                       letterSpacing: 1.2,
                       fontFamily: 'Inter',
@@ -74,7 +86,7 @@ class BrandHeader extends StatelessWidget implements PreferredSizeWidget {
                   ),
                 ),
               ),
-              SizedBox(width: 40.w,),
+              const SizedBox(width: 40),
             ],
           ),
         ),
@@ -84,23 +96,23 @@ class BrandHeader extends StatelessWidget implements PreferredSizeWidget {
 
   Widget _buildLogo() {
     return Container(
-      width: 40.w,
-      height: 40.h,
+      width: 40,
+      height: 40,
       decoration: BoxDecoration(
-        border: Border.all(color: AppTheme.primaryGoldLight, width: 2.w,),
-        borderRadius: BorderRadius.circular(10.r),
+        border: Border.all(color: AppTheme.primaryGoldLight, width: 2),
+        borderRadius: BorderRadius.circular(10),
       ),
       child: Center(
         child: ShaderMask(
           shaderCallback: (bounds) => AppTheme.goldGradient.createShader(
             Rect.fromLTWH(0, 0, bounds.width, bounds.height),
           ),
-          child: Text(
+          child: const Text(
             'C',
             style: TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.w900,
-              fontSize: 22.sp,
+              fontSize: 22,
               fontFamily: 'Inter',
             ),
           ),

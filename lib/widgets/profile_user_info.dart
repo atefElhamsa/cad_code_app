@@ -1,8 +1,8 @@
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
-import '../../../core/theme/app_theme.dart';
+import '../core/responsive/responsive.dart';
+import '../core/theme/app_theme.dart';
 
 class ProfileUserInfo extends StatelessWidget {
   final String name;
@@ -18,31 +18,26 @@ class ProfileUserInfo extends StatelessWidget {
 
   /// ترقية رابط الصورة لجودة أعلى بناءً على المزود
   String _getHighQualityAvatarUrl(String url) {
-    // Google User Content (صور جوجل) - ترقية من s96 لـ s400
     if (url.contains('googleusercontent.com')) {
-      // استبدال أي حجم موجود بـ 400px
       final upgraded = url
           .replaceAll(RegExp(r'=s\d+-c'), '=s400-c')
           .replaceAll(RegExp(r'=s\d+'), '=s400-c');
-      // لو مفيش size parameter أصلاً، نضيفه
       if (!upgraded.contains('=s')) {
         return '$upgraded=s400-c';
       }
       return upgraded;
     }
 
-    // Gravatar - استبدال أو إضافة حجم كبير
     if (url.contains('gravatar.com')) {
       final uri = Uri.tryParse(url);
       if (uri != null) {
         final params = Map<String, String>.from(uri.queryParameters);
         params['s'] = '400';
-        params['d'] = 'mp'; // fallback لو مفيش صورة
+        params['d'] = 'mp';
         return uri.replace(queryParameters: params).toString();
       }
     }
 
-    // Facebook Graph API
     if (url.contains('graph.facebook.com')) {
       final uri = Uri.tryParse(url);
       if (uri != null) {
@@ -53,24 +48,43 @@ class ProfileUserInfo extends StatelessWidget {
       }
     }
 
-    // غير ذلك - إرجاع الرابط كما هو
     return url;
   }
 
   @override
   Widget build(BuildContext context) {
+    final avatarSize = (context.shortestSide * 0.22).clamp(96.0, 180.0);
     final highQualityUrl = avatarUrl != null && avatarUrl!.isNotEmpty
         ? _getHighQualityAvatarUrl(avatarUrl!)
         : null;
 
+    final titleFontSize = ResponsiveUtils.fontSize(
+      context,
+      26,
+      minScale: 1.0,
+      maxScale: 1.2,
+    );
+    final phoneFontSize = ResponsiveUtils.fontSize(
+      context,
+      14,
+      minScale: 1.0,
+      maxScale: 1.15,
+    );
+
     return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Container(
-          width: 140.w,
-          height: 140.h,
+          width: avatarSize,
+          height: avatarSize,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: AppTheme.primaryCyan.withValues(alpha: 0.1),
+            border: Border.all(
+              color: AppTheme.primaryCyan.withValues(alpha: 0.4),
+              width: 2.5,
+            ),
             boxShadow: [
               BoxShadow(
                 color: AppTheme.primaryCyan.withValues(alpha: 0.2),
@@ -80,71 +94,76 @@ class ProfileUserInfo extends StatelessWidget {
             ],
           ),
           child: ClipOval(
-            child: highQualityUrl != null
-                ? Image.network(
-                    highQualityUrl,
-                    width: 140.w,
-                    height: 140.h,
-                    fit: BoxFit.cover,
-                    filterQuality: FilterQuality.high,
-                    isAntiAlias: true,
-                    cacheWidth: 400,
-                    cacheHeight: 400,
-                    errorBuilder: (context, error, stackTrace) => Icon(
+            child: SizedBox(
+              width: avatarSize,
+              height: avatarSize,
+              child: highQualityUrl != null
+                  ? Image.network(
+                      highQualityUrl,
+                      width: avatarSize,
+                      height: avatarSize,
+                      fit: BoxFit.cover,
+                      filterQuality: FilterQuality.high,
+                      isAntiAlias: true,
+                      cacheWidth: 400,
+                      cacheHeight: 400,
+                      errorBuilder: (context, error, stackTrace) => Icon(
+                        Icons.person_rounded,
+                        color: AppTheme.primaryCyan,
+                        size: avatarSize * 0.5,
+                      ),
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return Center(
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            value: loadingProgress.expectedTotalBytes != null
+                                ? loadingProgress.cumulativeBytesLoaded /
+                                      loadingProgress.expectedTotalBytes!
+                                : null,
+                            color: AppTheme.primaryCyan,
+                          ),
+                        );
+                      },
+                    )
+                  : Icon(
                       Icons.person_rounded,
                       color: AppTheme.primaryCyan,
-                      size: 72,
+                      size: avatarSize * 0.5,
                     ),
-                    loadingBuilder: (context, child, loadingProgress) {
-                      if (loadingProgress == null) return child;
-                      return Center(
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2,
-                          value: loadingProgress.expectedTotalBytes != null
-                              ? loadingProgress.cumulativeBytesLoaded /
-                                    loadingProgress.expectedTotalBytes!
-                              : null,
-                          color: AppTheme.primaryCyan,
-                        ),
-                      );
-                    },
-                  )
-                : Icon(
-                    Icons.person_rounded,
-                    color: AppTheme.primaryCyan,
-                    size: 72,
-                  ),
+            ),
           ),
         ).animate().scale(duration: 500.ms, curve: Curves.easeOutBack),
-        SizedBox(height: 24.h,),
+        SizedBox(height: ResponsiveUtils.spaceLg(context)),
         Text(
           name,
+          textAlign: TextAlign.center,
           style: TextStyle(
-            fontSize: 28.sp,
+            fontSize: titleFontSize,
             fontWeight: FontWeight.w900,
             color: AppTheme.textDarkNavy,
             fontFamily: 'Inter',
           ),
         ).animate().fade(delay: 200.ms).slideY(begin: 0.2),
-        SizedBox(height: 12.h,),
+        SizedBox(height: ResponsiveUtils.spaceSm(context)),
         Container(
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           decoration: BoxDecoration(
             color: Colors.green.withValues(alpha: 0.1),
-            borderRadius: BorderRadius.circular(100.r),
+            borderRadius: BorderRadius.circular(100),
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(Icons.call_rounded, color: Colors.green, size: 18),
-              SizedBox(width: 8.w,),
+              const Icon(Icons.call_rounded, color: Colors.green, size: 18),
+              const SizedBox(width: 8),
               Text(
                 phone,
                 style: TextStyle(
                   color: Colors.green,
                   fontWeight: FontWeight.w700,
                   fontFamily: 'Inter',
-                  fontSize: 14.sp,
+                  fontSize: phoneFontSize,
                 ),
               ),
             ],

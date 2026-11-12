@@ -1,8 +1,8 @@
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../../core/responsive/responsive.dart';
 import 'workspace_sessions_tab.dart';
 import 'workspace_tasks_tab.dart';
 import 'workspace_files_tab.dart';
@@ -49,21 +49,26 @@ class CourseWorkspaceView extends StatelessWidget {
         child: Scaffold(
           backgroundColor: const Color(0xFFF4F6F9),
           appBar: CourseWorkspaceAppBar(title: title, topic: topic),
-          body: Column(
-            children: [
-              SizedBox(height: 16.h,),
-              CourseWorkspaceTabBar(),
-              SizedBox(height: 12.h,),
-              Expanded(
-                child: TabBarView(
-                  children: [
-                    WorkspaceSessionsTab(),
-                    WorkspaceTasksTab(),
-                    WorkspaceFilesTab(),
-                  ],
-                ),
+          body: Center(
+            child: ResponsiveConstraint(
+              tabletMaxWidth: context.screenWidth > 900 ? 1000 : 720,
+              child: Column(
+                children: const [
+                  SizedBox(height: 16),
+                  CourseWorkspaceTabBar(),
+                  SizedBox(height: 12),
+                  Expanded(
+                    child: TabBarView(
+                      children: [
+                        WorkspaceSessionsTab(),
+                        WorkspaceTasksTab(),
+                        WorkspaceFilesTab(),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),

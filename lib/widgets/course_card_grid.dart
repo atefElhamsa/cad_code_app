@@ -1,7 +1,8 @@
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 
-import '../../core/theme/app_theme.dart';
+import '../core/responsive/responsive.dart';
+import '../core/theme/app_theme.dart';
 
 class CourseCardGrid extends StatelessWidget {
   final String title;
@@ -36,7 +37,7 @@ class CourseCardGrid extends StatelessWidget {
               offset: const Offset(0, 8),
             ),
           ],
-          image: imageUrl != null
+          image: imageUrl != null && imageUrl!.isNotEmpty
               ? DecorationImage(
                   image: NetworkImage(imageUrl!),
                   fit: BoxFit.cover,
@@ -56,7 +57,7 @@ class CourseCardGrid extends StatelessWidget {
                       Colors.black.withValues(alpha: 0.2),
                       Colors.black.withValues(alpha: 0.85),
                     ],
-                    stops: [0.0, 0.4, 1.0],
+                    stops: const [0.0, 0.4, 1.0],
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                   ),
@@ -77,7 +78,7 @@ class CourseCardGrid extends StatelessWidget {
                       fit: BoxFit.scaleDown,
                       alignment: AlignmentDirectional.centerStart,
                       child: Text(
-                        title,
+                        title.fixBidi,
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.w900,
@@ -89,7 +90,7 @@ class CourseCardGrid extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(width: 12.w,),
+                  SizedBox(width: 12.w),
 
                   // Premium Action Button
                   Container(
@@ -108,7 +109,7 @@ class CourseCardGrid extends StatelessWidget {
                         ),
                       ],
                     ),
-                    child: Icon(
+                    child: const Icon(
                       Icons.arrow_forward_rounded,
                       color: Colors.white,
                       size: 18,

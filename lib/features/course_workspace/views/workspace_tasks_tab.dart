@@ -1,7 +1,7 @@
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../core/responsive/responsive.dart';
 import '../presentation/cubits/workspace_tasks_cubit.dart';
 import '../presentation/cubits/workspace_tasks_states.dart';
 import 'native_file_viewer_view.dart';
@@ -13,10 +13,12 @@ class WorkspaceTasksTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isWideLandscape = context.screenWidth > 900;
+
     return BlocBuilder<WorkspaceTasksCubit, WorkspaceTasksState>(
       builder: (context, state) {
         if (state is WorkspaceTasksLoading) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(color: Color(0xFFD4AF37)),
           );
         } else if (state is WorkspaceTasksLoaded) {
@@ -27,36 +29,73 @@ class WorkspaceTasksTab extends StatelessWidget {
               icon: Icons.assignment_turned_in_outlined,
             );
           }
-          return ListView.builder(
-            padding: EdgeInsets.all(16),
-            itemCount: state.tasks.length,
-            itemBuilder: (context, index) {
-              final task = state.tasks[index];
-              return _ItemTile(
-                title: task.title,
-                icon: Icons.assignment_rounded,
-                iconColor: const Color(0xFFD4AF37),
-                onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => NativeFileViewerView(
-                      driveUrl: task.driveUrl,
-                      fileName: task.title,
+
+          if (isWideLandscape) {
+            return ResponsiveConstraint(
+              tabletMaxWidth: 960,
+              padding: const EdgeInsets.all(16),
+              child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 16,
+                  mainAxisSpacing: 14,
+                  mainAxisExtent: 88,
+                ),
+                itemCount: state.tasks.length,
+                itemBuilder: (context, index) {
+                  final task = state.tasks[index];
+                  return _ItemTile(
+                    title: task.title,
+                    icon: Icons.assignment_rounded,
+                    iconColor: const Color(0xFFD4AF37),
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => NativeFileViewerView(
+                          driveUrl: task.driveUrl,
+                          fileName: task.title,
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            );
+          }
+
+          return ResponsiveConstraint(
+            tabletMaxWidth: 720,
+            padding: const EdgeInsets.all(16),
+            child: ListView.builder(
+              itemCount: state.tasks.length,
+              itemBuilder: (context, index) {
+                final task = state.tasks[index];
+                return _ItemTile(
+                  title: task.title,
+                  icon: Icons.assignment_rounded,
+                  iconColor: const Color(0xFFD4AF37),
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => NativeFileViewerView(
+                        driveUrl: task.driveUrl,
+                        fileName: task.title,
+                      ),
                     ),
                   ),
-                ),
-              );
-            },
+                );
+              },
+            ),
           );
         } else if (state is WorkspaceTasksError) {
           return Center(
             child: Text(
               state.message,
-              style: TextStyle(color: Colors.red),
+              style: const TextStyle(color: Colors.red),
             ),
           );
         }
-        return SizedBox();
+        return const SizedBox();
       },
     );
   }
@@ -77,14 +116,21 @@ class _ItemTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final titleFontSize = ResponsiveUtils.fontSize(
+      context,
+      15,
+      minScale: 1.0,
+      maxScale: 1.18,
+    );
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: EdgeInsets.only(bottom: 16),
-        padding: EdgeInsets.all(16),
+        margin: const EdgeInsets.only(bottom: 14),
+        padding: const EdgeInsets.all(14),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(20.r),
+          borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withValues(alpha: 0.04),
@@ -95,24 +141,24 @@ class _ItemTile extends StatelessWidget {
         ),
         child: Row(
           children: [
-            // Icon box
+            // Icon box (fixed square 52x52)
             Container(
-              width: 52.w,
-              height: 52.h,
+              width: 52,
+              height: 52,
               decoration: BoxDecoration(
                 color: iconColor.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(16.r),
+                borderRadius: BorderRadius.circular(16),
               ),
               child: Icon(icon, color: iconColor, size: 28),
             ),
-            SizedBox(width: 16.w,),
+            const SizedBox(width: 14),
             // Title
             Expanded(
               child: Text(
                 title,
                 style: TextStyle(
                   fontWeight: FontWeight.w900,
-                  fontSize: 15.sp,
+                  fontSize: titleFontSize,
                   color: AppTheme.textDarkNavy,
                   fontFamily: 'Inter',
                 ),
@@ -120,17 +166,17 @@ class _ItemTile extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
             ),
-            SizedBox(width: 8.w,),
+            const SizedBox(width: 8),
             // View button
             GestureDetector(
               onTap: onTap,
               child: Container(
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   color: AppTheme.primaryGoldLight.withValues(alpha: 0.15),
                   shape: BoxShape.circle,
                 ),
-                child: Icon(
+                child: const Icon(
                   Icons.visibility_rounded,
                   color: AppTheme.primaryGoldDark,
                   size: 22,

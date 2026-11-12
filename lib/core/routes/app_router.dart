@@ -101,7 +101,8 @@ class AppRouter {
           return CourseDetailView(
             courseId: extra?['id'] as int?,
             title: extra?['title'] as String? ?? 'Scratch courses',
-            imageUrl: extra?['imageUrl'] as String? ?? 'https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=400&q=80',
+            imageUrl: extra?['imageUrl'] as String? ?? '',
+            description: extra?['description'] as String? ?? '',
           );
         },
       ),

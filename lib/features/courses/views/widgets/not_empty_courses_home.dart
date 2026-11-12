@@ -30,7 +30,7 @@ class NotEmptyCoursesHome extends StatelessWidget {
       color: AppTheme.primaryGoldDark,
       backgroundColor: AppTheme.backgroundLight,
       child: GridView.builder(
-        padding: EdgeInsets.only(bottom: 120),
+        padding: const EdgeInsets.only(bottom: 120),
         physics: const AlwaysScrollableScrollPhysics(),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: crossAxisCount,
@@ -51,6 +51,7 @@ class NotEmptyCoursesHome extends StatelessWidget {
                     'id': course.id,
                     'title': course.title,
                     'imageUrl': course.imageUrl,
+                    'description': course.description,
                   },
                 ),
               )

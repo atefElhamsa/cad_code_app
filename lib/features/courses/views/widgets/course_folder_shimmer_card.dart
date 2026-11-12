@@ -1,4 +1,3 @@
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
@@ -9,84 +8,131 @@ class CourseFolderShimmerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double screenWidth = MediaQuery.of(context).size.width;
-    final double imageHeight = screenWidth > 600 ? 250.0 : 170.0;
-
     return Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(20.r),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withValues(alpha: 0.05),
-                blurRadius: 15,
-                offset: const Offset(0, 5),
-              ),
-            ],
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(22),
+        border: Border.all(
+          color: Colors.grey.shade200,
+          width: 1.2,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.04),
+            blurRadius: 18,
+            offset: const Offset(0, 5),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+        ],
+      ),
+      padding: const EdgeInsets.all(18),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          // Header Row: Chapter Badge + Status Pill
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                height: imageHeight,
+                width: 100,
+                height: 26,
                 decoration: BoxDecoration(
-                  color: AppTheme.backgroundDarkNavy.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20.r),
-                    topRight: Radius.circular(20.r),
-                  ),
+                  color: AppTheme.backgroundDarkNavy.withValues(alpha: 0.08),
+                  borderRadius: BorderRadius.circular(10),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.all(20.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Container(
-                      height: 24.h,
-                      width: 150.w,
-                      decoration: BoxDecoration(
-                        color: AppTheme.backgroundDarkNavy.withValues(
-                          alpha: 0.1,
-                        ),
-                        borderRadius: BorderRadius.circular(4.r),
-                      ),
-                    ),
-                    SizedBox(height: 12.h,),
-                    Container(
-                      height: 16.h,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: AppTheme.backgroundDarkNavy.withValues(
-                          alpha: 0.1,
-                        ),
-                        borderRadius: BorderRadius.circular(4.r),
-                      ),
-                    ),
-                    SizedBox(height: 24.h,),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Container(
-                        height: 48.h,
-                        width: 140.w,
-                        decoration: BoxDecoration(
-                          color: AppTheme.backgroundDarkNavy.withValues(
-                            alpha: 0.1,
-                          ),
-                          borderRadius: BorderRadius.circular(24.r),
-                        ),
-                      ),
-                    ),
-                  ],
+              Container(
+                width: 90,
+                height: 26,
+                decoration: BoxDecoration(
+                  color: AppTheme.backgroundDarkNavy.withValues(alpha: 0.08),
+                  borderRadius: BorderRadius.circular(12),
                 ),
               ),
             ],
           ),
-        )
+          const SizedBox(height: 14),
+
+          // Title Shimmer Line
+          Align(
+            alignment: Alignment.centerRight,
+            child: Container(
+              height: 22,
+              width: 180,
+              decoration: BoxDecoration(
+                color: AppTheme.backgroundDarkNavy.withValues(alpha: 0.08),
+                borderRadius: BorderRadius.circular(6),
+              ),
+            ),
+          ),
+          const SizedBox(height: 10),
+
+          // Description Line 1
+          Container(
+            height: 14,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: AppTheme.backgroundDarkNavy.withValues(alpha: 0.06),
+              borderRadius: BorderRadius.circular(4),
+            ),
+          ),
+          const SizedBox(height: 6),
+
+          // Description Line 2
+          Align(
+            alignment: Alignment.centerRight,
+            child: Container(
+              height: 14,
+              width: 220,
+              decoration: BoxDecoration(
+                color: AppTheme.backgroundDarkNavy.withValues(alpha: 0.06),
+                borderRadius: BorderRadius.circular(4),
+              ),
+            ),
+          ),
+          const SizedBox(height: 18),
+
+          // Bottom Action Bar
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    width: 64,
+                    height: 24,
+                    decoration: BoxDecoration(
+                      color: AppTheme.backgroundDarkNavy.withValues(alpha: 0.06),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Container(
+                    width: 84,
+                    height: 24,
+                    decoration: BoxDecoration(
+                      color: AppTheme.backgroundDarkNavy.withValues(alpha: 0.06),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                ],
+              ),
+              Container(
+                width: 105,
+                height: 42,
+                decoration: BoxDecoration(
+                  color: AppTheme.backgroundDarkNavy.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(14),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    )
         .animate(onPlay: (controller) => controller.repeat())
         .shimmer(
           duration: 1200.ms,
-          color: AppTheme.backgroundDarkNavy.withValues(alpha: 0.05),
+          color: AppTheme.primaryGoldLight.withValues(alpha: 0.15),
           angle: 0.5,
         );
   }

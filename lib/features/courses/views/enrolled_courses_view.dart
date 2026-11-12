@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../core/responsive/responsive.dart';
 import '../../../widgets/brand_header.dart';
 import '../../../core/theme/app_theme.dart';
 import '../presentation/viewmodels/enrolled_courses_cubit/enrolled_courses_cubit.dart';
@@ -27,7 +28,12 @@ class _EnrolledCoursesViewState extends State<EnrolledCoursesView> {
       body: Column(
         children: [
           const BrandHeader(title: 'My Courses'),
-          const Expanded(child: EnrolledCoursesGridView()),
+          Expanded(
+            child: ResponsiveConstraint(
+              tabletMaxWidth: 960,
+              child: const EnrolledCoursesGridView(),
+            ),
+          ),
         ],
       ),
     );

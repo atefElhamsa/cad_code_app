@@ -1,5 +1,6 @@
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
+
+import '../../../core/responsive/responsive.dart';
 import '../../../core/theme/app_theme.dart';
 
 class PrimaryActionButton extends StatelessWidget {
@@ -16,9 +17,16 @@ class PrimaryActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final fontSize = ResponsiveUtils.fontSize(
+      context,
+      17,
+      minScale: 1.0,
+      maxScale: 1.15,
+    );
+
     return SizedBox(
       width: double.infinity,
-      height: 56.h,
+      height: 52,
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
@@ -26,13 +34,13 @@ class PrimaryActionButton extends StatelessWidget {
           foregroundColor: AppTheme.textDarkNavy,
           elevation: 0,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16.r),
+            borderRadius: BorderRadius.circular(16),
           ),
         ),
         child: isLoading
-            ? SizedBox(
-                width: 24.w,
-                height: 24.h,
+            ? const SizedBox(
+                width: 22,
+                height: 22,
                 child: CircularProgressIndicator(
                   color: AppTheme.textDarkNavy,
                   strokeWidth: 2.5,
@@ -41,7 +49,7 @@ class PrimaryActionButton extends StatelessWidget {
             : Text(
                 text,
                 style: TextStyle(
-                  fontSize: 18.sp,
+                  fontSize: fontSize,
                   fontWeight: FontWeight.bold,
                   fontFamily: 'Inter',
                 ),
